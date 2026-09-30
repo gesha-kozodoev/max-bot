@@ -2,6 +2,7 @@ function tube() {
   return {
     tab: 'home',
     sidebar: true,
+    msearch: false,
     query: '',
     sort: 'new',
     subscribed: false,

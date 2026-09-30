@@ -136,10 +136,101 @@ svg { width: 24px; height: 24px; fill: #f1f1f1; }
 .toasts { position: fixed; left: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 70; }
 .toast { background: #f1f1f1; color: #0f0f0f; padding: 12px 18px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.5); font-size: 14px; }
 
+/* Мобильный поиск и нижняя навигация (скрыты на десктопе) */
+.mobile-search, .mobile-nav, .only-mobile { display: none; }
+
 @media (max-width: 1000px) {
   .featured, .about-grid { grid-template-columns: 1fr; }
   .sidebar { display: none; }
   .nav-left { min-width: 0; }
   .channel-avatar { width: 84px; height: 84px; }
   .feed { padding: 0 12px 32px; }
+}
+
+/* ===== Мобильная адаптация (MAX WebApp = прежде всего телефон) ===== */
+@media (max-width: 720px) {
+  body { font-size: 14px; }
+  img { max-width: 100%; }
+
+  /* TopNav: компактный, поиск уезжает во вторую строку */
+  .topnav { gap: 8px; padding: 6px 10px; height: 52px; }
+  .nav-left { gap: 4px; }
+  .nav-left .icon-btn { display: none; } /* бургер не нужен — сайдбара нет */
+  .logo { font-size: 16px; }
+  .logo-play svg { width: 26px; height: 26px; }
+  .nav-search { display: none; }
+  .only-mobile { display: inline-block; }
+  .hide-mobile { display: none; }
+  .nav-right { min-width: 0; gap: 2px; }
+  .icon-btn { padding: 10px; } /* тач-таргет 44px */
+  .avatar-mini { width: 30px; height: 30px; font-size: 13px; }
+
+  .mobile-search { display: block; background: #0f0f0f; padding: 0 10px 8px; position: sticky; top: 52px; z-index: 39; }
+  .mobile-search .search-box { width: 100%; }
+  .search-input { font-size: 16px; } /* без зума на iOS */
+
+  /* Канал: всё в столбик, кнопки на всю ширину */
+  .channel .banner { height: 84px; border-radius: 10px; }
+  .channel-row { gap: 12px; padding: 12px 0 6px; }
+  .channel-avatar { width: 72px; height: 72px; }
+  .channel-info { flex: 1 1 60%; min-width: 0; }
+  .channel-info h1 { font-size: 19px; }
+  .channel-info .desc { font-size: 13px; }
+  .channel-actions { margin-left: 0; width: 100%; }
+  .channel-actions .subscribe, .channel-actions .btn-ghost { flex: 1; text-align: center; padding: 12px 8px; }
+  .chan-tabs { overflow-x: auto; scrollbar-width: none; }
+  .chan-tabs::-webkit-scrollbar { display: none; }
+  .chan-tabs button { padding: 12px 14px; white-space: nowrap; }
+
+  /* Featured: плеер сверху, инфо снизу */
+  .featured { gap: 12px; }
+  .player img { max-height: 220px; }
+  .play svg { width: 54px; height: 54px; }
+  .featured-info h2 { font-size: 16px; }
+  .like-row { gap: 6px; }
+  .like-group button { padding: 10px 14px; }
+  .like-row .btn-ghost { padding: 10px 14px; }
+
+  /* Сетка видео: одна колонка во всю ширину */
+  .grid { grid-template-columns: 1fr; gap: 18px; }
+  .thumb { border-radius: 10px; }
+
+  /* Тулбар и сортировка */
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .sort { overflow-x: auto; }
+  .sort button { padding: 9px 16px; white-space: nowrap; }
+
+  /* Комментарии: форма в столбик */
+  .comment-form { flex-wrap: wrap; }
+  .comment-form input { flex: 1 1 100%; font-size: 16px; }
+  .comment-form .subscribe { flex: 1; text-align: center; }
+
+  /* Модалка и тосты */
+  .modal { padding: 16px; margin: 0 4px; }
+  .modal-actions { flex-direction: column-reverse; }
+  .modal-actions button { width: 100%; text-align: center; }
+  .toasts { left: 10px; right: 10px; bottom: calc(70px + env(safe-area-inset-bottom)); }
+  .toast { text-align: center; }
+
+  /* Нижняя навигация как в мобильном YouTube */
+  .mobile-nav {
+    display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+    background: rgba(15, 15, 15, 0.97); border-top: 1px solid #272727;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .mobile-nav button {
+    flex: 1; background: none; border: none; color: #aaa; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    font-size: 11px; padding: 8px 0 6px; min-height: 56px;
+  }
+  .mobile-nav button svg { width: 23px; height: 23px; fill: currentColor; }
+  .mobile-nav button.active { color: #f1f1f1; }
+  .feed { padding-bottom: 90px; } /* место под нижнее меню */
+  .foot { padding-bottom: 8px; }
+}
+
+@media (max-width: 380px) {
+  .logo-text { display: none; } /* остаётся только play-иконка */
+  .channel-avatar { width: 60px; height: 60px; }
+  .like-row .btn-ghost { flex: 1; text-align: center; }
 }

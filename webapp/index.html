@@ -31,7 +31,10 @@
       </div>
     </div>
     <div class="nav-right">
-      <button class="icon-btn" @click="toast('Загрузка видео доступна только котам')" title="Создать">
+      <button class="icon-btn only-mobile" @click="msearch = !msearch" title="Поиск">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+      </button>
+      <button class="icon-btn hide-mobile" @click="toast('Загрузка видео доступна только котам')" title="Создать">
         <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"/></svg>
       </button>
       <button class="icon-btn bell" @click="toast(bell ? 'Уведомления выключены' : 'Уведомления включены'); bell = !bell" title="Уведомления">
@@ -41,6 +44,16 @@
       <span class="avatar-mini">B</span>
     </div>
   </header>
+
+  <!-- Мобильный поиск (вторая строка) -->
+  <div class="mobile-search" x-show="msearch" x-transition>
+    <div class="search-box">
+      <input x-model="query" @input="tab = 'videos'" placeholder="Введите запрос" class="search-input">
+      <button class="search-btn" title="Поиск" @click="msearch = false">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+      </button>
+    </div>
+  </div>
 
   <div class="layout">
     <!-- Sidebar -->
@@ -229,6 +242,19 @@
       </div>
     </div>
   </div>
+
+  <!-- Мобильная нижняя навигация -->
+  <nav class="mobile-nav">
+    <button :class="tab === 'home' ? 'active' : ''" @click="tab = 'home'; window.scrollTo({top: 0})">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Главная</span>
+    </button>
+    <button :class="tab === 'videos' ? 'active' : ''" @click="tab = 'videos'; window.scrollTo({top: 0})">
+      <svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg><span>Видео</span>
+    </button>
+    <button :class="tab === 'about' ? 'active' : ''" @click="tab = 'about'; window.scrollTo({top: 0})">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg><span>О канале</span>
+    </button>
+  </nav>
 
   <!-- Toasts -->
   <div class="toasts">
