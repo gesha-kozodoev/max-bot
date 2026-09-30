@@ -1,236 +1,98 @@
-/* ===== MeowTube — тёмная тема в духе YouTube, один стиль ===== */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
   font-family: "Roboto", Arial, sans-serif;
-  background: #0f0f0f; color: #f1f1f1; font-size: 14px;
+  background: #0f0f0f; color: #f1f1f1; font-size: 15px;
   padding-bottom: env(safe-area-inset-bottom);
 }
 a { color: #3ea6ff; text-decoration: none; }
-svg { width: 24px; height: 24px; fill: #f1f1f1; }
-
-/* TopNav */
-.topnav {
-  position: sticky; top: 0; z-index: 40;
-  display: flex; align-items: center; gap: 16px;
-  background: #0f0f0f; padding: 8px 16px; height: 56px;
-}
-.nav-left { display: flex; align-items: center; gap: 12px; min-width: 200px; }
-.logo { display: flex; align-items: center; gap: 6px; color: #f1f1f1; font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
-.logo-play svg { width: 30px; height: 30px; fill: #f00; }
-.nav-search { flex: 1; display: flex; justify-content: center; }
-.search-box { display: flex; width: min(560px, 100%); }
-.search-input {
-  flex: 1; background: #121212; border: 1px solid #303030; color: #f1f1f1;
-  border-radius: 20px 0 0 20px; padding: 8px 16px; font-size: 15px; outline: none;
-}
-.search-input:focus { border-color: #1c62b9; }
-.search-btn { background: #222; border: 1px solid #303030; border-left: none; border-radius: 0 20px 20px 0; padding: 0 20px; cursor: pointer; }
-.search-btn:hover { background: #3d3d3d; }
-.nav-right { display: flex; align-items: center; gap: 8px; min-width: 200px; justify-content: flex-end; }
-.icon-btn { background: transparent; border: none; cursor: pointer; padding: 8px; border-radius: 50%; position: relative; }
-.icon-btn:hover { background: #272727; }
-.bell .dot { position: absolute; top: 8px; right: 10px; width: 8px; height: 8px; border-radius: 50%; background: #f00; }
-.avatar-mini {
-  width: 34px; height: 34px; border-radius: 50%; background: #7c6cff; color: #fff;
-  display: inline-flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;
-}
-.avatar-mini.sm { width: 36px; height: 36px; }
-
-/* Layout */
-.layout { display: flex; max-width: 1750px; margin: 0 auto; }
-.sidebar { width: 216px; flex-shrink: 0; padding: 12px; display: flex; flex-direction: column; gap: 2px; position: sticky; top: 56px; height: calc(100vh - 56px); }
-.sidebar button {
-  display: flex; align-items: center; gap: 16px; background: transparent; border: none; color: #f1f1f1;
-  padding: 10px 12px; border-radius: 10px; cursor: pointer; font-size: 14px; text-align: left;
-}
-.sidebar button svg { width: 22px; height: 22px; }
-.sidebar button:hover { background: #272727; }
-.sidebar button.active { background: #272727; font-weight: 500; }
-.sidebar.collapsed { width: 76px; }
-.sidebar.collapsed button span, .sidebar.collapsed .side-title { display: none; }
-.sidebar hr { border: none; border-top: 1px solid #272727; margin: 8px 0; }
-.side-title { color: #aaa; font-size: 13px; padding: 4px 12px; margin: 0; }
-
-/* Feed */
-.feed { flex: 1; min-width: 0; padding: 0 24px 40px; }
-.channel .banner { height: 130px; border-radius: 14px; background: linear-gradient(90deg, #1a2a6c, #7c6cff 45%, #ff0033 110%); }
-.channel-row { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0 8px; flex-wrap: wrap; }
-.channel-avatar { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; }
-.channel-info h1 { margin: 0; font-size: 24px; display: flex; align-items: center; gap: 6px; }
-.verified svg { width: 18px; height: 18px; fill: #aaa; }
 .meta { color: #aaa; }
-.desc { color: #f1f1f1; margin: 6px 0 0; }
-.channel-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
-.subscribe { background: #f00; color: #fff; border: none; border-radius: 20px; padding: 10px 20px; font-weight: 500; cursor: pointer; font-size: 14px; }
-.subscribe:hover { background: #c00; }
-.subscribe.off { background: #272727; color: #f1f1f1; }
-.subscribe.small { padding: 8px 14px; }
-.btn-ghost { background: #272727; color: #f1f1f1; border: none; border-radius: 20px; padding: 10px 16px; cursor: pointer; font-size: 14px; }
-.btn-ghost:hover { background: #3d3d3d; }
-.chan-tabs { display: flex; gap: 4px; border-bottom: 1px solid #272727; margin-bottom: 16px; }
-.chan-tabs button { background: none; border: none; color: #aaa; font-size: 14px; font-weight: 500; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid transparent; }
-.chan-tabs button.active { color: #f1f1f1; border-bottom-color: #f1f1f1; }
+.hint { color: #aaa; min-height: 1.4em; }
 
-/* Featured */
-.featured { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; margin-bottom: 8px; }
-.player { position: relative; border-radius: 12px; overflow: hidden; cursor: pointer; background: #000; }
-.player img { width: 100%; height: 100%; max-height: 420px; object-fit: cover; display: block; }
-.play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-.play svg { width: 68px; height: 68px; fill: rgba(255,255,255,.92); background: rgba(0,0,0,.55); border-radius: 50%; padding: 12px; }
-.duration { position: absolute; right: 8px; bottom: 12px; background: rgba(0,0,0,.85); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
-.progressline { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255,255,255,.25); }
-.progressline i { display: block; height: 100%; background: #f00; }
-.featured-info h2 { margin: 0 0 4px; font-size: 19px; }
-.like-row { display: flex; gap: 8px; align-items: center; margin: 10px 0; flex-wrap: wrap; }
-.like-group { display: flex; align-items: center; background: #272727; border-radius: 20px; }
-.like-group button { background: none; border: none; color: #f1f1f1; display: flex; align-items: center; gap: 6px; padding: 8px 14px; cursor: pointer; font-size: 14px; }
-.like-group button svg { width: 20px; height: 20px; }
-.like-group button:hover { color: #fff; }
-.like-group .sep { width: 1px; height: 20px; background: #4d4d4d; }
-.desc-box { background: #272727; border-radius: 12px; padding: 12px; }
+.topbar {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; justify-content: space-between;
+  background: #0f0f0f; padding: 10px 16px; height: 54px;
+  border-bottom: 1px solid #272727;
+}
+.logo { display: flex; align-items: center; gap: 8px; color: #f1f1f1; font-weight: 700; font-size: 16px; }
+.logo-dot { width: 12px; height: 12px; border-radius: 50%; background: #3ea6ff; }
 
-/* Grid */
-.row-title { font-size: 17px; margin: 18px 0 10px; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px 14px; }
-.card { cursor: pointer; }
-.thumb { position: relative; border-radius: 12px; overflow: hidden; background: #1d1d1d; }
-.thumb img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
-.card:hover .thumb img { opacity: .92; }
-.card-body { display: flex; gap: 10px; padding-top: 10px; }
-.card-body h4 { margin: 0 0 4px; font-size: 15px; line-height: 1.35; }
-.card-body p { margin: 0; font-size: 13px; }
+.wrap { max-width: 640px; margin: 0 auto; padding: 20px 16px 40px; }
 
-/* Videos toolbar */
-.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-.sort { display: flex; gap: 6px; align-items: center; }
-.sort button { background: #272727; color: #f1f1f1; border: none; border-radius: 16px; padding: 7px 14px; cursor: pointer; }
-.sort button.active { background: #f1f1f1; color: #0f0f0f; }
-.center { text-align: center; }
+.steps { display: flex; gap: 6px; margin: 4px 0 6px; }
+.step { flex: 1; height: 4px; border-radius: 99px; background: #272727; }
+.step.done { background: #3ea6ff; }
 
-/* About */
-.about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; margin-bottom: 16px; }
-.panel { background: #212121; border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
-.panel h3 { margin: 14px 0 6px; font-size: 16px; }
-.panel h3:first-child { margin-top: 0; }
-.panel p { margin: 4px 0; }
-.status-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; color: #ddd; }
-.live-dot { width: 9px; height: 9px; border-radius: 50%; background: #2ba640; }
-.live-dot.gray { background: #717171; }
-.comment-form { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
-.comment-form input { flex: 1; background: transparent; border: none; border-bottom: 1px solid #3d3d3d; color: #f1f1f1; padding: 8px 4px; outline: none; }
-.comment-form input:focus { border-color: #aaa; }
-.comment { display: flex; gap: 10px; padding: 10px 0; }
-.c-head { margin: 0; }
-.c-actions { display: flex; gap: 12px; }
-.c-actions button { background: none; border: none; color: #aaa; cursor: pointer; font-size: 13px; padding: 0; }
-.c-actions button:hover { color: #f1f1f1; }
+.card { background: #212121; border-radius: 14px; padding: 24px 22px; margin-top: 8px; }
+.card h1 { margin: 0 0 4px; font-size: 22px; }
+.card h3 { margin: 18px 0 8px; font-size: 16px; }
 
-.foot { padding: 24px 0 8px; text-align: center; }
+/* Звёзды */
+.stars { display: flex; gap: 4px; margin: 14px 0 4px; }
+.star { background: none; border: none; cursor: pointer; padding: 6px; }
+.star svg { width: 44px; height: 44px; fill: #4d4d4d; transition: fill .15s, transform .15s; }
+.star.on svg { fill: #ffb800; }
+.star:hover svg { transform: scale(1.12); }
 
-/* Modal + toasts */
-.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.65); display: flex; align-items: center; justify-content: center; z-index: 60; padding: 16px; }
-.modal { background: #212121; border-radius: 14px; padding: 20px; max-width: 520px; width: 100%; }
-.modal img { width: 100%; border-radius: 10px; aspect-ratio: 16/9; object-fit: cover; }
-.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+/* Опции */
+.opts { display: flex; flex-direction: column; gap: 8px; margin: 14px 0 4px; }
+.opt {
+  display: flex; align-items: center; gap: 10px;
+  background: #181818; border: 1px solid #303030; border-radius: 10px;
+  padding: 12px 14px; cursor: pointer; font-size: 15px;
+}
+.opt:hover { border-color: #4d4d4d; }
+.opt.on { border-color: #3ea6ff; background: rgba(62, 166, 255, 0.12); }
+.opt input { accent-color: #3ea6ff; width: 18px; height: 18px; }
+
+/* Поля */
+.field { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; color: #ddd; }
+.entry {
+  background: #121212; color: #f1f1f1; border: 1px solid #303030;
+  border-radius: 10px; padding: 11px 14px; font-size: 16px; outline: none;
+  font-family: inherit; width: 100%;
+}
+.entry:focus { border-color: #3ea6ff; }
+textarea.entry { resize: vertical; }
+
+/* Кнопки */
+.actions { display: flex; gap: 8px; margin-top: 18px; }
+.actions.split .btn { flex: 1; }
+.btn {
+  background: #272727; color: #f1f1f1; border: none; border-radius: 20px;
+  padding: 12px 24px; font-size: 15px; font-weight: 500; cursor: pointer; text-align: center;
+}
+.btn:hover { background: #3d3d3d; }
+.btn.primary { background: #3ea6ff; color: #0f0f0f; font-weight: 700; }
+.btn.primary:hover { background: #5db4ff; }
+.btn:disabled { opacity: 0.4; cursor: default; }
+
+/* Результаты */
+.result-row { display: flex; align-items: baseline; gap: 8px; margin: 10px 0; }
+.big { font-size: 30px; }
+.bars { display: flex; flex-direction: column; gap: 7px; margin: 8px 0; }
+.bar-row { display: flex; align-items: center; gap: 10px; }
+.bar-label { flex: 0 0 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar { flex: 1; height: 10px; background: #181818; border-radius: 99px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: #3ea6ff; border-radius: 99px; transition: width .4s ease; }
+.bar.red i { background: #f00; }
+.quote { background: #181818; border-left: 3px solid #3ea6ff; border-radius: 0 8px 8px 0; padding: 10px 14px; }
+
+.foot { text-align: center; padding: 22px 0 8px; }
+
 .toasts { position: fixed; left: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 70; }
-.toast { background: #f1f1f1; color: #0f0f0f; padding: 12px 18px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.5); font-size: 14px; }
+.toast { background: #f1f1f1; color: #0f0f0f; padding: 12px 18px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.5); }
 
-/* Мобильный поиск и нижняя навигация (скрыты на десктопе) */
-.mobile-search, .mobile-nav, .only-mobile { display: none; }
-
-@media (max-width: 1000px) {
-  .featured, .about-grid { grid-template-columns: 1fr; }
-  .sidebar { display: none; }
-  .nav-left { min-width: 0; }
-  .channel-avatar { width: 84px; height: 84px; }
-  .feed { padding: 0 12px 32px; }
-}
-
-/* ===== Мобильная адаптация (MAX WebApp = прежде всего телефон) ===== */
-@media (max-width: 720px) {
-  body { font-size: 14px; }
-  img { max-width: 100%; }
-
-  /* TopNav: компактный, поиск уезжает во вторую строку */
-  .topnav { gap: 8px; padding: 6px 10px; height: 52px; }
-  .nav-left { gap: 4px; }
-  .nav-left .icon-btn { display: none; } /* бургер не нужен — сайдбара нет */
-  .logo { font-size: 16px; }
-  .logo-play svg { width: 26px; height: 26px; }
-  .nav-search { display: none; }
-  .only-mobile { display: inline-block; }
-  .hide-mobile { display: none; }
-  .nav-right { min-width: 0; gap: 2px; }
-  .icon-btn { padding: 10px; } /* тач-таргет 44px */
-  .avatar-mini { width: 30px; height: 30px; font-size: 13px; }
-
-  .mobile-search { display: block; background: #0f0f0f; padding: 0 10px 8px; position: sticky; top: 52px; z-index: 39; }
-  .mobile-search .search-box { width: 100%; }
-  .search-input { font-size: 16px; } /* без зума на iOS */
-
-  /* Канал: всё в столбик, кнопки на всю ширину */
-  .channel .banner { height: 84px; border-radius: 10px; }
-  .channel-row { gap: 12px; padding: 12px 0 6px; }
-  .channel-avatar { width: 72px; height: 72px; }
-  .channel-info { flex: 1 1 60%; min-width: 0; }
-  .channel-info h1 { font-size: 19px; }
-  .channel-info .desc { font-size: 13px; }
-  .channel-actions { margin-left: 0; width: 100%; }
-  .channel-actions .subscribe, .channel-actions .btn-ghost { flex: 1; text-align: center; padding: 12px 8px; }
-  .chan-tabs { overflow-x: auto; scrollbar-width: none; }
-  .chan-tabs::-webkit-scrollbar { display: none; }
-  .chan-tabs button { padding: 12px 14px; white-space: nowrap; }
-
-  /* Featured: плеер сверху, инфо снизу */
-  .featured { gap: 12px; }
-  .player img { max-height: 220px; }
-  .play svg { width: 54px; height: 54px; }
-  .featured-info h2 { font-size: 16px; }
-  .like-row { gap: 6px; }
-  .like-group button { padding: 10px 14px; }
-  .like-row .btn-ghost { padding: 10px 14px; }
-
-  /* Сетка видео: одна колонка во всю ширину */
-  .grid { grid-template-columns: 1fr; gap: 18px; }
-  .thumb { border-radius: 10px; }
-
-  /* Тулбар и сортировка */
-  .toolbar { flex-direction: column; align-items: stretch; }
-  .sort { overflow-x: auto; }
-  .sort button { padding: 9px 16px; white-space: nowrap; }
-
-  /* Комментарии: форма в столбик */
-  .comment-form { flex-wrap: wrap; }
-  .comment-form input { flex: 1 1 100%; font-size: 16px; }
-  .comment-form .subscribe { flex: 1; text-align: center; }
-
-  /* Модалка и тосты */
-  .modal { padding: 16px; margin: 0 4px; }
-  .modal-actions { flex-direction: column-reverse; }
-  .modal-actions button { width: 100%; text-align: center; }
-  .toasts { left: 10px; right: 10px; bottom: calc(70px + env(safe-area-inset-bottom)); }
+@media (max-width: 560px) {
+  .wrap { padding: 14px 10px 90px; }
+  .card { padding: 18px 15px; border-radius: 12px; }
+  .card h1 { font-size: 19px; }
+  .star svg { width: 40px; height: 40px; }
+  .star { padding: 4px; }
+  .bar-label { flex-basis: 110px; font-size: 13px; }
+  .actions.split { flex-direction: column; }
+  .actions.split .btn { width: 100%; }
+  .toasts { left: 10px; right: 10px; bottom: calc(14px + env(safe-area-inset-bottom)); }
   .toast { text-align: center; }
-
-  /* Нижняя навигация как в мобильном YouTube */
-  .mobile-nav {
-    display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
-    background: rgba(15, 15, 15, 0.97); border-top: 1px solid #272727;
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  .mobile-nav button {
-    flex: 1; background: none; border: none; color: #aaa; cursor: pointer;
-    display: flex; flex-direction: column; align-items: center; gap: 3px;
-    font-size: 11px; padding: 8px 0 6px; min-height: 56px;
-  }
-  .mobile-nav button svg { width: 23px; height: 23px; fill: currentColor; }
-  .mobile-nav button.active { color: #f1f1f1; }
-  .feed { padding-bottom: 90px; } /* место под нижнее меню */
-  .foot { padding-bottom: 8px; }
-}
-
-@media (max-width: 380px) {
-  .logo-text { display: none; } /* остаётся только play-иконка */
-  .channel-avatar { width: 60px; height: 60px; }
-  .like-row .btn-ghost { flex: 1; text-align: center; }
 }
