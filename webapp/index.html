@@ -1,1603 +1,1038 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="light">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Болезнь Иценко-Кушинга — клинический случай и практический блок</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+<title>ОстеоМенопауза 40+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* Pico-совместимость: своя тема поверх базы */
-body{padding:0}
-.wrap,.hero header,.toc,.slide{--pico-container-max-width:1060px}
-:root{
-  --green-900:#243424;
-  --green-800:#2c3e2e;
-  --green-700:#3d5a40;
-  --green-600:#4a6b4a;
-  --green-500:#5c7a5c;
-  --green-100:#dfe9db;
-  --green-50:#f2f7f0;
-  --gold:#c9a227;
-  --gold-soft:#f7e9c4;
-  --blue-100:#dbe7f3;
-  --blue-50:#eef4fa;
-  --red-100:#f6dcdc;
-  --text:#1f2a20;
-  --muted:#5f7061;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:"Inter","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-  background:#eef3ec;
-  color:var(--text);
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-  font-size:16px;
-}
+  :root{
+    --bg-0:#0a0c12;
+    --bg-1:#12141c;
+    --card:rgba(255,255,255,.045);
+    --card-2:rgba(255,255,255,.03);
+    --line:rgba(255,255,255,.08);
+    --line-2:rgba(255,255,255,.06);
+    --fg:#eef1f8;
+    --muted:#8b93a7;
+    --accent:#8b7bff;
+    --accent-2:#22d3ee;
+    --accent-3:#22c1a4;
+    --ok:#34d399;
+    --warn:#fbbf24;
+    --danger:#f87171;
+    --radius:18px;
+    --radius-sm:12px;
+    --shadow:0 20px 50px -30px rgba(0,0,0,.8);
+  }
 
-/* ---------- HERO ---------- */
-.hero{
-  background:linear-gradient(135deg,#243424 0%,#3d5a40 55%,#4a6b4a 100%);
-  color:#fff;
-  padding:80px 24px 70px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:auto -10% -60% -10%;
-  height:220px;
-  background:radial-gradient(ellipse at center,rgba(201,162,39,.28),transparent 70%);
-}
-.hero .kicker{
-  display:inline-block;
-  font-size:.75rem;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:#d8e4d3;
-  border:1px solid rgba(255,255,255,.25);
-  border-radius:100px;
-  padding:6px 16px;
-  margin-bottom:22px;
-}
-.hero h1{
-  font-size:clamp(1.8rem,4.5vw,3rem);
-  line-height:1.15;
-  font-weight:800;
-  letter-spacing:-.02em;
-  max-width:900px;
-  margin:0 auto 18px;
-}
-.hero p.sub{
-  font-size:clamp(1rem,2vw,1.2rem);
-  color:#dbe7d8;
-  max-width:720px;
-  margin:0 auto 30px;
-}
-.hero .author{
-  display:inline-flex;
-  flex-wrap:wrap;
-  gap:8px 18px;
-  justify-content:center;
-  font-size:.92rem;
-  color:#eaf2e7;
-  background:rgba(255,255,255,.10);
-  border:1px solid rgba(255,255,255,.16);
-  border-radius:14px;
-  padding:14px 24px;
-  backdrop-filter:blur(4px);
-}
-.hero .disclaimer{
-  margin-top:26px;
-  font-size:.78rem;
-  color:#b9cbb5;
-  letter-spacing:.03em;
-}
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Ubuntu,sans-serif;
+    background:var(--bg-0);
+    color:var(--fg);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+  }
 
-/* ---------- LAYOUT ---------- */
-.wrap{max-width:1060px;margin:0 auto;padding:0 20px 80px}
+  /* Мягкие градиентные блобы на фоне */
+  body::before, body::after{
+    content:'';
+    position:fixed;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:.35;
+    pointer-events:none;
+    z-index:0;
+    will-change:transform;
+  }
+  body::before{
+    width:480px;height:480px;
+    background:radial-gradient(circle, #7c5cff 0%, transparent 70%);
+    top:-140px;left:-120px;
+    animation:float1 18s ease-in-out infinite;
+  }
+  body::after{
+    width:520px;height:520px;
+    background:radial-gradient(circle, #22c1a4 0%, transparent 70%);
+    bottom:-200px;right:-160px;
+    animation:float2 22s ease-in-out infinite;
+  }
+  @keyframes float1{50%{transform:translate(60px,40px) scale(1.1)}}
+  @keyframes float2{50%{transform:translate(-50px,-30px) scale(1.15)}}
 
-/* ---------- TOC ---------- */
-.toc{
-  background:#fff;
-  border:1px solid var(--green-100);
-  border-radius:20px;
-  padding:32px 34px;
-  margin:-38px auto 34px;
-  position:relative;
-  box-shadow:0 14px 40px rgba(36,52,36,.12);
-}
-.toc h2{
-  font-size:1.05rem;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  color:var(--green-600);
-  margin-bottom:18px;
-  font-weight:700;
-}
-.toc-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-  gap:6px 20px;
-}
-.toc-grid a{
-  color:var(--green-800);
-  text-decoration:none;
-  font-size:.92rem;
-  padding:5px 0;
-  border-bottom:1px dashed transparent;
-  transition:.15s;
-}
-.toc-grid a:hover{color:var(--gold);border-bottom-color:var(--gold)}
-.toc-grid a.active{
-  color:var(--gold);
-  font-weight:700;
-  border-bottom-color:var(--gold);
-}
-.toc-grid a span{color:#a6b6a6;font-variant-numeric:tabular-nums;margin-right:8px;font-size:.8rem}
+  .app{
+    position:relative;
+    z-index:1;
+    max-width:720px;
+    margin:0 auto;
+    padding:28px 20px 40px;
+  }
 
-/* ---------- SLIDE ---------- */
-.slide{
-  background:#fff;
-  border:1px solid rgba(74,107,74,.12);
-  border-radius:20px;
-  padding:40px 42px;
-  margin:26px 0;
-  box-shadow:0 8px 28px rgba(36,52,36,.06);
-  position:relative;
-  scroll-margin-top:20px;
-}
-.badge{
-  position:absolute;
-  top:22px;right:26px;
-  font-size:.72rem;
-  font-weight:800;
-  letter-spacing:.12em;
-  color:#b3c1b3;
-  font-variant-numeric:tabular-nums;
-}
-.slide h2{
-  font-size:clamp(1.25rem,2.4vw,1.6rem);
-  color:var(--green-800);
-  line-height:1.25;
-  letter-spacing:-.01em;
-  padding-right:50px;
-}
-.slide h2::after{
-  content:"";
-  display:block;
-  width:54px;height:4px;
-  border-radius:3px;
-  background:var(--gold);
-  margin-top:14px;
-}
-.slide h3{
-  font-size:1.02rem;
-  color:var(--green-700);
-  margin-bottom:10px;
-  font-weight:700;
-}
-.lead{color:var(--muted);font-size:.95rem;margin-top:16px}
-.mt{margin-top:22px}
-.mt-s{margin-top:14px}
+  /* ==== HEADER ==== */
+  header{margin-bottom:22px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .logo{
+    width:44px;height:44px;
+    flex-shrink:0;
+    border-radius:14px;
+    background:linear-gradient(135deg,#8b7bff,#22d3ee);
+    display:grid;place-items:center;
+    font-size:22px;
+    box-shadow:0 10px 30px -10px rgba(139,123,255,.7);
+  }
+  header h1{
+    font-size:20px;
+    font-weight:800;
+    margin:0;
+    letter-spacing:-.015em;
+    background:linear-gradient(135deg,#fff,#c8c4ff 60%,#a4e7ff);
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;
+  }
+  header p{margin:2px 0 0;color:var(--muted);font-size:13px}
 
-/* ---------- GRIDS ---------- */
-.grid{display:grid;gap:16px}
-.g2{grid-template-columns:repeat(2,1fr)}
-.g3{grid-template-columns:repeat(3,1fr)}
-.g4{grid-template-columns:repeat(4,1fr)}
-@media(max-width:820px){
-  .g2,.g3,.g4{grid-template-columns:1fr}
-  .slide{padding:30px 22px}
-  .toc{padding:26px 22px}
-}
+  /* ==== PROGRESS ==== */
+  .progress{margin-bottom:20px}
+  .progress .bar{
+    height:6px;
+    background:rgba(255,255,255,.05);
+    border-radius:999px;
+    overflow:hidden;
+    position:relative;
+  }
+  .progress .bar > i{
+    display:block;height:100%;
+    background:linear-gradient(90deg,#8b7bff,#22d3ee);
+    border-radius:999px;
+    transition:width .5s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 0 20px -2px rgba(139,123,255,.6);
+  }
+  .progress .meta{
+    margin-top:8px;
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:.02em;
+    display:flex;
+    gap:6px;
+    align-items:center;
+  }
+  .progress .meta b{color:var(--fg);font-weight:600}
 
-/* ---------- STAT ---------- */
-.stat{
-  background:var(--green-50);
-  border:1px solid var(--green-100);
-  border-radius:14px;
-  padding:16px 14px;
-  text-align:center;
-}
-.stat .v{
-  font-size:clamp(1.15rem,2.4vw,1.5rem);
-  font-weight:800;
-  color:var(--green-800);
-  line-height:1.2;
-  letter-spacing:-.01em;
-}
-.stat .l{font-size:.8rem;color:var(--muted);margin-top:5px;line-height:1.35}
-.stat.gold{background:#fdf6e4;border-color:#ecdcae}
-.stat.gold .v{color:#8a6d10}
-.stat.blue{background:var(--blue-50);border-color:#cadcee}
-.stat.blue .v{color:#22405e}
+  /* ==== CARD ==== */
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px 24px;
+    backdrop-filter:blur(20px) saturate(160%);
+    -webkit-backdrop-filter:blur(20px) saturate(160%);
+    box-shadow:var(--shadow);
+    animation:fadeUp .4s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(10px) scale(.995)}
+    to{opacity:1;transform:none}
+  }
 
-/* ---------- CARD ---------- */
-.card{
-  background:var(--green-50);
-  border:1px solid var(--green-100);
-  border-radius:14px;
-  padding:18px 20px;
-}
-.card h3{font-size:.98rem;color:var(--green-800);margin-bottom:8px}
-.card ul{list-style:none;padding:0}
-.card ul li{
-  position:relative;
-  padding-left:16px;
-  font-size:.9rem;
-  color:#37432f;
-  margin:4px 0;
-}
-.card ul li::before{
-  content:"";
-  position:absolute;
-  left:0;top:.62em;
-  width:6px;height:6px;
-  border-radius:50%;
-  background:var(--green-500);
-}
-.card.blue{background:var(--blue-50);border-color:#cadcee}
-.card.blue ul li::before{background:#5b87b5}
-.card.gold{background:#fdf8e8;border-color:#ecdcae}
-.card.gold ul li::before{background:var(--gold)}
+  h2{
+    margin:0 0 6px;
+    font-size:19px;
+    font-weight:700;
+    letter-spacing:-.01em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  h2 .step-ico{
+    width:34px;height:34px;
+    flex-shrink:0;
+    border-radius:10px;
+    display:grid;place-items:center;
+    font-size:17px;
+    background:linear-gradient(135deg,rgba(139,123,255,.22),rgba(34,211,238,.18));
+    border:1px solid rgba(139,123,255,.28);
+  }
+  h3{
+    margin:24px 0 10px;
+    font-size:11px;
+    font-weight:700;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  h3::before{
+    content:'';
+    width:5px;height:5px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#8b7bff,#22d3ee);
+    box-shadow:0 0 10px rgba(139,123,255,.8);
+  }
 
-/* ---------- CALLOUT ---------- */
-.callout{
-  border-left:5px solid var(--gold);
-  background:#fdf8e8;
-  border-radius:0 14px 14px 0;
-  padding:18px 22px;
-  margin-top:20px;
-}
-.callout.green{border-color:var(--green-600);background:var(--green-50)}
-.callout strong{color:var(--green-800)}
-.callout p{font-size:.95rem}
+  /* ==== FORMS ==== */
+  label{
+    display:block;
+    margin:12px 0;
+    font-size:13px;
+    color:#c4c9d6;
+    font-weight:500;
+  }
+  input,select{
+    width:100%;
+    padding:11px 14px;
+    border-radius:var(--radius-sm);
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.03);
+    color:var(--fg);
+    font-size:15px;
+    font-family:inherit;
+    margin-top:6px;
+    transition:border-color .18s, box-shadow .18s, background .18s;
+  }
+  input::placeholder{color:#5e6577}
+  input:hover,select:hover{border-color:rgba(255,255,255,.14)}
+  input:focus,select:focus{
+    outline:none;
+    border-color:var(--accent);
+    background:rgba(139,123,255,.05);
+    box-shadow:0 0 0 4px rgba(139,123,255,.15);
+  }
+  input[type=checkbox],input[type=radio]{
+    width:auto;
+    accent-color:var(--accent);
+    transform:translateY(1px);
+    margin-right:8px;
+  }
+  select{
+    appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%238b93a7' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+    padding-right:36px;
+  }
 
-.note{
-  font-size:.84rem;
-  color:var(--muted);
-  font-style:italic;
-  margin-top:16px;
-  padding-left:14px;
-  border-left:3px solid var(--green-100);
-  line-height:1.55;
-}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:520px){.row{grid-template-columns:1fr}}
 
-/* ---------- FIGURE (SVG-схемы) ---------- */
-.figure{
-  background:#f8fbf7;
-  border:1px solid var(--green-100);
-  border-radius:18px;
-  padding:24px 22px 18px;
-  margin-top:22px;
-}
-.figure svg{width:100%;height:auto;display:block}
-.figure figcaption{
-  margin-top:14px;
-  font-size:.82rem;
-  color:var(--muted);
-  text-align:center;
-  font-style:italic;
-}
+  /* ==== BUTTONS ==== */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:12px 20px;
+    border-radius:var(--radius-sm);
+    border:1px solid transparent;
+    background:linear-gradient(135deg,#8b7bff,#6d5cff);
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+    font-family:inherit;
+    letter-spacing:.01em;
+    cursor:pointer;
+    transition:transform .15s, box-shadow .15s, filter .15s;
+    box-shadow:0 10px 24px -10px rgba(139,123,255,.7);
+  }
+  .btn:hover{transform:translateY(-1px);box-shadow:0 14px 30px -10px rgba(139,123,255,.85);filter:brightness(1.05)}
+  .btn:active{transform:translateY(0)}
+  .btn.secondary{
+    background:rgba(255,255,255,.06);
+    color:var(--fg);
+    border-color:var(--line);
+    box-shadow:none;
+  }
+  .btn.secondary:hover{background:rgba(255,255,255,.1)}
+  .btn.ghost{
+    background:transparent;
+    color:var(--muted);
+    border:1px solid var(--line);
+    box-shadow:none;
+  }
+  .btn.ghost:hover{color:var(--fg);border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.03)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
 
-/* ---------- TIMELINE ---------- */
-.timeline{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  position:relative;
-  margin-top:12px;
-}
-.timeline::before{
-  content:"";
-  position:absolute;
-  top:21px;left:8%;right:8%;
-  height:2px;
-  background:var(--green-100);
-}
-.tl-item{position:relative;text-align:center}
-.tl-dot{
-  width:44px;height:44px;
-  border-radius:50%;
-  background:var(--green-700);
-  color:#fff;
-  font-weight:800;
-  font-size:1rem;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 14px;
-  position:relative;
-  z-index:1;
-  box-shadow:0 0 0 6px #fff;
-}
-.tl-item:last-child .tl-dot{background:var(--gold)}
-.tl-card{
-  background:var(--green-50);
-  border:1px solid var(--green-100);
-  border-radius:14px;
-  padding:14px 16px;
-  text-align:left;
-}
-.tl-card h4{
-  font-size:.9rem;
-  color:var(--green-800);
-  margin-bottom:6px;
-}
-.tl-card p{font-size:.85rem;color:#48553f;line-height:1.5}
-@media(max-width:820px){
-  .timeline{grid-template-columns:1fr;gap:14px}
-  .timeline::before{display:none}
-  .tl-item{display:grid;grid-template-columns:44px 1fr;gap:14px;text-align:left;align-items:start}
-  .tl-dot{margin:0}
-}
+  .actions{
+    display:flex;
+    gap:10px;
+    margin-top:24px;
+    flex-wrap:wrap;
+  }
+  .actions .btn{flex:1}
+  .actions .btn.ghost{flex:0 0 auto}
+  @media (max-width:520px){.actions .btn{flex:1 1 100%}}
 
-/* ---------- TABLE ---------- */
-.table-wrap{
-  overflow-x:auto;
-  border-radius:14px;
-  border:1px solid var(--green-100);
-  margin-top:18px;
-  -webkit-overflow-scrolling:touch;
-}
-table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:.9rem;
-  min-width:540px;
-  background:#fff;
-}
-thead th{
-  background:var(--green-700);
-  color:#fff;
-  text-align:left;
-  padding:12px 16px;
-  font-weight:600;
-  font-size:.82rem;
-  letter-spacing:.03em;
-  white-space:nowrap;
-}
-td{
-  padding:11px 16px;
-  border-top:1px solid var(--green-100);
-  vertical-align:top;
-  color:#2f3a2c;
-}
-tbody tr:nth-child(even){background:#f8fbf7}
+  /* ==== ITEMS / ROWS ==== */
+  .item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    padding:12px 14px;
+    border-radius:var(--radius-sm);
+    border:1px solid var(--line-2);
+    background:rgba(255,255,255,.02);
+    margin-bottom:8px;
+    transition:border-color .18s, background .18s;
+  }
+  .item:hover{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.035)}
+  .item-label{font-size:14px;flex:1;line-height:1.4}
+  .item .item-label label{margin:0}
+  .item .muted{font-size:12px;margin-top:2px}
 
-/* ---------- LIST ---------- */
-ol.numbered{
-  counter-reset:step;
-  list-style:none;
-  padding:0;
-  margin-top:18px;
-}
-ol.numbered li{
-  counter-increment:step;
-  position:relative;
-  padding:12px 0 12px 54px;
-  border-bottom:1px solid var(--green-100);
-  font-size:.95rem;
-}
-ol.numbered li:last-child{border-bottom:none}
-ol.numbered li::before{
-  content:counter(step);
-  position:absolute;
-  left:0;top:50%;
-  transform:translateY(-50%);
-  width:34px;height:34px;
-  border-radius:10px;
-  background:var(--green-50);
-  border:1px solid var(--green-100);
-  color:var(--green-700);
-  font-weight:800;
-  font-size:.85rem;
-  display:flex;align-items:center;justify-content:center;
-}
+  /* ==== SCALE (Greene) ==== */
+  .scale{display:flex;gap:6px;flex-shrink:0}
+  .scale button{
+    width:36px;height:36px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.02);
+    color:var(--muted);
+    cursor:pointer;
+    font-size:13px;
+    font-weight:600;
+    font-family:inherit;
+    transition:all .15s;
+  }
+  .scale button:hover{border-color:rgba(139,123,255,.5);color:var(--fg)}
+  .scale button.on{
+    background:linear-gradient(135deg,#8b7bff,#6d5cff);
+    border-color:transparent;
+    color:#fff;
+    box-shadow:0 6px 18px -6px rgba(139,123,255,.8);
+    transform:translateY(-1px);
+  }
+  .scale label{
+    margin:0;
+    padding:8px 14px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.02);
+    cursor:pointer;
+    font-size:13px;
+    transition:all .15s;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .scale label:hover{border-color:rgba(139,123,255,.4)}
 
-/* ---------- CONCLUSION ---------- */
-.conclusion-grid{display:grid;gap:16px;margin-top:22px}
-.conc{
-  display:grid;
-  grid-template-columns:52px 1fr;
-  gap:18px;
-  align-items:start;
-  background:var(--green-50);
-  border:1px solid var(--green-100);
-  border-radius:16px;
-  padding:20px 22px;
-}
-.conc .num{
-  width:44px;height:44px;
-  border-radius:12px;
-  background:var(--green-700);
-  color:#fff;
-  font-weight:800;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.05rem;
-}
-.conc p{font-size:.95rem}
-.final-quote{
-  margin-top:26px;
-  text-align:center;
-  background:linear-gradient(135deg,#243424,#4a6b4a);
-  color:#fff;
-  border-radius:18px;
-  padding:30px 24px;
-  font-size:clamp(1.05rem,2.4vw,1.35rem);
-  font-weight:700;
-  letter-spacing:-.01em;
-}
-.final-quote span{color:#e6c85c}
+  /* ==== RESULT ==== */
+  .result{
+    background:linear-gradient(135deg,rgba(139,123,255,.10),rgba(34,211,238,.05));
+    border:1px solid rgba(139,123,255,.2);
+    border-radius:var(--radius-sm);
+    padding:16px 18px;
+    margin-top:18px;
+    animation:fadeUp .35s ease both;
+  }
+  .result.ok{
+    background:linear-gradient(135deg,rgba(52,211,153,.14),rgba(52,211,153,.04));
+    border-color:rgba(52,211,153,.3);
+  }
+  .result.warn{
+    background:linear-gradient(135deg,rgba(251,191,36,.14),rgba(251,191,36,.03));
+    border-color:rgba(251,191,36,.3);
+  }
+  .result.danger{
+    background:linear-gradient(135deg,rgba(248,113,113,.14),rgba(248,113,113,.03));
+    border-color:rgba(248,113,113,.3);
+  }
+  .big{
+    font-size:28px;
+    font-weight:800;
+    letter-spacing:-.02em;
+    margin:4px 0;
+    background:linear-gradient(135deg,#fff,#c8c4ff 50%,#a4e7ff);
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;
+  }
+  .muted{color:var(--muted);font-size:13px}
+  .result .muted{margin-bottom:2px}
 
-/* ---------- FOOTER ---------- */
-footer{
-  text-align:center;
-  padding:40px 20px 60px;
-  color:#7d8c7d;
-  font-size:.82rem;
-  line-height:1.7;
-}
-footer strong{color:var(--green-700)}
+  .kv{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:8px 0;
+    font-size:14px;
+    border-bottom:1px dashed rgba(255,255,255,.06);
+  }
+  .kv:last-child{border-bottom:none}
+  .kv b{font-weight:600}
 
-/* ---------- TOP BUTTON ---------- */
-#toTop{
-  position:fixed;
-  right:20px;bottom:20px;
-  width:46px;height:46px;
-  border-radius:14px;
-  border:none;
-  background:var(--green-700);
-  color:#fff;
-  font-size:1.1rem;
-  cursor:pointer;
-  box-shadow:0 8px 22px rgba(36,52,36,.3);
-  opacity:0;
-  pointer-events:none;
-  transition:.25s;
-  z-index:50;
-}
-#toTop.show{opacity:1;pointer-events:auto}
-#toTop:hover{background:var(--green-600)}
+  /* ==== TAGS ==== */
+  .tag{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:600;
+    background:rgba(255,255,255,.06);
+    color:var(--fg);
+    border:1px solid var(--line);
+  }
+  .tag::before{
+    content:'';
+    width:6px;height:6px;border-radius:50%;
+    background:currentColor;
+    box-shadow:0 0 8px currentColor;
+  }
+  .tag.ok{background:rgba(52,211,153,.12);color:var(--ok);border-color:rgba(52,211,153,.3)}
+  .tag.warn{background:rgba(251,191,36,.12);color:var(--warn);border-color:rgba(251,191,36,.3)}
+  .tag.danger{background:rgba(248,113,113,.12);color:var(--danger);border-color:rgba(248,113,113,.3)}
 
-@media print{
-  .hero{background:#2c3e2e !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .slide{break-inside:avoid;box-shadow:none;page-break-inside:avoid}
-  #toTop{display:none}
-}
+  /* ==== PHOTO ==== */
+  .photo-box{
+    display:block;
+    border:2px dashed rgba(255,255,255,.14);
+    border-radius:var(--radius-sm);
+    padding:32px 20px;
+    text-align:center;
+    color:var(--muted);
+    cursor:pointer;
+    transition:all .2s;
+    background:rgba(255,255,255,.015);
+  }
+  .photo-box:hover{
+    border-color:var(--accent);
+    color:var(--fg);
+    background:rgba(139,123,255,.06);
+  }
+  .photo-box .ico{font-size:32px;display:block;margin-bottom:8px}
+
+  /* ==== PROGRESS BAR (calcium) ==== */
+  .bar-meter{
+    height:10px;
+    background:rgba(255,255,255,.06);
+    border-radius:999px;
+    overflow:hidden;
+    margin-top:10px;
+    position:relative;
+  }
+  .bar-meter > i{
+    display:block;height:100%;
+    background:linear-gradient(90deg,#22c1a4,#22d3ee);
+    border-radius:999px;
+    transition:width .6s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 0 12px rgba(34,211,238,.5);
+  }
+
+  /* ==== FOOT ==== */
+  .foot{
+    margin-top:26px;
+    text-align:center;
+    color:#5e6577;
+    font-size:11.5px;
+    letter-spacing:.02em;
+  }
+
+  /* ==== Скроллбар ==== */
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:5px;border:2px solid var(--bg-0)}
+  ::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.15)}
+
+  /* ==== Step-7 tiles ==== */
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:8px}
+  .tile{
+    padding:14px;
+    border-radius:var(--radius-sm);
+    background:rgba(255,255,255,.03);
+    border:1px solid var(--line-2);
+  }
+  .tile .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+  .tile .v{font-size:20px;font-weight:800;margin-top:4px;letter-spacing:-.01em}
 </style>
 </head>
 <body>
-
-<!-- ============ HERO ============ -->
-<header class="hero">
-  <div class="kicker">Клинический разбор · Эндокринология</div>
-  <h1>Болезнь Иценко-Кушинга</h1>
-  <p class="sub">Клинический случай длительного медикаментозного контроля и практический блок по терапии</p>
-  <div class="author">
-    <span><strong>Крюкова А.А.</strong></span>
-    <span>РостГМУ, кафедра эндокринологии</span>
-  </div>
-  <p class="disclaimer">Образовательная иллюстрация, не фото пациентки</p>
-</header>
-
-<div class="wrap">
-
-  <!-- ============ TOC ============ -->
-  <nav class="toc">
-    <h2>Содержание</h2>
-    <div class="toc-grid">
-      <a href="#s2"><span>02</span>Вопрос для аудитории</a>
-      <a href="#s3"><span>03</span>Клиническая рамка случая</a>
-      <a href="#s4"><span>04</span>Патогенез: одна ось</a>
-      <a href="#s5"><span>05</span>Жалобы на 18.11.2025</a>
-      <a href="#s6"><span>06</span>Первые годы болезни</a>
-      <a href="#s7"><span>07</span>Динамика заболевания</a>
-      <a href="#s8"><span>08</span>Объективно</a>
-      <a href="#s9"><span>09</span>Осмотр по системам</a>
-      <a href="#s10"><span>10</span>Что обследуем дальше</a>
-      <a href="#s11"><span>11</span>Терапия на момент обращения</a>
-      <a href="#s12"><span>12</span>План лечения в стационаре</a>
-      <a href="#s13"><span>13</span>Динамика 14.02 / 18.11.2025</a>
-      <a href="#s14"><span>14</span>Электролиты и функция почек</a>
-      <a href="#s15"><span>15</span>Липиды и гликемический профиль</a>
-      <a href="#s16"><span>16</span>ОАК и ОАМ</a>
-      <a href="#s17"><span>17</span>Гормональная динамика</a>
-      <a href="#s18"><span>18</span>Эндокринный профиль</a>
-      <a href="#s19"><span>19</span>Осложнения и риски</a>
-      <a href="#s20"><span>20</span>Итог клинического случая</a>
-      <a href="#s21"><span>21</span>Лечебные рекомендации</a>
-      <a href="#s22"><span>22</span>План динамического контроля</a>
-      <a href="#s23"><span>23</span>Почему можно вести на кетоконазоле</a>
-      <a href="#s24"><span>24</span>Три уровня воздействия</a>
-      <a href="#s25"><span>25</span>Схема мишеней терапии</a>
-      <a href="#s26"><span>26</span>Зарегистрированные препараты</a>
-      <a href="#s27"><span>27</span>Другие варианты контроля</a>
-      <a href="#s28"><span>28</span>Новые направления терапии</a>
-      <a href="#s29"><span>29</span>Почему малая доза работала</a>
-      <a href="#s30"><span>30</span>Как вести на кетоконазоле</a>
-      <a href="#s31"><span>31</span>Практические выводы</a>
-    </div>
-  </nav>
-
-  <!-- ============ 02 ============ -->
-  <section class="slide" id="s2">
-    <div class="badge">02</div>
-    <h2>Начинаем с вопроса для аудитории</h2>
-
-    <div class="grid g4 mt">
-      <div class="stat"><div class="v">64 года</div><div class="l">пациентка</div></div>
-      <div class="stat"><div class="v">≈13 лет</div><div class="l">симптомы гиперкортицизма</div></div>
-      <div class="stat gold"><div class="v">240 нмоль/л</div><div class="l">кортизол на кетоконазоле</div></div>
-      <div class="stat gold"><div class="v">128,6 пг/мл</div><div class="l">АКТГ сохраняется высоким</div></div>
-    </div>
-
-    <div class="callout">
-      <p><strong>Вопрос:</strong> это ремиссия, гипокортицизм или удачный медикаментозный контроль?</p>
-    </div>
-
-    <p class="note">Разбор строится вокруг трёх осей: источник АКТГ, контроль кортизола, безопасность терапии.</p>
-  </section>
-
-  <!-- ============ 03 ============ -->
-  <section class="slide" id="s3">
-    <div class="badge">03</div>
-    <h2>Клиническая рамка случая</h2>
-
-    <div class="grid g2 mt">
-      <div class="card">
-        <h3>Основной диагноз</h3>
-        <p style="font-size:.92rem"><strong>МКБ-10 Е24.0</strong> Болезнь Иценко-Кушинга гипофизарного происхождения</p>
-      </div>
-      <div class="card blue">
-        <h3>Сопутствующие состояния</h3>
-        <ul>
-          <li>СД 2 типа</li>
-          <li>Узловой зоб II ст.</li>
-          <li>АГ II ст., 2 ст., риск 4</li>
-          <li>Миелолипома правого надпочечника</li>
-          <li>Парасагиттальная менингиома</li>
-          <li>Смешанная дислипидемия</li>
-        </ul>
+<div class="app">
+  <header>
+    <div class="brand">
+      <div class="logo">✦</div>
+      <div>
+        <h1>ОстеоМенопауза 40+</h1>
+        <p>Последовательный маршрут · локальный прототип</p>
       </div>
     </div>
-
-    <div class="grid g3 mt">
-      <div class="stat"><div class="v">&lt; 7,0%</div><div class="l">HbA1c — целевой показатель при СД 2 типа</div></div>
-      <div class="stat"><div class="v">МРТ</div><div class="l">стабильная аденома гипофиза</div></div>
-      <div class="stat"><div class="v">Размер</div><div class="l">в исходных материалах не указан, уточнить по протоколу МРТ</div></div>
-    </div>
-
-    <p class="note">В презентации размер аденомы не придуман: перед выступлением его лучше заменить на точный размер из протокола МРТ.</p>
-
-  </section>
-
-  <!-- ============ 04 ============ -->
-  <section class="slide" id="s4">
-    <div class="badge">04</div>
-    <h2>Патогенез: одна ось объясняет весь случай</h2>
-
-    <!-- СХЕМА 1: цепочка патогенеза -->
-    <figure class="figure">
-      <svg viewBox="0 0 1000 124" role="img" aria-label="Патогенез: аденома гипофиза повышает АКТГ, АКТГ стимулирует кору надпочечников, кора надпочечников вырабатывает кортизол, кортизол формирует клинику">
-        <defs>
-          <marker id="arrowA" viewBox="0 0 6 6" refX="5.2" refY="3"
-                  markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
-            <path d="M0,0 L6,3 L0,6 Z" fill="#9fb39f"/>
-          </marker>
-        </defs>
-        <g font-family="Inter, Segoe UI, sans-serif" font-size="15" font-weight="700"
-           text-anchor="middle" dominant-baseline="central">
-
-          <!-- стрелки -->
-          <line x1="170" y1="62" x2="204" y2="62" stroke="#9fb39f" stroke-width="2" marker-end="url(#arrowA)"/>
-          <line x1="378" y1="62" x2="412" y2="62" stroke="#9fb39f" stroke-width="2" marker-end="url(#arrowA)"/>
-          <line x1="586" y1="62" x2="620" y2="62" stroke="#9fb39f" stroke-width="2" marker-end="url(#arrowA)"/>
-          <line x1="794" y1="62" x2="828" y2="62" stroke="#9fb39f" stroke-width="2" marker-end="url(#arrowA)"/>
-
-          <!-- 1 -->
-          <rect x="0" y="34" width="168" height="56" rx="12" fill="#e7efe4" stroke="#c6dbc0"/>
-          <text x="84" y="62" fill="#243424">Аденома гипофиза</text>
-
-          <!-- 2 -->
-          <rect x="208" y="34" width="168" height="56" rx="12" fill="#dbe7f3" stroke="#b9d0e8"/>
-          <text x="292" y="62" fill="#1f3a55">АКТГ</text>
-
-          <!-- 3 -->
-          <rect x="416" y="34" width="168" height="56" rx="12" fill="#e7efe4" stroke="#c6dbc0"/>
-          <text x="500" y="62" fill="#243424">Кора надпочечников</text>
-
-          <!-- 4 -->
-          <rect x="624" y="34" width="168" height="56" rx="12" fill="#f7e9c4" stroke="#e6cf95"/>
-          <text x="708" y="62" fill="#6d5310">Кортизол</text>
-
-          <!-- 5 -->
-          <rect x="832" y="34" width="168" height="56" rx="12" fill="#e7efe4" stroke="#c6dbc0"/>
-          <text x="916" y="62" fill="#243424">Клиника</text>
-        </g>
-      </svg>
-      <figcaption>Единая ось «аденома → АКТГ → надпочечники → кортизол → клиника» объясняет весь клинический случай</figcaption>
-    </figure>
-
-    <div class="callout green mt">
-      <p><strong>Почему АКТГ остаётся высоким.</strong> Кетоконазол работает ниже гипофиза: он снижает синтез кортизола в надпочечниках, но не устраняет источник АКТГ.</p>
-    </div>
-  </section>
-
-  <!-- ============ 05 ============ -->
-  <section class="slide" id="s5">
-    <div class="badge">05</div>
-    <h2>Жалобы на 18.11.2025</h2>
-
-    <div class="grid g3 mt">
-      <div class="card">
-        <h3>Кожа и волосы</h3>
-        <ul>
-          <li>Рана 2–3 см на подошве правой стопы не заживает 7 лет</li>
-          <li>Сухость кожи</li>
-          <li>Выпадение волос</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Мышцы и кости</h3>
-        <ul>
-          <li>Боли в костях</li>
-          <li>Мышечная слабость</li>
-          <li>Периодические судороги</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Метаболизм</h3>
-        <ul>
-          <li>Сухость во рту</li>
-          <li>Жажда</li>
-          <li>Нестабильные показатели гликемии</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Невро-сосудистые</h3>
-        <ul>
-          <li>Головные боли</li>
-          <li>Зябкость</li>
-          <li>Боль и онемение нижних конечностей</li>
-        </ul>
-      </div>
-      <div class="card gold">
-        <h3>Общее состояние</h3>
-        <ul>
-          <li>Отёчность лица</li>
-          <li>Выраженная слабость</li>
-          <li>Снижение работоспособности</li>
-          <li>Ощущение «кома» в горле</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 06 ============ -->
-  <section class="slide" id="s6">
-    <div class="badge">06</div>
-    <h2>Первые годы болезни</h2>
-
-    <div class="grid g4 mt">
-      <div class="stat"><div class="v">+28 кг</div><div class="l">набор массы за 1 год</div></div>
-      <div class="stat"><div class="v">70 кг</div><div class="l">исходная масса тела</div></div>
-      <div class="stat"><div class="v">13 лет</div><div class="l">длительность симптомов</div></div>
-      <div class="stat"><div class="v">64 года</div><div class="l">возраст на разборе</div></div>
-    </div>
-
-    <div class="card mt">
-      <h3>Первые проявления</h3>
-      <p style="font-size:.92rem">Неравномерное отложение жира, похудание рук и ног, сухость во рту, выпадение волос, слабость в нижних конечностях, резкое повышение глюкозы, отёки лица и стоп, повышение АД, головные боли.</p>
-    </div>
-
-    <div class="callout">
-      <p><strong>Клиническая интрига:</strong> сейчас ИМТ нормальный, но анамнез и фенотип говорят о длительном гиперкортицизме.</p>
-    </div>
-  </section>
-
-  <!-- ============ 07 ============ -->
-  <section class="slide" id="s7">
-    <div class="badge">07</div>
-    <h2>Динамика заболевания</h2>
-
-    <div class="timeline mt">
-      <div class="tl-item">
-        <div class="tl-dot">1</div>
-        <div class="tl-card">
-          <h4>≈13 лет назад</h4>
-          <p>Набор массы, гипергликемия, слабость, отёки, АД, головные боли</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot">2</div>
-        <div class="tl-card">
-          <h4>После обследования</h4>
-          <p>Установлен АКТГ-зависимый гиперкортицизм, БИК</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot">3</div>
-        <div class="tl-card">
-          <h4>2019</h4>
-          <p>Парасагиттальная менингиома справа и миелолипома правого надпочечника</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot">4</div>
-        <div class="tl-card">
-          <h4>18.11.2025</h4>
-          <p>Госпитализация с оценкой компенсации на терапии</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 08 ============ -->
-  <section class="slide" id="s8">
-    <div class="badge">08</div>
-    <h2>Объективно: показатели на момент осмотра</h2>
-
-    <div class="grid g4 mt">
-      <div class="stat"><div class="v">36,6 °C</div><div class="l">Т</div></div>
-      <div class="stat"><div class="v">71/мин</div><div class="l">ЧСС</div></div>
-      <div class="stat"><div class="v">135/80</div><div class="l">АД, мм рт.ст.</div></div>
-      <div class="stat"><div class="v">163 см</div><div class="l">рост</div></div>
-      <div class="stat"><div class="v">61 кг</div><div class="l">вес</div></div>
-      <div class="stat"><div class="v">22,96</div><div class="l">ИМТ, кг/м²</div></div>
-      <div class="stat"><div class="v">16/мин</div><div class="l">ЧДД</div></div>
-      <div class="stat"><div class="v">98%</div><div class="l">SpO₂</div></div>
-    </div>
-
-    <div class="card gold mt">
-      <h3>Фенотип</h3>
-      <p style="font-size:.92rem">Кушингоидный тип ожирения: перераспределение жировой ткани в область живота. Лицо лунообразное, гиперемировано, матронизм. Редкий рост волос на голове.</p>
-    </div>
-  </section>
-
-  <!-- ============ 09 ============ -->
-  <section class="slide" id="s9">
-    <div class="badge">09</div>
-    <h2>Осмотр по системам</h2>
-
-    <div class="grid g3 mt">
-      <div class="card">
-        <h3>Кожа и конечности</h3>
-        <p style="font-size:.9rem">Кожа сухая, бледная, чистая. Нижние конечности сухие и холодные.</p>
-      </div>
-      <div class="card">
-        <h3>Нейропатия</h3>
-        <p style="font-size:.9rem">Тактильная чувствительность обеих ног снижена. Шкала симптомов нейропатии: 4 балла. Пульсация a. dorsalis pedis S=D сохранена.</p>
-      </div>
-      <div class="card">
-        <h3>Щитовидная железа</h3>
-        <p style="font-size:.9rem">Левая доля увеличена за счёт узлового образования 3 см. Правая доля не увеличена, мягко-эластичная, подвижная.</p>
-      </div>
-      <div class="card">
-        <h3>ССС</h3>
-        <p style="font-size:.9rem">Верхушечный толчок в V межреберье. Тоны сердца приглушены, ритмичные.</p>
-      </div>
-      <div class="card">
-        <h3>ЖКТ</h3>
-        <p style="font-size:.9rem">Язык сухой, с белым налётом. Живот мягкий, безболезненный. Печень +1 см, эластичная, край закруглён.</p>
-      </div>
-      <div class="card">
-        <h3>Мочевыделительная система</h3>
-        <p style="font-size:.9rem">Симптом поколачивания отрицательный с обеих сторон. Мочеиспускание свободное, безболезненное.</p>
-      </div>
-    </div>
-
-    <p class="note">Осмотр поддерживает клиническую логику: нейропатия, кожные изменения, узловой зоб и признаки длительного метаболического неблагополучия.</p>
-  </section>
-
-  <!-- ============ 10 ============ -->
-  <section class="slide" id="s10">
-    <div class="badge">10</div>
-    <h2>Что обследуем дальше</h2>
-
-    <div class="grid g2 mt">
-      <div class="card">
-        <h3>Источник АКТГ</h3>
-        <ul>
-          <li>МРТ гипофиза</li>
-          <li>Динамика АКТГ</li>
-          <li>Оценка активности источника</li>
-        </ul>
-      </div>
-      <div class="card gold">
-        <h3>Безопасность терапии</h3>
-        <ul>
-          <li>Кортизол, электролиты</li>
-          <li>АЛТ/АСТ, ЭКГ</li>
-          <li>Симптомы гипокортицизма</li>
-        </ul>
-      </div>
-      <div class="card blue">
-        <h3>Осложнения гиперкортицизма</h3>
-        <ul>
-          <li>Гликемия, липиды, АД</li>
-          <li>Кость, инфекции</li>
-          <li>Мышечная слабость</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Надпочечники и печень</h3>
-        <ul>
-          <li>КТ/УЗИ по показаниям</li>
-          <li>Контроль миелолипомы</li>
-          <li>Сопутствующая патология</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="callout green mt">
-      <p>Правильный разбор начинается с сопоставления источника АКТГ, кортизола и рисков терапии.</p>
-    </div>
-  </section>
-
-  <!-- ============ 11 ============ -->
-  <section class="slide" id="s11">
-    <div class="badge">11</div>
-    <h2>Терапия на момент обращения</h2>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Препарат</th><th>Доза</th><th>Цель</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Метформин</td><td>1000 мг 2 раза/сут</td><td>СД 2 типа</td></tr>
-          <tr><td>Лозартан</td><td>50 мг 1 раз/сут</td><td>АГ</td></tr>
-          <tr><td>Кетоконазол</td><td>200 мг утром и вечером</td><td>Контроль гиперкортицизма</td></tr>
-          <tr><td>Достинекс</td><td>0,5 мг, ½ таб. 1 раз в 10 дней</td><td>Дофаминергическая терапия</td></tr>
-          <tr><td>Кардиомагнил</td><td>75 мг вечером</td><td>Антиагрегантная терапия</td></tr>
-          <tr><td>Аторвастатин</td><td>20 мг вечером</td><td>Смешанная дислипидемия</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p class="note">В стационаре кетоконазол указан как 200 мг 3 раза/сут, после выписки — 200 мг 2 раза/сут.</p>
-  </section>
-
-  <!-- ============ 12 ============ -->
-  <section class="slide" id="s12">
-    <div class="badge">12</div>
-    <h2>План лечения в стационаре</h2>
-
-    <ol class="numbered">
-      <li>Режим общий</li>
-      <li>Низкокалорийная диета</li>
-      <li>Metformini 1000 мг по 1 таб. 2 раза в день</li>
-      <li>Ketoconazoli 200 mg 3 раза в день</li>
-      <li>Cabergolini 0,5 mg по 1 таб. 1 раз в неделю</li>
-      <li>Atorvastatini 20 mg по 1 tab. вечером</li>
-      <li>Sol. Meldonii 10% 5 ml 1 раз в сутки в/в струйно</li>
-      <li>Sol. Inosini + Nicotinamidi + Riboflavin + Succivicacidi 10 ml + NaCl 0,9% в/в капельно</li>
-      <li>Sol. Thiocidi acidi 300 мг + NaCl 0,9% 100 мл в/в капельно</li>
-    </ol>
-  </section>
-
-  <!-- ============ 13 ============ -->
-  <section class="slide" id="s13">
-    <div class="badge">13</div>
-    <h2>Динамика 14.02 и 18.11.2025</h2>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Показатель</th><th>14.02.2025</th><th>18.11.2025</th><th>Комментарий</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Глюкоза</td><td>7,48 ммоль/л</td><td>7,63 ммоль/л</td><td>выше референса</td></tr>
-          <tr><td>Мочевина</td><td>7,0 ммоль/л</td><td>5,6 ммоль/л</td><td>без отрицательной динамики</td></tr>
-          <tr><td>Креатинин</td><td>84 мкмоль/л</td><td>83 мкмоль/л</td><td>стабильно</td></tr>
-          <tr><td>АСТ</td><td>18 Ед/л</td><td>16 U/l</td><td>норма</td></tr>
-          <tr><td>АЛТ</td><td>30 Ед/л</td><td>27 U/l</td><td>норма</td></tr>
-          <tr><td>Общий белок</td><td>77 г/л</td><td>84 г/л</td><td>верхняя граница</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p class="note">Печёночные ферменты на терапии кетоконазолом без повышения.</p>
-  </section>
-
-  <!-- ============ 14 ============ -->
-  <section class="slide" id="s14">
-    <div class="badge">14</div>
-    <h2>Электролиты и функция почек</h2>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Показатель</th><th>14.02.2025</th><th>18.11.2025</th><th>Комментарий</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Билирубин общий</td><td>7,1 мкмоль/л</td><td>10,9 мкмоль/л</td><td>норма</td></tr>
-          <tr><td>Кальций общий</td><td>2,51 ммоль/л</td><td>2,48 ммоль/л</td><td>норма</td></tr>
-          <tr><td>Кальций ионизированный</td><td>1,05 ммоль/л</td><td>0,98 ммоль/л</td><td>норма</td></tr>
-          <tr><td>Натрий</td><td>145,0 ммоль/л</td><td>147,0 ммоль/л</td><td>верхняя часть нормы</td></tr>
-          <tr><td>Калий</td><td>4,5 ммоль/л</td><td>5,1 ммоль/л</td><td>слегка выше референса</td></tr>
-          <tr><td>СКФ</td><td>60,67 мл/мин</td><td>64 мл/мин/1,73 м²</td><td>стабильно</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p class="note">Для ингибиторов стероидогенеза важны электролиты и признаки надпочечниковой недостаточности.</p>
-  </section>
-
-  <!-- ============ 15 ============ -->
-  <section class="slide" id="s15">
-    <div class="badge">15</div>
-    <h2>Липиды и гликемический профиль</h2>
-
-    <div class="grid g2 mt">
-      <div class="card">
-        <h3>Липидограмма 14.02</h3>
-        <ul>
-          <li>ХС — 6,08</li>
-          <li>ТГ — 2,88</li>
-          <li>ЛПВП — 1,60</li>
-          <li>ЛПНП — 3,17</li>
-          <li>ЛПОНП — 1,31</li>
-          <li>ИА — 2,8</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Липидограмма 18.11</h3>
-        <ul>
-          <li>ХС — 5,84 ммоль/л</li>
-          <li>ТГ — 2,77 ммоль/л</li>
-          <li>Оба показателя выше целевых / референсных значений</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="card gold mt">
-      <h3>Гликемический профиль</h3>
-      <p style="font-size:.92rem"><strong>14.02:</strong> 7,48; 8,7; 4,5 ммоль/л<br>
-      <strong>18.11:</strong> 7,63; 8,3; 8,4 ммоль/л<br>
-      <span style="color:var(--muted);font-size:.85rem">Натощак, через 2 ч, через 4 ч</span></p>
-    </div>
-
-    <div class="callout green mt">
-      <p><strong>Вывод:</strong> сохраняются нарушения углеводного обмена и атерогенный липидный профиль.</p>
-    </div>
-
-    <p class="note">Это влияет на выбор терапии: пасиреотид может ухудшать гликемию, а блокаторы стероидогенеза требуют контроля электролитов и безопасности.</p>
-  </section>
-
-  <!-- ============ 16 ============ -->
-  <section class="slide" id="s16">
-    <div class="badge">16</div>
-    <h2>ОАК и ОАМ</h2>
-
-    <div class="grid g2 mt">
-      <div class="card">
-        <h3>ОАК 18.11</h3>
-        <ul>
-          <li>Hb — 145 г/л</li>
-          <li>Эритроциты — 4,42×10¹²</li>
-          <li>Лейкоциты — 13,46×10⁹</li>
-          <li>Тромбоциты — 331,4×10⁹/л</li>
-          <li>Эоз. 1×10⁹/л, п/я 5%, с/я 56%</li>
-          <li>Лимф. 31%, моноц. 6%, базоф. 1%</li>
-          <li>СОЭ — 25 мм/ч</li>
-        </ul>
-      </div>
-      <div class="card blue">
-        <h3>ОАМ 14.02</h3>
-        <ul>
-          <li>pH — 5,5</li>
-          <li>Удельный вес — 1020</li>
-          <li>Лейкоциты — 1–3 в п/з</li>
-          <li>Соли нет, эритроцитов нет</li>
-          <li>Белок нет, глюкоза нет, АСК нет</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 17 ============ -->
-  <section class="slide" id="s17">
-    <div class="badge">17</div>
-    <h2>Гормональная динамика на кетоконазоле</h2>
-
-    <div class="grid g2 mt">
-      <div class="card">
-        <h3>Кортизол</h3>
-        <ul>
-          <li>14.02.2025: <strong>940,58 нмоль/л</strong></li>
-          <li>19.11.2025: <strong>240 нмоль/л</strong></li>
-          <li>Референс: 263–724 нмоль/л</li>
-        </ul>
-      </div>
-      <div class="card gold">
-        <h3>АКТГ</h3>
-        <ul>
-          <li>14.02.2025: <strong>140 пг/мл</strong></li>
-          <li>19.11.2025: <strong>128,6 пг/мл</strong></li>
-          <li>Референс: 8,3–57,8 пг/мл</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="callout mt">
-      <p><strong>Практический смысл.</strong> Кортизол стал ниже референса, но АКТГ остался повышенным. Значит, препарат контролирует синтез кортизола, а источник АКТГ сохраняет активность.</p>
-    </div>
-  </section>
-
-  <!-- ============ 18 ============ -->
-  <section class="slide" id="s18">
-    <div class="badge">18</div>
-    <h2>Исследования: эндокринный профиль</h2>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Метод</th><th>Дата</th><th>Заключение</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>УЗИ щитовидной железы</td>
-            <td>17.02.2025</td>
-            <td>Диффузные изменения, коллоидные кисты обеих долей, сложное кистозно-узловое образование левой доли, увеличение левой доли, лимфоаденопатия, TIRADS-3</td>
-          </tr>
-          <tr>
-            <td>УЗИ щитовидной железы</td>
-            <td>18.09.2025</td>
-            <td>То же заключение</td>
-          </tr>
-          <tr>
-            <td>УЗИ надпочечников и забрюшинного пространства</td>
-            <td>24.02.2025</td>
-            <td>Надпочечники не визуализируются, патологических образований в проекции не выявлено. Забрюшинные лимфоузлы не лоцируются. Свободной жидкости нет.</td>
-          </tr>
-          <tr>
-            <td>МРТ головного мозга</td>
-            <td>20.02.2025</td>
-            <td>Стабильная аденома гипофиза, небольшая фалькс-менингиома справа, ангиопатия мелких сосудов, признаки левостороннего аксилярного синусита</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ============ 19 ============ -->
-  <section class="slide" id="s19">
-    <div class="badge">19</div>
-    <h2>Исследования: осложнения и риски</h2>
-
-    <div class="grid g2 mt">
-      <div class="card">
-        <h3>ЭКГ 17.02.2025</h3>
-        <p style="font-size:.92rem">Синусовый ритм, ЧСС 71/мин. Нарушение процессов реполяризации передней распространённой области ЛЖ, ишемический генез не исключён.</p>
-      </div>
-      <div class="card blue">
-        <h3>ЭНМГ 19.02 и 21.11.2025</h3>
-        <p style="font-size:.92rem">Признаки умеренного аксонально-демиелинизирующего поражения сенсорных волокон малоберцовых нервов с двух сторон. На 21.11.2025 заключение сохраняется.</p>
-      </div>
-    </div>
-
-    <div class="callout green mt">
-      <p><strong>Зачем это важно.</strong> При гиперкортицизме нужно видеть не только гормоны, но и цену заболевания: сосуды, нервы, кости, обмен, инфекции и заживление тканей.</p>
-    </div>
-  </section>
-
-  <!-- ============ 20 ============ -->
-  <section class="slide" id="s20">
-    <div class="badge">20</div>
-    <h2>Итог клинического случая</h2>
-
-    <div class="card gold mt">
-      <h3>Диагноз</h3>
-      <p style="font-size:.95rem"><strong>Болезнь Иценко-Кушинга, медикаментозная компенсация</strong></p>
-    </div>
-
-    <div class="card mt">
-      <h3>Сопутствующие состояния</h3>
-      <ul>
-        <li>СД 2 типа, целевой HbA1c менее 7,0%</li>
-        <li>Узловой зоб II степени, эутиреоз</li>
-        <li>АГ II стадии, 2 степени, риск 4</li>
-        <li>Миелолипома правого надпочечника, гормонально неактивная</li>
-        <li>Парасагиттальная менингиома лобной области</li>
-        <li>Смешанная дислипидемия</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ============ 21 ============ -->
-  <section class="slide" id="s21">
-    <div class="badge">21</div>
-    <h2>Лечебные рекомендации</h2>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Направление</th><th>Рекомендации</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Питание</td><td>Низкокалорийная диета с учётом ХЕ: 10–12 ХЕ/сут</td></tr>
-          <tr><td>Гликемия</td><td>Контроль глюкозы в динамике, HbA1c через 3 месяца</td></tr>
-          <tr><td>СД 2 типа</td><td>Метформин 1000 мг 2 раза/сут, Галвус 50 мг 2 раза/сут</td></tr>
-          <tr><td>АГ</td><td>Лозартан 50 мг 1 раз/сут</td></tr>
-          <tr><td>Дислипидемия</td><td>Аторвастатин 20 мг вечером длительно, липидограмма через 3 месяца</td></tr>
-          <tr><td>Дофаминергическая терапия</td><td>Достинекс 0,5 мг по ½ таблетки 1 раз/нед</td></tr>
-          <tr><td>Гиперкортицизм</td><td>Кетоконазол 200 мг по 1 таб. 2 раза/сут</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ============ 22 ============ -->
-  <section class="slide" id="s22">
-    <div class="badge">22</div>
-    <h2>План динамического контроля</h2>
-
-    <div class="grid g2 mt">
-      <div class="card">
-        <h3>Через 6 месяцев</h3>
-        <ul>
-          <li>ТТГ, АКТГ крови</li>
-          <li>Кортизол в суточной моче</li>
-        </ul>
-      </div>
-      <div class="card blue">
-        <h3>1 раз в год</h3>
-        <ul>
-          <li>МРТ головного мозга</li>
-          <li>УЗИ щитовидной железы</li>
-          <li>Остеоденситометрия поясничного отдела и шейки бедренной кости</li>
-        </ul>
-      </div>
-      <div class="card gold">
-        <h3>Планово</h3>
-        <ul>
-          <li>КТ печени и надпочечников</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Постоянно</h3>
-        <ul>
-          <li>Наблюдение эндокринологом и неврологом по месту жительства</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 23 ============ -->
-  <section class="slide" id="s23">
-    <div class="badge">23</div>
-    <h2>Почему пациентку можно вести на кетоконазоле</h2>
-
-    <div class="grid g2 mt">
-      <div class="card">
-        <h3>В исходных данных</h3>
-        <p style="font-size:.92rem">Операция не проводилась. Поэтому кетоконазол выступает как метод контроля гиперкортицизма, а не как радикальное лечение источника АКТГ.</p>
-      </div>
-      <div class="card gold">
-        <h3>Когда такая тактика обоснована</h3>
-        <ul>
-          <li>Операция невозможна или отложена</li>
-          <li>Нет чёткой хирургической мишени</li>
-          <li>Пациент отказывается от операции</li>
-          <li>Нужна подготовка к операции или лучевой терапии</li>
-          <li>Есть рецидив или персистенция после вмешательства</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="callout green mt">
-      <p>Размер аденомы сам по себе не отменяет операцию. Решение зависит от доказанности источника, рисков и доступности радикального лечения.</p>
-    </div>
-  </section>
-
-  <!-- ============ 24 ============ -->
-  <section class="slide" id="s24">
-    <div class="badge">24</div>
-    <h2>Три уровня медикаментозного воздействия</h2>
-
-    <!-- СХЕМА 2: три уровня -->
-    <figure class="figure">
-      <svg viewBox="0 0 1000 112" role="img" aria-label="Три уровня медикаментозного воздействия: гипофиз — снижение АКТГ; надпочечник — снижение синтеза кортизола; рецептор — блокада действия кортизола">
-        <defs>
-          <marker id="arrowB" viewBox="0 0 6 6" refX="5.2" refY="3"
-                  markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
-            <path d="M0,0 L6,3 L0,6 Z" fill="#9fb39f"/>
-          </marker>
-        </defs>
-        <g font-family="Inter, Segoe UI, sans-serif" text-anchor="middle" dominant-baseline="central">
-
-          <line x1="284" y1="56" x2="356" y2="56" stroke="#9fb39f" stroke-width="2" marker-end="url(#arrowB)"/>
-          <line x1="644" y1="56" x2="716" y2="56" stroke="#9fb39f" stroke-width="2" marker-end="url(#arrowB)"/>
-
-          <rect x="0" y="24" width="280" height="64" rx="14" fill="#e7efe4" stroke="#c6dbc0"/>
-          <text x="140" y="48" font-size="16" font-weight="700" fill="#243424">1. Гипофиз</text>
-          <text x="140" y="70" font-size="13" font-weight="500" fill="#3d5a40">снижение АКТГ</text>
-
-          <rect x="360" y="24" width="280" height="64" rx="14" fill="#f7e9c4" stroke="#e6cf95"/>
-          <text x="500" y="48" font-size="16" font-weight="700" fill="#6d5310">2. Надпочечник</text>
-          <text x="500" y="70" font-size="13" font-weight="500" fill="#8a6d10">снижение синтеза кортизола</text>
-
-          <rect x="720" y="24" width="280" height="64" rx="14" fill="#dbe7f3" stroke="#b9d0e8"/>
-          <text x="860" y="48" font-size="16" font-weight="700" fill="#1f3a55">3. Рецептор</text>
-          <text x="860" y="70" font-size="13" font-weight="500" fill="#22405e">блокада действия кортизола</text>
-        </g>
-      </svg>
-      <figcaption>Три точки приложения терапии: гипофиз, стероидогенез надпочечника и глюкокортикоидный рецептор</figcaption>
-    </figure>
-
-    <div class="callout green mt">
-      <p><strong>Практический смысл.</strong> Кетоконазол относится ко второму уровню: он блокирует стероидогенез в надпочечниках. Поэтому основной показатель титрации дозы — кортизол и клиника, а не изолированный АКТГ.</p>
-    </div>
-  </section>
-
-  <!-- ============ 25 ============ -->
-  <section class="slide" id="s25">
-    <div class="badge">25</div>
-    <h2>Схема мишеней терапии</h2>
-
-    <!-- СХЕМА 3: полная карта мишеней -->
-    <figure class="figure">
-      <svg viewBox="0 0 1180 620" role="img" aria-label="Схема мишеней терапии: гипофиз (SSTR5 — пасиреотид, D2R — каберголин), надпочечник с цепочкой стероидогенеза и ингибиторами (кетоконазол, метирапон, осилодростат, этомидат, митотан), GR-рецептор (мифепристон, релакорилант)">
-        <defs>
-          <marker id="arrowC" viewBox="0 0 6 6" refX="5.2" refY="3"
-                  markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
-            <path d="M0,0 L6,3 L0,6 Z" fill="#9fb39f"/>
-          </marker>
-        </defs>
-
-        <g font-family="Inter, Segoe UI, sans-serif" text-anchor="middle" dominant-baseline="central">
-
-          <!-- ===== ГИПОФИЗ ===== -->
-          <rect x="20" y="20" width="160" height="64" rx="14" fill="#e7efe4" stroke="#c6dbc0"/>
-          <text x="100" y="52" font-size="16" font-weight="700" fill="#243424">Гипофиз</text>
-
-          <path d="M180 44 L 244 30" stroke="#9fb39f" stroke-width="2" fill="none"/>
-          <path d="M180 68 L 244 104" stroke="#9fb39f" stroke-width="2" fill="none"/>
-
-          <rect x="250" y="5" width="230" height="52" rx="12" fill="#ffffff" stroke="#c6dbc0"/>
-          <text x="365" y="31" font-size="15" font-weight="700" fill="#243424">SSTR5 · Пасиреотид</text>
-
-          <rect x="250" y="80" width="230" height="52" rx="12" fill="#ffffff" stroke="#c6dbc0"/>
-          <text x="365" y="106" font-size="15" font-weight="700" fill="#243424">D2R · Каберголин</text>
-
-          <!-- ===== НАДПОЧЕЧНИК ===== -->
-          <rect x="560" y="18" width="200" height="64" rx="14" fill="#f7e9c4" stroke="#e6cf95"/>
-          <text x="660" y="50" font-size="16" font-weight="700" fill="#6d5310">Надпочечник</text>
-          <path d="M660 82 L 660 176" stroke="#c6dbc0" stroke-width="2" stroke-dasharray="5 5" fill="none"/>
-
-          <!-- ===== ЦЕПОЧКА СТЕРОИДОГЕНЕЗА ===== -->
-          <line x1="262" y1="212" x2="296" y2="212" stroke="#9fb39f" stroke-width="2" marker-end="url(#arrowC)"/>
-          <line x1="462" y1="212" x2="496" y2="212" stroke="#9fb39f" stroke-width="2" marker-end="url(#arrowC)"/>
-          <line x1="662" y1="212" x2="696" y2="212" stroke="#9fb39f" stroke-width="2" marker-end="url(#arrowC)"/>
-          <line x1="862" y1="212" x2="896" y2="212" stroke="#9fb39f" stroke-width="2" marker-end="url(#arrowC)"/>
-
-          <rect x="100" y="180" width="160" height="64" rx="12" fill="#e7efe4" stroke="#c6dbc0"/>
-          <text x="180" y="212" font-size="14" font-weight="700" fill="#243424">Холестерин</text>
-
-          <rect x="300" y="180" width="160" height="64" rx="12" fill="#e7efe4" stroke="#c6dbc0"/>
-          <text x="380" y="212" font-size="14" font-weight="700" fill="#243424">Прегненолон</text>
-
-          <rect x="500" y="180" width="160" height="64" rx="12" fill="#e7efe4" stroke="#c6dbc0"/>
-          <text x="580" y="212" font-size="14" font-weight="700" fill="#243424">17-ОН предш.</text>
-
-          <rect x="700" y="180" width="160" height="64" rx="12" fill="#e7efe4" stroke="#c6dbc0"/>
-          <text x="780" y="203" font-size="13" font-weight="700" fill="#243424">11-дезокси-</text>
-          <text x="780" y="222" font-size="13" font-weight="700" fill="#243424">кортизол</text>
-
-          <rect x="900" y="180" width="160" height="64" rx="12" fill="#f7e9c4" stroke="#e6cf95"/>
-          <text x="980" y="212" font-size="14" font-weight="700" fill="#6d5310">Кортизол</text>
-
-          <!-- ===== СВЯЗИ ИНГИБИТОРОВ С ЦЕПОЧКОЙ ===== -->
-          <path d="M405 338 L 405 246" stroke="#e8c2c2" stroke-width="2" stroke-dasharray="4 4" fill="none"/>
-          <path d="M705 338 L 705 246" stroke="#e8c2c2" stroke-width="2" stroke-dasharray="4 4" fill="none"/>
-          <path d="M980 338 L 980 246" stroke="#e8c2c2" stroke-width="2" stroke-dasharray="4 4" fill="none"/>
-
-          <!-- ===== ИНГИБИТОРЫ ===== -->
-          <rect x="280" y="340" width="250" height="100" rx="14" fill="#f6dcdc" stroke="#e8c2c2"/>
-          <text x="405" y="368" font-size="14" font-weight="700" fill="#7a3232">Кетоконазол</text>
-          <text x="405" y="390" font-size="14" font-weight="700" fill="#7a3232">Левокетоконазол</text>
-          <text x="405" y="414" font-size="11" font-weight="500" fill="#9c5252">CYP11A1 / CYP17A1 / CYP11B1</text>
-
-          <rect x="580" y="340" width="250" height="100" rx="14" fill="#f6dcdc" stroke="#e8c2c2"/>
-          <text x="705" y="366" font-size="14" font-weight="700" fill="#7a3232">Метирапон</text>
-          <text x="705" y="386" font-size="14" font-weight="700" fill="#7a3232">Осилодростат</text>
-          <text x="705" y="406" font-size="14" font-weight="700" fill="#7a3232">Этомидат</text>
-          <text x="705" y="426" font-size="11" font-weight="500" fill="#9c5252">CYP11B1</text>
-
-          <rect x="880" y="340" width="200" height="100" rx="14" fill="#f6dcdc" stroke="#e8c2c2"/>
-          <text x="980" y="382" font-size="14" font-weight="700" fill="#7a3232">Митотан</text>
-          <text x="980" y="404" font-size="11" font-weight="500" fill="#9c5252">адренолитик</text>
-
-          <!-- ===== GR-РЕЦЕПТОР ===== -->
-          <rect x="20" y="500" width="200" height="64" rx="14" fill="#dbe7f3" stroke="#b9d0e8"/>
-          <text x="120" y="532" font-size="16" font-weight="700" fill="#1f3a55">GR-рецептор</text>
-
-          <rect x="260" y="490" width="420" height="84" rx="14" fill="#dbe7f3" stroke="#b9d0e8"/>
-          <text x="470" y="520" font-size="15" font-weight="700" fill="#1f3a55">Мифепристон / Релакорилант</text>
-          <text x="470" y="546" font-size="12" font-weight="500" fill="#22405e">блокируют эффект кортизола в тканях</text>
-
-        </g>
-      </svg>
-      <figcaption>Точки приложения: гипофиз (SSTR5, D2R), стероидогенез надпочечника (CYP-ферменты) и глюкокортикоидный рецептор</figcaption>
-    </figure>
-  </section>
-
-  <!-- ============ 26 ============ -->
-  <section class="slide" id="s26">
-    <div class="badge">26</div>
-    <h2>Зарегистрированные и применяемые препараты</h2>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Препарат</th><th>Мишень</th><th>Практический комментарий</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Пасиреотид / Signifor</td>
-            <td>SSTR5 гипофиза</td>
-            <td>При БИК после неэффективной или невозможной операции. Частый риск — гипергликемия.</td>
-          </tr>
-          <tr>
-            <td>Осилодростат / Isturisa</td>
-            <td>CYP11B1 ± CYP11B2</td>
-            <td>Мощно снижает кортизол. Контроль НН, К⁺, QT.</td>
-          </tr>
-          <tr>
-            <td>Кетоконазол</td>
-            <td>CYP17A1, CYP11A1, CYP11B1</td>
-            <td>У пациентки дал контроль кортизола на небольшой дозе. Контроль АЛТ/АСТ, CYP3A4, QT.</td>
-          </tr>
-          <tr>
-            <td>Левокетоконазол / Recorlev</td>
-            <td>CYP11A1, CYP17A1, CYP11B1</td>
-            <td>Стереоизомер кетоконазола. Важны печень и QT.</td>
-          </tr>
-          <tr>
-            <td>Метирапон</td>
-            <td>CYP11B1, CYP11B2</td>
-            <td>Быстро снижает кортизол. Возможны гипокалиемия, АГ, гиперандрогения.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ============ 27 ============ -->
-  <section class="slide" id="s27">
-    <div class="badge">27</div>
-    <h2>Другие варианты медикаментозного контроля</h2>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Препарат</th><th>Где нужен</th><th>Главные риски</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Этомидат</td>
-            <td>Быстрый в/в контроль, если невозможен пероральный путь</td>
-            <td>Седация при высоких дозах, ОРИТ, тошнота, нефротоксичность, миоклонус, лактацидоз</td>
-          </tr>
-          <tr>
-            <td>Митотан</td>
-            <td>Адренолитическая терапия, особенно при адренокортикальной карциноме</td>
-            <td>Частая НН, ЖКТ, астения, головокружение, когнитивные нарушения, гиперхолестеринемия, ↑ГГТ</td>
-          </tr>
-          <tr>
-            <td>Мифепристон / Korlym</td>
-            <td>GR/PR-антагонист, особенно при гипергликемии у взрослых с эндогенным СК</td>
-            <td>Кортизол не подходит для мониторинга, гипокалиемия, отёки, эндометрий, беременность противопоказана</td>
-          </tr>
-          <tr>
-            <td>Темозоломид</td>
-            <td>Агрессивные аденомы и карциномы</td>
-            <td>Миелосупрессия, инфекции, контроль ОАК и печени</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="callout mt">
-      <p><strong>Block-and-replace:</strong> сильная блокада синтеза кортизола с последующей заместительной терапией гидрокортизоном.</p>
-    </div>
-  </section>
-
-  <!-- ============ 28 ============ -->
-  <section class="slide" id="s28">
-    <div class="badge">28</div>
-    <h2>Новые направления терапии</h2>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Направление</th><th>Примеры</th><th>Идея</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Блокада рецептора АКТГ / MC2R</td>
-            <td>CRN04894 / atumelnant; ALD1613</td>
-            <td>Снизить действие избытка АКТГ на надпочечники</td>
-          </tr>
-          <tr>
-            <td>USP8 и EGFR</td>
-            <td>RA-9, DUBS-IN-2; gefitinib, lapatinib</td>
-            <td>Подавить сигнальные механизмы кортикотропной опухоли</td>
-          </tr>
-          <tr>
-            <td>Cyclin E</td>
-            <td>seliciclib / R-roscovitine</td>
-            <td>Уменьшить пролиферацию и продукцию ПОМС/АКТГ</td>
-          </tr>
-          <tr>
-            <td>HSP90</td>
-            <td>silibinin</td>
-            <td>Восстановить отрицательную обратную связь глюкокортикоидов</td>
-          </tr>
-          <tr>
-            <td>HDAC</td>
-            <td>vorinostat, CUDC-907</td>
-            <td>Эпигенетическое влияние на опухолевые клетки и АКТГ</td>
-          </tr>
-          <tr>
-            <td>RAR/RXR</td>
-            <td>retinoic acid</td>
-            <td>Подавление ПОМС, АКТГ и кортизола. В малых исследованиях UFC 37,5–43%</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p class="note">Для выступления: это перспективы, а не стандартная клиническая практика.</p>
-  </section>
-
-  <!-- ============ 29 ============ -->
-  <section class="slide" id="s29">
-    <div class="badge">29</div>
-    <h2>Почему малая доза могла работать</h2>
-
-    <div class="grid g2 mt">
-      <div class="card">
-        <h3>Что сделал препарат</h3>
-        <ul>
-          <li>Снизил синтез кортизола в надпочечниках</li>
-          <li>Кортизол снизился с 940,58 до 240,0 нмоль/л</li>
-          <li>В рекомендациях после выписки: 200 мг 2 раза/сут</li>
-        </ul>
-      </div>
-      <div class="card gold">
-        <h3>Почему нельзя повышать дозу по АКТГ</h3>
-        <ul>
-          <li>АКТГ остался высоким, но кортизол уже ниже референса</li>
-          <li>Доза подбирается по клинике и кортизолу</li>
-          <li>Повышение дозы может привести к гипокортицизму</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="callout green mt">
-      <p><strong>Практический вывод.</strong> Хороший ответ на малой дозе объясняется чувствительным контролем стероидогенеза, а не исчезновением АКТГ-зависимой болезни.</p>
-    </div>
-  </section>
-
-  <!-- ============ 30 ============ -->
-  <section class="slide" id="s30">
-    <div class="badge">30</div>
-    <h2>Как вести пациента на кетоконазоле</h2>
-
-    <div class="grid g3 mt">
-      <div class="card">
-        <h3>До старта и при титрации</h3>
-        <ul>
-          <li>АЛТ, АСТ, билирубин</li>
-          <li>Электролиты</li>
-          <li>ЭКГ при риске QT</li>
-          <li>Лекарственные взаимодействия CYP3A4</li>
-        </ul>
-      </div>
-      <div class="card blue">
-        <h3>Эффективность</h3>
-        <ul>
-          <li>Кортизол крови</li>
-          <li>Суточный свободный кортизол мочи</li>
-          <li>Поздневечерний кортизол слюны при доступности</li>
-          <li>Клиника гиперкортицизма</li>
-        </ul>
-      </div>
-      <div class="card gold">
-        <h3>Безопасность</h3>
-        <ul>
-          <li>Слабость, тошнота</li>
-          <li>Гипотония</li>
-          <li>Потеря аппетита</li>
-          <li>Na⁺, K⁺, глюкоза</li>
-          <li>Признаки гипокортицизма</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="callout mt">
-      <p>АКТГ контролируем для оценки активности источника, но не используем изолированно для увеличения дозы.</p>
-    </div>
-  </section>
-
-  <!-- ============ 31 ============ -->
-  <section class="slide" id="s31">
-    <div class="badge">31</div>
-    <h2>Практические выводы</h2>
-
-    <div class="conclusion-grid">
-      <div class="conc">
-        <div class="num">1</div>
-        <p>У пациентки длительное течение БИК с метаболическими, сосудистыми, костно-мышечными и неврологическими проявлениями.</p>
-      </div>
-      <div class="conc">
-        <div class="num">2</div>
-        <p>Кетоконазол дал выраженный контроль кортизола на небольшой дозе, но высокий АКТГ сохраняет необходимость наблюдения за источником.</p>
-      </div>
-      <div class="conc">
-        <div class="num">3</div>
-        <p>У пациентки с СД 2 типа особенно важны гликемия, риск гипокортицизма, печёночная безопасность, электролиты и взаимодействия.</p>
-      </div>
-      <div class="conc">
-        <div class="num">4</div>
-        <p>Современная терапия синдрома Кушинга строится вокруг гипофиза, стероидогенеза надпочечников и глюкокортикоидного рецептора.</p>
-      </div>
-    </div>
-
-    <div class="final-quote">
-      Главная фраза: <span>контролируем пациента, а не один показатель</span>
-    </div>
-  </section>
-
+  </header>
+  <div class="progress" id="progress"></div>
+  <div id="stage"></div>
+  <div class="foot">Демонстрационная версия · не заменяет консультацию врача</div>
 </div>
-
-<footer>
-  <p><strong>Болезнь Иценко-Кушинга</strong> — клинический случай длительного медикаментозного контроля</p>
-  <p>Крюкова А.А. · РостГМУ, кафедра эндокринологии</p>
-  <p style="margin-top:10px;font-size:.78rem">Образовательная иллюстрация. Материал предназначен для профессиональной аудитории и не заменяет клинические рекомендации.</p>
-</footer>
-
-<button id="toTop" aria-label="Наверх">↑</button>
 
 <script>
 (function(){
-  var btn = document.getElementById('toTop');
-  window.addEventListener('scroll', function(){
-    if(window.scrollY > 600){ btn.classList.add('show'); }
-    else { btn.classList.remove('show'); }
-  }, {passive:true});
-  btn.addEventListener('click', function(){
-    window.scrollTo({top:0, behavior:'smooth'});
-  });
+'use strict';
 
-  /* Подсветка активного пункта содержания при прокрутке */
-  var links = Array.prototype.slice.call(document.querySelectorAll('.toc-grid a'));
-  var map = {};
-  links.forEach(function(a){
-    var id = a.getAttribute('href').slice(1);
-    var el = document.getElementById(id);
-    if(el) map[id] = a;
+/* ============== STATE ============== */
+const TOTAL_STEPS = 7;
+const STEP_TITLES = ['Профиль','Риск переломов','Симптомы','Кальций','Фото рациона','Витамин D','Итог'];
+const STEP_ICONS  = ['👤','🦴','🌡️','🥛','📷','☀️','✨'];
+const STORAGE_KEY = 'osteomenopause_v1';
+
+const defaultState = {
+  step: 1,
+  profile: {},
+  frax: {},
+  greene: {},
+  calcium: {},
+  photo: null,
+  vitaminD: {},
+};
+
+let state = (() => {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return structuredClone(defaultState);
+    return Object.assign(structuredClone(defaultState), JSON.parse(raw));
+  } catch(e) { return structuredClone(defaultState); }
+})();
+
+function save(){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} }
+function reset(){ state = structuredClone(defaultState); save(); render(); }
+
+/* ============== HELPERS ============== */
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const on = (s, ev, fn, r=document) => { const el=$(s,r); if(el) el.addEventListener(ev, fn); };
+const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num = (v) => { const n = parseFloat(String(v).replace(',','.')); return isFinite(n) ? n : null; };
+const fmt = (n, d=1) => (Math.round(n*10**d)/10**d).toFixed(d);
+const head = (i, title, sub) =>
+  `<h2><span class="step-ico">${STEP_ICONS[i]}</span>Шаг ${i+1}. ${title}</h2>` +
+  (sub ? `<p class="muted">${sub}</p>` : '');
+
+/* ============== DATA ============== */
+const CALCIUM_FOODS = [
+  { id:'milk',      name:'Молоко / кисломолочные напитки', unit:'200 мл', mg:240 },
+  { id:'yogurt',    name:'Йогурт',                        unit:'125 г',  mg:150 },
+  { id:'curd',      name:'Творог',                        unit:'150 г',  mg:180 },
+  { id:'cheese',    name:'Твёрдый сыр',                   unit:'30 г',   mg:300 },
+  { id:'fish',      name:'Рыба с костями (сардины)',      unit:'100 г',  mg:350 },
+  { id:'greens',    name:'Зелень, капуста',               unit:'200 г',  mg:120 },
+  { id:'legumes',   name:'Бобовые, орехи',                unit:'100 г',  mg:100 },
+  { id:'fortified', name:'Обогащённые продукты',          unit:'200 мл', mg:240 },
+];
+
+const GREENE_ITEMS = [
+  { id:'a1', d:'anxiety',    t:'Сердцебиение, учащённый пульс' },
+  { id:'a2', d:'anxiety',    t:'Чувство внутреннего напряжения' },
+  { id:'a3', d:'anxiety',    t:'Приступы паники' },
+  { id:'a4', d:'anxiety',    t:'Трудности с концентрацией внимания' },
+  { id:'a5', d:'anxiety',    t:'Беспокойство, взвинченность' },
+  { id:'a6', d:'anxiety',    t:'Раздражительность' },
+  { id:'d1', d:'depression', t:'Чувство усталости, нехватки энергии' },
+  { id:'d2', d:'depression', t:'Потеря интереса к привычным занятиям' },
+  { id:'d3', d:'depression', t:'Подавленность, уныние' },
+  { id:'d4', d:'depression', t:'Плаксивость' },
+  { id:'d5', d:'depression', t:'Чувство безнадёжности' },
+  { id:'s1', d:'somatic',    t:'Головокружение, пошатывание' },
+  { id:'s2', d:'somatic',    t:'Головные боли, давление в голове' },
+  { id:'s3', d:'somatic',    t:'Онемение или покалывание в теле' },
+  { id:'s4', d:'somatic',    t:'Боли в мышцах и суставах' },
+  { id:'s5', d:'somatic',    t:'Потеря чувствительности в руках/ногах' },
+  { id:'s6', d:'somatic',    t:'Затруднённое дыхание' },
+  { id:'s7', d:'somatic',    t:'Ощущение вздутия, распирания' },
+  { id:'v1', d:'vasomotor',  t:'Приливы жара' },
+  { id:'v2', d:'vasomotor',  t:'Ночная потливость' },
+  { id:'x1', d:'sexual',     t:'Снижение интереса к сексу' },
+];
+
+/* ============== FRAX (упрощённая демо-модель) ============== */
+function computeFrax(p){
+  const age = p.age || 0;
+  const bmi = (p.weight && p.height) ? p.weight / ((p.height/100)**2) : 24;
+  let mof = Math.max(0, age - 40) * 0.35;
+  if (bmi < 20) mof *= 1.5;
+  else if (bmi < 25) mof *= 1.15;
+  if (p.prevFracture)    mof *= 1.8;
+  if (p.parentHip)       mof *= 1.4;
+  if (p.smoking)         mof *= 1.3;
+  if (p.glucocorticoids) mof *= 1.6;
+  if (p.rheumatoid)      mof *= 1.4;
+  if (p.secondary)       mof *= 1.4;
+  if (p.alcohol)         mof *= 1.3;
+  if (p.tscore != null && p.tscore <= -2.5) mof *= 1.6;
+  else if (p.tscore != null && p.tscore <= -1.0) mof *= 1.2;
+
+  let hip = mof * 0.35;
+  if (age > 65) hip *= 1.5;
+
+  mof = Math.min(mof, 60);
+  hip = Math.min(hip, 40);
+  return { mof, hip };
+}
+function fraxCategory(mof, hip){
+  if (mof >= 20 || hip >= 3) return { key:'high', label:'Высокий риск', cls:'danger' };
+  if (mof >= 10)             return { key:'mid',  label:'Промежуточный риск', cls:'warn' };
+  return                            { key:'low',  label:'Низкий риск', cls:'ok' };
+}
+
+/* ============== STEPS ============== */
+function renderStep1(){
+  const p = state.profile || {};
+  return `
+  <div class="card">
+    ${head(0,'Короткий профиль','Минимальные данные для дальнейших расчётов.')}
+    <div class="row">
+      <label>Возраст, лет<input type="number" id="age" min="35" max="90" value="${esc(p.age??'')}" placeholder="52"></label>
+      <label>Рост, см<input type="number" id="height" min="120" max="210" value="${esc(p.height??'')}" placeholder="165"></label>
+      <label>Масса тела, кг<input type="number" id="weight" min="30" max="200" value="${esc(p.weight??'')}" placeholder="70"></label>
+      <label>Менструальный статус
+        <select id="meno">
+          <option value="pre"  ${p.meno==='pre'?'selected':''}>Сохранён (регулярный)</option>
+          <option value="peri" ${p.meno==='peri'?'selected':''}>Перименопауза</option>
+          <option value="post" ${p.meno==='post'?'selected':''}>Постменопауза</option>
+        </select>
+      </label>
+    </div>
+    <label>Дата последней менструации (если применимо)
+      <input type="date" id="lmp" value="${esc(p.lmp??'')}">
+    </label>
+    <h3>Анамнез</h3>
+    <label><input type="checkbox" id="fractures" ${p.fractures?'checked':''}> Были низкоэнергетические переломы</label>
+    <label><input type="checkbox" id="densitometry" ${p.densitometry?'checked':''}> Проводилась денситометрия</label>
+    <label>T-score шейки бедра (если известен)
+      <input type="number" step="0.1" id="tscore" value="${esc(p.tscore??'')}" placeholder="-2.5">
+    </label>
+    <div class="actions">
+      <button class="btn" id="next">Далее →</button>
+    </div>
+  </div>`;
+}
+
+function renderStep2(){
+  const p = state.profile || {};
+  const f = state.frax || {};
+  const yn = (k, label, hint='') => `
+    <div class="item">
+      <div class="item-label">${label}${hint?`<div class="muted">${hint}</div>`:''}</div>
+      <div class="scale">
+        <label><input type="radio" name="${k}" value="1" ${f[k]===1?'checked':''}> Да</label>
+        <label><input type="radio" name="${k}" value="0" ${f[k]!==1?'checked':''}> Нет</label>
+      </div>
+    </div>`;
+  return `
+  <div class="card">
+    ${head(1,'Оценка риска переломов',
+      `Используются возраст, рост и масса из шага 1: <b>${esc(p.age)} лет · ${esc(p.height)} см · ${esc(p.weight)} кг</b>.`)}
+    <h3>Факторы риска</h3>
+    ${yn('prevFracture', 'Предшествующий низкоэнергетический перелом')}
+    ${yn('parentHip', 'Перелом шейки бедра у родителей')}
+    ${yn('smoking', 'Курение в настоящее время')}
+    ${yn('glucocorticoids', 'Приём глюкокортикоидов')}
+    ${yn('rheumatoid', 'Ревматоидный артрит')}
+    ${yn('secondary', 'Причины вторичного остеопороза', 'например, ранняя менопауза, сахарный диабет 1 типа, мальабсорбция')}
+    ${yn('alcohol', 'Алкоголь 3+ единицы в сутки')}
+    <div class="actions">
+      <button class="btn ghost" id="back">← Назад</button>
+      <button class="btn" id="calc">Рассчитать риск</button>
+    </div>
+    <div id="frax-result"></div>
+  </div>`;
+}
+
+function renderStep3(){
+  const g = state.greene || {};
+  const items = GREENE_ITEMS.map(it => {
+    const val = g[it.id] ?? 0;
+    const btns = [0,1,2,3].map(v =>
+      `<button type="button" data-item="${it.id}" data-val="${v}" class="${val===v?'on':''}">${v}</button>`
+    ).join('');
+    return `<div class="item">
+      <div class="item-label">${it.t}</div>
+      <div class="scale">${btns}</div>
+    </div>`;
+  }).join('');
+  return `
+  <div class="card">
+    ${head(2,'Шкала Грина','Оцените выраженность симптомов: <b>0</b> — нет, <b>1</b> — слабо, <b>2</b> — умеренно, <b>3</b> — сильно.')}
+    ${items}
+    <div class="actions">
+      <button class="btn ghost" id="back">← Назад</button>
+      <button class="btn" id="next">Рассчитать домены</button>
+    </div>
+    <div id="greene-result"></div>
+  </div>`;
+}
+
+function renderStep4(){
+  const c = state.calcium || {};
+  const rows = CALCIUM_FOODS.map(f => {
+    const e = (c.items && c.items[f.id]) || { on:false, qty:1 };
+    return `<div class="item">
+      <label class="item-label" style="display:flex;align-items:center;gap:10px;margin:0">
+        <input type="checkbox" class="food-on" data-food="${f.id}" ${e.on?'checked':''}>
+        <span>${f.name}<div class="muted">${f.unit} ≈ ${f.mg} мг кальция</div></span>
+      </label>
+      <input type="number" min="0" step="0.5" class="food-qty" data-qty="${f.id}" value="${e.qty ?? 1}" style="width:80px;margin:0;text-align:center">
+    </div>`;
+  }).join('');
+  return `
+  <div class="card">
+    ${head(3,'Кальций в рационе','Отметьте продукты и укажите количество порций в сутки.')}
+    ${rows}
+    <div class="actions">
+      <button class="btn ghost" id="back">← Назад</button>
+      <button class="btn" id="calc">Рассчитать поступление</button>
+    </div>
+    <div id="ca-result"></div>
+  </div>`;
+}
+
+function renderStep5(){
+  const ph = state.photo;
+  return `
+  <div class="card">
+    ${head(4,'ИИ-анализ рациона','Загрузите фото приёма пищи. В локальной демо-версии распознавание имитируется.')}
+    <label class="photo-box" for="photo-input">
+      <span class="ico">📷</span>
+      <div>Нажмите, чтобы выбрать фото</div>
+      <div class="muted">JPG или PNG</div>
+      <input type="file" id="photo-input" accept="image/*" hidden>
+    </label>
+    ${ph && ph.preview ? `<div style="margin-top:14px"><img src="${ph.preview}" alt="" style="max-width:100%;border-radius:12px;display:block"></div>` : ''}
+    <div id="photo-result">
+      ${ph && ph.result ? photoResultHtml(ph.result) : ''}
+    </div>
+    <div class="actions">
+      <button class="btn ghost" id="back">← Назад</button>
+      <button class="btn" id="next">Далее →</button>
+    </div>
+  </div>`;
+}
+
+function photoResultHtml(r){
+  const total = r.items.reduce((s,i)=>s+i.mg,0);
+  const rows = r.items.map(i =>
+    `<div class="kv"><span>${i.name} · ${i.portion}</span><b>${i.mg} мг</b></div>`
+  ).join('');
+  return `
+    <div class="result">
+      <div class="muted">Распознано (демо)</div>
+      ${rows}
+      <div class="kv" style="border-top:1px solid rgba(255,255,255,.08);margin-top:6px;padding-top:10px">
+        <span><b>Итого за приём</b></span><span class="big">~${total} мг</span>
+      </div>
+      <div class="muted" style="margin-top:8px">Это ориентировочная ИИ-оценка. Точность зависит от распознавания продукта, рецептуры и размера порции.</div>
+      <button class="btn secondary" id="photo-add" style="margin-top:12px">Учесть в дневном итоге</button>
+    </div>`;
+}
+
+function renderStep6(){
+  const v = state.vitaminD || {};
+  const has = v.has === true;
+  return `
+  <div class="card">
+    ${head(5,'Витамин D','Есть ли у вас результат анализа 25(OH)D?')}
+    <div class="scale" style="margin-bottom:14px">
+      <label><input type="radio" name="vd-has" value="1" ${has?'checked':''}> Да</label>
+      <label><input type="radio" name="vd-has" value="0" ${v.has===false?'checked':''}> Нет</label>
+    </div>
+    <div id="vd-inputs" style="display:${has?'block':'none'}">
+      <div class="row">
+        <label>Значение<input type="number" step="0.1" id="vd-value" value="${esc(v.value??'')}" placeholder="25"></label>
+        <label>Единицы
+          <select id="vd-unit">
+            <option value="ng" ${v.unit==='ng'?'selected':''}>нг/мл</option>
+            <option value="nmol" ${v.unit==='nmol'?'selected':''}>нмоль/л</option>
+          </select>
+        </label>
+      </div>
+      <button class="btn" id="vd-calc">Интерпретировать</button>
+    </div>
+    <div id="vd-result"></div>
+    <div class="actions">
+      <button class="btn ghost" id="back">← Назад</button>
+      <button class="btn" id="next">Далее →</button>
+    </div>
+  </div>`;
+}
+
+function renderStep7(){
+  const p = state.profile;
+  const f = state.frax;
+  const g = state.greene;
+  const c = state.calcium;
+  const v = state.vitaminD;
+  const bmi = (p.weight && p.height) ? p.weight / ((p.height/100)**2) : null;
+  const frax = f && f.mof != null ? computeFrax({...p, ...f}) : null;
+  const cat = frax ? fraxCategory(frax.mof, frax.hip) : null;
+
+  return `
+  <div class="card">
+    ${head(6,'Персональный профиль','Итог по всем этапам маршрута.')}
+
+    <h3>Профиль</h3>
+    <div class="tiles">
+      <div class="tile"><div class="k">Возраст</div><div class="v">${esc(p.age)}</div></div>
+      <div class="tile"><div class="k">ИМТ</div><div class="v">${bmi?fmt(bmi):'—'}</div></div>
+      <div class="tile"><div class="k">Статус</div><div class="v" style="font-size:14px;font-weight:600">${p.meno==='post'?'Постменопауза':p.meno==='peri'?'Перименопауза':'Сохранён'}</div></div>
+    </div>
+
+    <h3>Риск переломов</h3>
+    ${frax ? `
+      <div class="kv"><span>10-летний риск основных переломов</span><b>${fmt(frax.mof)}%</b></div>
+      <div class="kv"><span>10-летний риск перелома бедра</span><b>${fmt(frax.hip)}%</b></div>
+      <div style="margin-top:8px"><span class="tag ${cat.cls}">${cat.label}</span></div>
+      <div class="muted" style="margin-top:6px">Демо-модель. Не является оригинальным калькулятором FRAX.</div>
+    ` : `<div class="muted">Не рассчитано</div>`}
+
+    <h3>Симптомы менопаузы (Грин)</h3>
+    ${g.total != null ? `
+      <div class="kv"><span>Общий балл</span><b>${g.total} / 63</b></div>
+      <div class="kv"><span>Психологические</span><b>${g.psychological}</b></div>
+      <div class="kv"><span>Соматические</span><b>${g.somatic}</b></div>
+      <div class="kv"><span>Вазомоторные</span><b>${g.vasomotor}</b></div>
+      <div class="kv"><span>Сексуальные</span><b>${g.sexual}</b></div>
+    ` : `<div class="muted">Не заполнено</div>`}
+
+    <h3>Кальций</h3>
+    ${c.total != null ? `
+      <div class="kv"><span>Поступление</span><b>~${c.total} мг/сут</b></div>
+      <div class="kv"><span>Цель</span><b>1000–1200 мг/сут</b></div>
+      <div class="kv"><span>Дефицит</span><b>${c.deficit>0?'~'+c.deficit+' мг/сут':'нет'}</b></div>
+    ` : `<div class="muted">Не рассчитано</div>`}
+
+    <h3>Витамин D</h3>
+    ${v.category ? `
+      <div class="kv"><span>25(OH)D</span><b>${v.value} ${v.unit==='ng'?'нг/мл':'нмоль/л'}</b></div>
+      <div class="kv"><span>Категория</span><span class="tag ${v.cls}">${v.category}</span></div>
+    ` : `<div class="muted">${v.has===false?'Анализ не проводился — обсудите с врачом необходимость исследования.':'Не заполнено'}</div>`}
+
+    <h3>Рекомендации</h3>
+    <ul style="padding-left:18px;font-size:14px;margin:8px 0 0">
+      ${cat && cat.key!=='low' ? '<li>Обсудить с врачом необходимость денситометрии и решения о терапии.</li>' : '<li>Профилактические мероприятия достаточны.</li>'}
+      ${c.total!=null && c.deficit>0 ? '<li>Скорректировать рацион (молочные продукты, рыба с костями, зелень); добавки — по согласованию с врачом.</li>' : ''}
+      ${g.total!=null && g.total>=20 ? '<li>Выраженные симптомы менопаузы — обсудить с гинекологом варианты коррекции.</li>' : ''}
+      ${v.has===false ? '<li>Рассмотреть исследование 25(OH)D при факторах риска.</li>' : ''}
+    </ul>
+
+    <div class="actions">
+      <button class="btn ghost" id="back">← Назад</button>
+      <button class="btn secondary" id="restart">Пройти заново</button>
+      <button class="btn" id="export">Скачать JSON</button>
+    </div>
+  </div>`;
+}
+
+/* ============== MOUNT ============== */
+function mountStep1(){
+  on('#next','click', () => {
+    const age = num($('#age').value);
+    const height = num($('#height').value);
+    const weight = num($('#weight').value);
+    if (!age || !height || !weight) { alert('Заполните возраст, рост и вес'); return; }
+    state.profile = {
+      age, height, weight,
+      meno: $('#meno').value,
+      lmp: $('#lmp').value || null,
+      fractures: $('#fractures').checked,
+      densitometry: $('#densitometry').checked,
+      tscore: num($('#tscore').value),
+    };
+    state.step = 2; render();
   });
-  if('IntersectionObserver' in window){
-    var current = null;
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting) current = e.target.id;
-      });
-      links.forEach(function(a){ a.classList.remove('active'); });
-      if(current && map[current]) map[current].classList.add('active');
-    }, {rootMargin:'-30% 0px -60% 0px'});
-    Object.keys(map).forEach(function(id){
-      obs.observe(document.getElementById(id));
+}
+
+function mountStep2(){
+  on('#back','click', () => { state.step = 1; render(); });
+  on('#calc','click', () => {
+    const f = {};
+    ['prevFracture','parentHip','smoking','glucocorticoids','rheumatoid','secondary','alcohol'].forEach(k => {
+      const el = document.querySelector(`input[name="${k}"]:checked`);
+      f[k] = el ? el.value === '1' : false;
     });
-  }
+    Object.assign(state.profile, f);
+    state.frax = f;
+    const { mof, hip } = computeFrax(state.profile);
+    const cat = fraxCategory(mof, hip);
+    $('#frax-result').innerHTML = `
+      <div class="result ${cat.cls}">
+        <div class="muted">Демонстрационная оценка</div>
+        <div class="big">${cat.label}</div>
+        <div class="kv"><span>10-летний риск основных переломов</span><b>${fmt(mof)}%</b></div>
+        <div class="kv"><span>10-летний риск перелома бедра</span><b>${fmt(hip)}%</b></div>
+        <div class="muted" style="margin-top:8px">Это не оригинальный FRAX. Реальные пороги зависят от клинических рекомендаций.</div>
+        <div style="margin-top:12px"><button class="btn" id="to3">К шкале Грина →</button></div>
+      </div>`;
+    on('#to3','click', () => { state.step = 3; render(); });
+    save();
+  });
+}
+
+function mountStep3(){
+  on('#back','click', () => { state.step = 2; render(); });
+  $$('.scale button').forEach(b => b.addEventListener('click', () => {
+    const id = b.dataset.item, val = +b.dataset.val;
+    state.greene[id] = val;
+    save();
+    $$(`.scale button[data-item="${id}"]`).forEach(x => x.classList.toggle('on', +x.dataset.val === val));
+  }));
+  on('#next','click', () => {
+    const acc = { anxiety:0, depression:0, somatic:0, vasomotor:0, sexual:0 };
+    GREENE_ITEMS.forEach(it => { acc[it.d] += state.greene[it.id] ?? 0; });
+    const psychological = acc.anxiety + acc.depression;
+    const total = psychological + acc.somatic + acc.vasomotor + acc.sexual;
+    state.greene = { ...state.greene, ...acc, psychological, total };
+    save();
+    $('#greene-result').innerHTML = `
+      <div class="result">
+        <div class="muted">Домены шкалы Грина</div>
+        <div class="kv"><span>Психологические (тревога + депрессия)</span><b>${psychological} / 33</b></div>
+        <div class="kv"><span>Соматические</span><b>${acc.somatic} / 21</b></div>
+        <div class="kv"><span>Вазомоторные</span><b>${acc.vasomotor} / 6</b></div>
+        <div class="kv"><span>Сексуальные</span><b>${acc.sexual} / 3</b></div>
+        <div class="kv" style="border-top:1px solid rgba(255,255,255,.08);margin-top:6px;padding-top:8px">
+          <span><b>Общий балл</b></span><span class="big">${total} / 63</span>
+        </div>
+        <div style="margin-top:12px"><button class="btn" id="to4">К кальцию →</button></div>
+      </div>`;
+    on('#to4','click', () => { state.step = 4; render(); });
+  });
+}
+
+function mountStep4(){
+  on('#back','click', () => { state.step = 3; render(); });
+  on('#calc','click', () => {
+    const items = {};
+    let total = 0;
+    CALCIUM_FOODS.forEach(f => {
+      const on_ = $(`.food-on[data-food="${f.id}"]`).checked;
+      const qty = num($(`.food-qty[data-qty="${f.id}"]`).value) || 0;
+      items[f.id] = { on: on_, qty };
+      if (on_) total += Math.round(f.mg * qty);
+    });
+    const target = 1100;
+    const deficit = Math.max(0, target - total);
+    state.calcium = { items, total, target, deficit };
+    save();
+    const pct = Math.min(100, Math.round(total / target * 100));
+    $('#ca-result').innerHTML = `
+      <div class="result ${total<800?'warn':'ok'}">
+        <div class="muted">Ориентировочное поступление</div>
+        <div class="big">~${total} мг/сут</div>
+        <div class="bar-meter"><i style="width:${pct}%"></i></div>
+        <div class="kv" style="margin-top:10px"><span>Целевая потребность</span><b>1000–1200 мг/сут</b></div>
+        <div class="kv"><span>${deficit>0?'Возможный дефицит':'Покрытие'}</span><b>${deficit>0?'~'+deficit+' мг/сут':'полное'}</b></div>
+        <div class="muted" style="margin-top:8px">Бот не назначает препараты кальция. Обсудите добавки с врачом.</div>
+        <div style="margin-top:12px"><button class="btn" id="to5">Далее →</button></div>
+      </div>`;
+    on('#to5','click', () => { state.step = 5; render(); });
+  });
+}
+
+function mountStep5(){
+  on('#back','click', () => { state.step = 4; render(); });
+  on('#photo-input','change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const demoResult = {
+        items: [
+          { name:'Творог',  portion:'~150 г', mg:180 },
+          { name:'Йогурт',  portion:'~125 г', mg:150 },
+          { name:'Кофе с молоком', portion:'~200 мл', mg:90 },
+        ],
+      };
+      state.photo = { preview: reader.result, result: demoResult };
+      save();
+      render();
+    };
+    reader.readAsDataURL(file);
+  });
+  on('#photo-add','click', () => {
+    if (!state.photo || !state.photo.result) return;
+    const add = state.photo.result.items.reduce((s,i)=>s+i.mg,0);
+    state.calcium = state.calcium || { items:{}, total:0, target:1100, deficit:0 };
+    state.calcium.photoAdd = add;
+    state.calcium.totalWithPhoto = (state.calcium.total || 0) + add;
+    save();
+    alert('Фото учтено: +' + add + ' мг. Итог с фото: ' + state.calcium.totalWithPhoto + ' мг/сут.');
+  });
+  on('#next','click', () => { state.step = 6; render(); });
+}
+
+function mountStep6(){
+  on('#back','click', () => { state.step = 5; render(); });
+  $$('input[name="vd-has"]').forEach(r => r.addEventListener('change', () => {
+    state.vitaminD.has = r.value === '1';
+    save();
+    $('#vd-inputs').style.display = state.vitaminD.has ? 'block' : 'none';
+  }));
+  on('#vd-calc','click', () => {
+    const value = num($('#vd-value').value);
+    const unit = $('#vd-unit').value;
+    if (!value) { alert('Введите значение'); return; }
+    const ng = unit === 'ng' ? value : value / 2.5;
+    let category, cls;
+    if (ng < 10)      { category = 'Выраженный дефицит'; cls='danger'; }
+    else if (ng < 20) { category = 'Дефицит';            cls='danger'; }
+    else if (ng < 30) { category = 'Недостаточность';    cls='warn';   }
+    else if (ng <= 100){ category = 'Норма / оптимум';   cls='ok';     }
+    else              { category = 'Возможная передозировка'; cls='danger'; }
+    state.vitaminD = { has:true, value, unit, category, cls };
+    save();
+    $('#vd-result').innerHTML = `
+      <div class="result ${cls}">
+        <div class="muted">Интерпретация 25(OH)D</div>
+        <div class="big">${category}</div>
+        <div class="kv"><span>${value} ${unit==='ng'?'нг/мл':'нмоль/л'}</span><b>≈ ${fmt(ng)} нг/мл</b></div>
+        <div class="muted" style="margin-top:8px">Решение о дозе принимает врач.</div>
+      </div>`;
+  });
+  on('#next','click', () => { state.step = 7; render(); });
+}
+
+function mountStep7(){
+  on('#back','click', () => { state.step = 6; render(); });
+  on('#restart','click', () => { if (confirm('Начать заново?')) reset(); });
+  on('#export','click', () => {
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type:'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'osteomenopause-profile.json';
+    a.click();
+  });
+}
+
+/* ============== RENDER ============== */
+const RENDERERS = [renderStep1, renderStep2, renderStep3, renderStep4, renderStep5, renderStep6, renderStep7];
+const MOUNTERS  = [mountStep1,  mountStep2,  mountStep3,  mountStep4,  mountStep5,  mountStep6,  mountStep7];
+
+function renderProgress(){
+  const pct = Math.round((state.step / TOTAL_STEPS) * 100);
+  const title = STEP_TITLES[state.step - 1];
+  $('#progress').innerHTML = `
+    <div class="bar"><i style="width:${pct}%"></i></div>
+    <div class="meta">Шаг ${state.step} из ${TOTAL_STEPS} · <b>${title}</b></div>
+  `;
+}
+
+function render(){
+  const idx = Math.min(Math.max(state.step, 1), TOTAL_STEPS) - 1;
+  $('#stage').innerHTML = RENDERERS[idx]();
+  renderProgress();
+  MOUNTERS[idx]();
+  save();
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+render();
 })();
 </script>
-
 </body>
 </html>
