@@ -2,11 +2,15 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0c12">
+<meta name="color-scheme" content="dark">
 <title>ОстеоМенопауза 40+</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.14.2/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.2/dist/cdn.min.js"></script>
 <style>
   :root{
     --bg-0:#0a0c12;
@@ -23,12 +27,16 @@
     --ok:#34d399;
     --warn:#fbbf24;
     --danger:#f87171;
+    --insta:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);
     --radius:18px;
     --radius-sm:12px;
     --shadow:0 20px 50px -30px rgba(0,0,0,.8);
+    --sat-t:env(safe-area-inset-top,0px);
+    --sat-b:env(safe-area-inset-bottom,0px);
   }
 
   *{box-sizing:border-box}
+  [x-cloak]{display:none!important}
   html,body{height:100%}
   body{
     margin:0;
@@ -41,7 +49,7 @@
     overflow-x:hidden;
   }
 
-  /* Мягкие градиентные блобы на фоне */
+  /* Мягкий статичный фон + анимированные блобы только на десктопе */
   body::before, body::after{
     content:'';
     position:fixed;
@@ -50,7 +58,6 @@
     opacity:.35;
     pointer-events:none;
     z-index:0;
-    will-change:transform;
   }
   body::before{
     width:480px;height:480px;
@@ -72,56 +79,54 @@
     z-index:1;
     max-width:720px;
     margin:0 auto;
-    padding:28px 20px 40px;
+    padding:calc(20px + var(--sat-t)) 20px calc(32px + var(--sat-b));
   }
 
-  /* ==== HEADER ==== */
-  header{margin-bottom:22px}
+  /* ==== HEADER (insta) ==== */
+  header{margin-bottom:16px}
   .brand{display:flex;align-items:center;gap:14px}
   .logo{
-    width:44px;height:44px;
+    width:48px;height:48px;
     flex-shrink:0;
-    border-radius:14px;
-    background:linear-gradient(135deg,#8b7bff,#22d3ee);
+    border-radius:16px;
+    background:var(--insta);
     display:grid;place-items:center;
-    font-size:22px;
-    box-shadow:0 10px 30px -10px rgba(139,123,255,.7);
+    font-size:24px;
+    box-shadow:0 10px 30px -10px rgba(214,41,118,.7);
+    animation:pop 2.4s ease-in-out infinite;
   }
+  @keyframes pop{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.06) rotate(2deg)}}
   header h1{
-    font-size:20px;
+    font-size:clamp(18px,5vw,22px);
     font-weight:800;
     margin:0;
     letter-spacing:-.015em;
-    background:linear-gradient(135deg,#fff,#c8c4ff 60%,#a4e7ff);
+    background:linear-gradient(135deg,#fff,#ffd9ec 40%,#c8c4ff 70%,#a4e7ff);
     -webkit-background-clip:text;background-clip:text;
     color:transparent;
   }
   header p{margin:2px 0 0;color:var(--muted);font-size:13px}
+  .pills{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .pill{
+    font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    padding:5px 10px;border-radius:999px;
+    background:rgba(255,255,255,.06);border:1px solid var(--line);color:#c4c9d6;
+  }
+  .pill.hot{background:var(--insta);color:#fff;border-color:transparent}
 
-  /* ==== PROGRESS ==== */
-  .progress{margin-bottom:20px}
-  .progress .bar{
-    height:6px;
-    background:rgba(255,255,255,.05);
-    border-radius:999px;
-    overflow:hidden;
-    position:relative;
+  /* ==== STORIES PROGRESS ==== */
+  .stories{display:flex;gap:6px;margin:14px 0 8px}
+  .stories button{
+    flex:1;height:6px;border-radius:999px;border:none;cursor:pointer;padding:0;
+    background:rgba(255,255,255,.1);overflow:hidden;position:relative;min-height:6px;
   }
-  .progress .bar > i{
-    display:block;height:100%;
-    background:linear-gradient(90deg,#8b7bff,#22d3ee);
-    border-radius:999px;
-    transition:width .5s cubic-bezier(.4,0,.2,1);
-    box-shadow:0 0 20px -2px rgba(139,123,255,.6);
-  }
+  .stories button i{display:block;height:100%;width:0;border-radius:999px;background:var(--insta);transition:width .4s ease}
+  .stories button.done i{width:100%}
+  .stories button.now i{width:55%;animation:shimmer 1.2s ease-in-out infinite alternate}
+  @keyframes shimmer{from{filter:brightness(1)}to{filter:brightness(1.35)}}
   .progress .meta{
-    margin-top:8px;
-    font-size:12px;
-    color:var(--muted);
-    letter-spacing:.02em;
-    display:flex;
-    gap:6px;
-    align-items:center;
+    margin-top:8px;font-size:12px;color:var(--muted);letter-spacing:.02em;
+    display:flex;gap:6px;align-items:center;flex-wrap:wrap;
   }
   .progress .meta b{color:var(--fg);font-weight:600}
 
@@ -130,34 +135,37 @@
     background:var(--card);
     border:1px solid var(--line);
     border-radius:var(--radius);
-    padding:26px 24px;
+    padding:clamp(18px,4vw,26px) clamp(16px,4vw,24px);
     backdrop-filter:blur(20px) saturate(160%);
     -webkit-backdrop-filter:blur(20px) saturate(160%);
     box-shadow:var(--shadow);
-    animation:fadeUp .4s cubic-bezier(.2,.7,.2,1) both;
+    margin-top:14px;
   }
+  .step-anim{animation:fadeUp .35s cubic-bezier(.2,.7,.2,1) both}
   @keyframes fadeUp{
-    from{opacity:0;transform:translateY(10px) scale(.995)}
+    from{opacity:0;transform:translateY(12px) scale(.995)}
     to{opacity:1;transform:none}
   }
 
   h2{
     margin:0 0 6px;
-    font-size:19px;
+    font-size:clamp(17px,4.5vw,19px);
     font-weight:700;
     letter-spacing:-.01em;
     display:flex;
     align-items:center;
     gap:10px;
   }
-  h2 .step-ico{
-    width:34px;height:34px;
+  /* Продающий стикер вместо строгой иконки */
+  .step-ico{
+    width:40px;height:40px;
     flex-shrink:0;
-    border-radius:10px;
+    border-radius:14px;
     display:grid;place-items:center;
-    font-size:17px;
-    background:linear-gradient(135deg,rgba(139,123,255,.22),rgba(34,211,238,.18));
-    border:1px solid rgba(139,123,255,.28);
+    font-size:20px;
+    background:var(--insta);
+    box-shadow:0 8px 20px -8px rgba(214,41,118,.8);
+    animation:pop 3s ease-in-out infinite;
   }
   h3{
     margin:24px 0 10px;
@@ -174,8 +182,8 @@
     content:'';
     width:5px;height:5px;
     border-radius:50%;
-    background:linear-gradient(135deg,#8b7bff,#22d3ee);
-    box-shadow:0 0 10px rgba(139,123,255,.8);
+    background:linear-gradient(135deg,#fa7e1e,#d62976);
+    box-shadow:0 0 10px rgba(214,41,118,.8);
   }
 
   /* ==== FORMS ==== */
@@ -188,12 +196,13 @@
   }
   input,select{
     width:100%;
+    min-height:44px;
     padding:11px 14px;
     border-radius:var(--radius-sm);
     border:1px solid var(--line);
     background:rgba(255,255,255,.03);
     color:var(--fg);
-    font-size:15px;
+    font-size:16px;
     font-family:inherit;
     margin-top:6px;
     transition:border-color .18s, box-shadow .18s, background .18s;
@@ -207,9 +216,9 @@
     box-shadow:0 0 0 4px rgba(139,123,255,.15);
   }
   input[type=checkbox],input[type=radio]{
-    width:auto;
-    accent-color:var(--accent);
-    transform:translateY(1px);
+    width:20px;height:20px;min-height:20px;
+    accent-color:#d62976;
+    transform:translateY(4px);
     margin-right:8px;
   }
   select{
@@ -221,7 +230,6 @@
   }
 
   .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media (max-width:520px){.row{grid-template-columns:1fr}}
 
   /* ==== BUTTONS ==== */
   .btn{
@@ -229,35 +237,35 @@
     align-items:center;
     justify-content:center;
     gap:8px;
+    min-height:44px;
     padding:12px 20px;
     border-radius:var(--radius-sm);
     border:1px solid transparent;
-    background:linear-gradient(135deg,#8b7bff,#6d5cff);
+    background:linear-gradient(135deg,#d62976,#962fbf 60%,#4f5bd5);
     color:#fff;
-    font-size:14px;
-    font-weight:600;
+    font-size:15px;
+    font-weight:700;
     font-family:inherit;
     letter-spacing:.01em;
     cursor:pointer;
     transition:transform .15s, box-shadow .15s, filter .15s;
-    box-shadow:0 10px 24px -10px rgba(139,123,255,.7);
+    box-shadow:0 10px 24px -10px rgba(214,41,118,.7);
   }
-  .btn:hover{transform:translateY(-1px);box-shadow:0 14px 30px -10px rgba(139,123,255,.85);filter:brightness(1.05)}
-  .btn:active{transform:translateY(0)}
+  .btn:hover{transform:translateY(-1px);filter:brightness(1.07)}
+  .btn:active{transform:translateY(0) scale(.99)}
   .btn.secondary{
     background:rgba(255,255,255,.06);
     color:var(--fg);
     border-color:var(--line);
     box-shadow:none;
   }
-  .btn.secondary:hover{background:rgba(255,255,255,.1)}
   .btn.ghost{
     background:transparent;
     color:var(--muted);
     border:1px solid var(--line);
     box-shadow:none;
   }
-  .btn.ghost:hover{color:var(--fg);border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.03)}
+  .btn.ghost:hover{color:var(--fg);border-color:rgba(255,255,255,.2)}
   .btn:disabled{opacity:.5;cursor:not-allowed}
 
   .actions{
@@ -265,10 +273,11 @@
     gap:10px;
     margin-top:24px;
     flex-wrap:wrap;
+    position:sticky;
+    bottom:calc(10px + var(--sat-b));
+    z-index:2;
   }
   .actions .btn{flex:1}
-  .actions .btn.ghost{flex:0 0 auto}
-  @media (max-width:520px){.actions .btn{flex:1 1 100%}}
 
   /* ==== ITEMS / ROWS ==== */
   .item{
@@ -281,39 +290,39 @@
     border:1px solid var(--line-2);
     background:rgba(255,255,255,.02);
     margin-bottom:8px;
-    transition:border-color .18s, background .18s;
+    transition:border-color .18s, background .18s, transform .18s;
   }
-  .item:hover{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.035)}
+  .item:hover{border-color:rgba(214,41,118,.35);background:rgba(214,41,118,.05)}
   .item-label{font-size:14px;flex:1;line-height:1.4}
-  .item .item-label label{margin:0}
   .item .muted{font-size:12px;margin-top:2px}
 
   /* ==== SCALE (Greene) ==== */
-  .scale{display:flex;gap:6px;flex-shrink:0}
+  .scale{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap}
   .scale button{
-    width:36px;height:36px;
-    border-radius:10px;
+    min-width:44px;min-height:44px;
+    border-radius:12px;
     border:1px solid var(--line);
     background:rgba(255,255,255,.02);
     color:var(--muted);
     cursor:pointer;
-    font-size:13px;
-    font-weight:600;
+    font-size:14px;
+    font-weight:700;
     font-family:inherit;
     transition:all .15s;
   }
-  .scale button:hover{border-color:rgba(139,123,255,.5);color:var(--fg)}
+  .scale button:hover{border-color:rgba(214,41,118,.6);color:var(--fg);transform:translateY(-1px)}
   .scale button.on{
-    background:linear-gradient(135deg,#8b7bff,#6d5cff);
+    background:var(--insta);
     border-color:transparent;
     color:#fff;
-    box-shadow:0 6px 18px -6px rgba(139,123,255,.8);
-    transform:translateY(-1px);
+    box-shadow:0 6px 18px -6px rgba(214,41,118,.8);
+    transform:translateY(-1px) scale(1.05);
   }
   .scale label{
     margin:0;
+    min-height:44px;
     padding:8px 14px;
-    border-radius:10px;
+    border-radius:12px;
     border:1px solid var(--line);
     background:rgba(255,255,255,.02);
     cursor:pointer;
@@ -323,12 +332,11 @@
     align-items:center;
     gap:6px;
   }
-  .scale label:hover{border-color:rgba(139,123,255,.4)}
 
-  /* ==== RESULT ==== */
+  /* ==== RESULT + share-стикер ==== */
   .result{
-    background:linear-gradient(135deg,rgba(139,123,255,.10),rgba(34,211,238,.05));
-    border:1px solid rgba(139,123,255,.2);
+    background:linear-gradient(135deg,rgba(214,41,118,.12),rgba(79,91,213,.07));
+    border:1px solid rgba(214,41,118,.25);
     border-radius:var(--radius-sm);
     padding:16px 18px;
     margin-top:18px;
@@ -346,18 +354,27 @@
     background:linear-gradient(135deg,rgba(248,113,113,.14),rgba(248,113,113,.03));
     border-color:rgba(248,113,113,.3);
   }
+  .share{
+    margin-top:16px;
+    border-radius:var(--radius-sm);
+    padding:2px;
+    background:var(--insta);
+  }
+  .share-inner{
+    background:#12141c;border-radius:10px;padding:14px 16px;
+    display:flex;gap:12px;align-items:center;
+  }
+  .share-inner .emo{font-size:28px;animation:pop 2s ease-in-out infinite}
   .big{
-    font-size:28px;
+    font-size:clamp(24px,7vw,28px);
     font-weight:800;
     letter-spacing:-.02em;
     margin:4px 0;
-    background:linear-gradient(135deg,#fff,#c8c4ff 50%,#a4e7ff);
+    background:linear-gradient(135deg,#fff,#ffd9ec 50%,#c8c4ff);
     -webkit-background-clip:text;background-clip:text;
     color:transparent;
   }
   .muted{color:var(--muted);font-size:13px}
-  .result .muted{margin-bottom:2px}
-
   .kv{
     display:flex;
     justify-content:space-between;
@@ -368,671 +385,451 @@
     border-bottom:1px dashed rgba(255,255,255,.06);
   }
   .kv:last-child{border-bottom:none}
-  .kv b{font-weight:600}
+  .kv b{font-weight:600;text-align:right}
 
-  /* ==== TAGS ==== */
   .tag{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    padding:4px 10px;
-    border-radius:999px;
-    font-size:12px;
-    font-weight:600;
-    background:rgba(255,255,255,.06);
-    color:var(--fg);
-    border:1px solid var(--line);
-  }
-  .tag::before{
-    content:'';
-    width:6px;height:6px;border-radius:50%;
-    background:currentColor;
-    box-shadow:0 0 8px currentColor;
+    display:inline-flex;align-items:center;gap:6px;
+    padding:4px 10px;border-radius:999px;
+    font-size:12px;font-weight:700;
+    background:rgba(255,255,255,.06);color:var(--fg);border:1px solid var(--line);
   }
   .tag.ok{background:rgba(52,211,153,.12);color:var(--ok);border-color:rgba(52,211,153,.3)}
   .tag.warn{background:rgba(251,191,36,.12);color:var(--warn);border-color:rgba(251,191,36,.3)}
   .tag.danger{background:rgba(248,113,113,.12);color:var(--danger);border-color:rgba(248,113,113,.3)}
 
-  /* ==== PHOTO ==== */
   .photo-box{
     display:block;
-    border:2px dashed rgba(255,255,255,.14);
+    border:2px dashed rgba(214,41,118,.4);
     border-radius:var(--radius-sm);
     padding:32px 20px;
     text-align:center;
     color:var(--muted);
     cursor:pointer;
     transition:all .2s;
-    background:rgba(255,255,255,.015);
+    background:rgba(214,41,118,.05);
   }
-  .photo-box:hover{
-    border-color:var(--accent);
-    color:var(--fg);
-    background:rgba(139,123,255,.06);
-  }
-  .photo-box .ico{font-size:32px;display:block;margin-bottom:8px}
+  .photo-box:hover{border-color:#d62976;color:var(--fg)}
+  .photo-box .ico{font-size:36px;display:block;margin-bottom:8px;animation:pop 2.5s ease-in-out infinite}
 
-  /* ==== PROGRESS BAR (calcium) ==== */
   .bar-meter{
-    height:10px;
-    background:rgba(255,255,255,.06);
-    border-radius:999px;
-    overflow:hidden;
-    margin-top:10px;
-    position:relative;
+    height:10px;background:rgba(255,255,255,.06);
+    border-radius:999px;overflow:hidden;margin-top:10px;position:relative;
   }
   .bar-meter > i{
     display:block;height:100%;
-    background:linear-gradient(90deg,#22c1a4,#22d3ee);
-    border-radius:999px;
-    transition:width .6s cubic-bezier(.4,0,.2,1);
-    box-shadow:0 0 12px rgba(34,211,238,.5);
+    background:var(--insta);
+    border-radius:999px;transition:width .6s cubic-bezier(.4,0,.2,1);
   }
 
-  /* ==== FOOT ==== */
-  .foot{
-    margin-top:26px;
-    text-align:center;
-    color:#5e6577;
-    font-size:11.5px;
-    letter-spacing:.02em;
-  }
+  .foot{margin-top:26px;text-align:center;color:#5e6577;font-size:11.5px;letter-spacing:.02em}
 
-  /* ==== Скроллбар ==== */
-  ::-webkit-scrollbar{width:10px;height:10px}
-  ::-webkit-scrollbar-track{background:transparent}
-  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:5px;border:2px solid var(--bg-0)}
-  ::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.15)}
-
-  /* ==== Step-7 tiles ==== */
   .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:8px}
   .tile{
-    padding:14px;
-    border-radius:var(--radius-sm);
-    background:rgba(255,255,255,.03);
-    border:1px solid var(--line-2);
+    padding:14px;border-radius:var(--radius-sm);
+    background:rgba(255,255,255,.03);border:1px solid var(--line-2);
   }
   .tile .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
   .tile .v{font-size:20px;font-weight:800;margin-top:4px;letter-spacing:-.01em}
+
+  /* ==== MOBILE ==== */
+  @media (max-width:520px){
+    .row{grid-template-columns:1fr}
+    .actions .btn{flex:1 1 100%}
+    body::before,body::after{animation:none;opacity:.22}
+    .card{backdrop-filter:none;-webkit-backdrop-filter:none}
+    .item{flex-direction:column;align-items:stretch}
+    .scale{justify-content:stretch}
+    .scale button{flex:1}
+  }
+  @media (max-width:380px){
+    .app{padding-left:14px;padding-right:14px}
+    .tiles{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+    .tile .v{font-size:17px}
+    .btn{font-size:14px}
+    h2{flex-wrap:wrap}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
 </style>
 </head>
 <body>
-<div class="app">
+<div class="app" x-data="osteoApp()" x-init="init()" x-cloak>
   <header>
     <div class="brand">
-      <div class="logo">✦</div>
+      <div class="logo">💜</div>
       <div>
         <h1>ОстеоМенопауза 40+</h1>
-        <p>Последовательный маршрут · локальный прототип</p>
+        <p>Маршрут заботы о костях · 7 сторис-шагов</p>
       </div>
     </div>
+    <div class="pills">
+      <span class="pill hot">🔥 демо</span>
+      <span class="pill" x-text="'✨ шаг ' + step + ' из 7'"></span>
+      <span class="pill" x-text="'💾 ' + (saved ? 'сохранено' : '…')"></span>
+    </div>
   </header>
-  <div class="progress" id="progress"></div>
-  <div id="stage"></div>
-  <div class="foot">Демонстрационная версия · не заменяет консультацию врача</div>
-</div>
 
-<script>
-(function(){
-'use strict';
+  <!-- Stories-прогресс -->
+  <div class="progress">
+    <div class="stories">
+      <template x-for="i in 7" :key="i">
+        <button @click="go(i)" :class="{'done': i < step, 'now': i === step}" :aria-label="'Шаг ' + i">
+          <i :style="i < step ? 'width:100%' : (i === step ? 'width:55%' : 'width:0')"></i>
+        </button>
+      </template>
+    </div>
+    <div class="meta">Шаг <b x-text="step"></b> из 7 · <b x-text="titles[step-1]"></b></div>
+  </div>
 
-/* ============== STATE ============== */
-const TOTAL_STEPS = 7;
-const STEP_TITLES = ['Профиль','Риск переломов','Симптомы','Кальций','Фото рациона','Витамин D','Итог'];
-const STEP_ICONS  = ['👤','🦴','🌡️','🥛','📷','☀️','✨'];
-const STORAGE_KEY = 'osteomenopause_v1';
-
-const defaultState = {
-  step: 1,
-  profile: {},
-  frax: {},
-  greene: {},
-  calcium: {},
-  photo: null,
-  vitaminD: {},
-};
-
-let state = (() => {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return structuredClone(defaultState);
-    return Object.assign(structuredClone(defaultState), JSON.parse(raw));
-  } catch(e) { return structuredClone(defaultState); }
-})();
-
-function save(){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} }
-function reset(){ state = structuredClone(defaultState); save(); render(); }
-
-/* ============== HELPERS ============== */
-const $  = (s, r=document) => r.querySelector(s);
-const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
-const on = (s, ev, fn, r=document) => { const el=$(s,r); if(el) el.addEventListener(ev, fn); };
-const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const num = (v) => { const n = parseFloat(String(v).replace(',','.')); return isFinite(n) ? n : null; };
-const fmt = (n, d=1) => (Math.round(n*10**d)/10**d).toFixed(d);
-const head = (i, title, sub) =>
-  `<h2><span class="step-ico">${STEP_ICONS[i]}</span>Шаг ${i+1}. ${title}</h2>` +
-  (sub ? `<p class="muted">${sub}</p>` : '');
-
-/* ============== DATA ============== */
-const CALCIUM_FOODS = [
-  { id:'milk',      name:'Молоко / кисломолочные напитки', unit:'200 мл', mg:240 },
-  { id:'yogurt',    name:'Йогурт',                        unit:'125 г',  mg:150 },
-  { id:'curd',      name:'Творог',                        unit:'150 г',  mg:180 },
-  { id:'cheese',    name:'Твёрдый сыр',                   unit:'30 г',   mg:300 },
-  { id:'fish',      name:'Рыба с костями (сардины)',      unit:'100 г',  mg:350 },
-  { id:'greens',    name:'Зелень, капуста',               unit:'200 г',  mg:120 },
-  { id:'legumes',   name:'Бобовые, орехи',                unit:'100 г',  mg:100 },
-  { id:'fortified', name:'Обогащённые продукты',          unit:'200 мл', mg:240 },
-];
-
-const GREENE_ITEMS = [
-  { id:'a1', d:'anxiety',    t:'Сердцебиение, учащённый пульс' },
-  { id:'a2', d:'anxiety',    t:'Чувство внутреннего напряжения' },
-  { id:'a3', d:'anxiety',    t:'Приступы паники' },
-  { id:'a4', d:'anxiety',    t:'Трудности с концентрацией внимания' },
-  { id:'a5', d:'anxiety',    t:'Беспокойство, взвинченность' },
-  { id:'a6', d:'anxiety',    t:'Раздражительность' },
-  { id:'d1', d:'depression', t:'Чувство усталости, нехватки энергии' },
-  { id:'d2', d:'depression', t:'Потеря интереса к привычным занятиям' },
-  { id:'d3', d:'depression', t:'Подавленность, уныние' },
-  { id:'d4', d:'depression', t:'Плаксивость' },
-  { id:'d5', d:'depression', t:'Чувство безнадёжности' },
-  { id:'s1', d:'somatic',    t:'Головокружение, пошатывание' },
-  { id:'s2', d:'somatic',    t:'Головные боли, давление в голове' },
-  { id:'s3', d:'somatic',    t:'Онемение или покалывание в теле' },
-  { id:'s4', d:'somatic',    t:'Боли в мышцах и суставах' },
-  { id:'s5', d:'somatic',    t:'Потеря чувствительности в руках/ногах' },
-  { id:'s6', d:'somatic',    t:'Затруднённое дыхание' },
-  { id:'s7', d:'somatic',    t:'Ощущение вздутия, распирания' },
-  { id:'v1', d:'vasomotor',  t:'Приливы жара' },
-  { id:'v2', d:'vasomotor',  t:'Ночная потливость' },
-  { id:'x1', d:'sexual',     t:'Снижение интереса к сексу' },
-];
-
-/* ============== FRAX (упрощённая демо-модель) ============== */
-function computeFrax(p){
-  const age = p.age || 0;
-  const bmi = (p.weight && p.height) ? p.weight / ((p.height/100)**2) : 24;
-  let mof = Math.max(0, age - 40) * 0.35;
-  if (bmi < 20) mof *= 1.5;
-  else if (bmi < 25) mof *= 1.15;
-  if (p.prevFracture)    mof *= 1.8;
-  if (p.parentHip)       mof *= 1.4;
-  if (p.smoking)         mof *= 1.3;
-  if (p.glucocorticoids) mof *= 1.6;
-  if (p.rheumatoid)      mof *= 1.4;
-  if (p.secondary)       mof *= 1.4;
-  if (p.alcohol)         mof *= 1.3;
-  if (p.tscore != null && p.tscore <= -2.5) mof *= 1.6;
-  else if (p.tscore != null && p.tscore <= -1.0) mof *= 1.2;
-
-  let hip = mof * 0.35;
-  if (age > 65) hip *= 1.5;
-
-  mof = Math.min(mof, 60);
-  hip = Math.min(hip, 40);
-  return { mof, hip };
-}
-function fraxCategory(mof, hip){
-  if (mof >= 20 || hip >= 3) return { key:'high', label:'Высокий риск', cls:'danger' };
-  if (mof >= 10)             return { key:'mid',  label:'Промежуточный риск', cls:'warn' };
-  return                            { key:'low',  label:'Низкий риск', cls:'ok' };
-}
-
-/* ============== STEPS ============== */
-function renderStep1(){
-  const p = state.profile || {};
-  return `
-  <div class="card">
-    ${head(0,'Короткий профиль','Минимальные данные для дальнейших расчётов.')}
+  <!-- ШАГ 1 -->
+  <div x-show="step === 1" x-transition.opacity.duration.250ms class="card step-anim">
+    <h2><span class="step-ico">👤</span>Шаг 1. Короткий профиль</h2>
+    <p class="muted">Минимальные данные для дальнейших расчётов 💫</p>
     <div class="row">
-      <label>Возраст, лет<input type="number" id="age" min="35" max="90" value="${esc(p.age??'')}" placeholder="52"></label>
-      <label>Рост, см<input type="number" id="height" min="120" max="210" value="${esc(p.height??'')}" placeholder="165"></label>
-      <label>Масса тела, кг<input type="number" id="weight" min="30" max="200" value="${esc(p.weight??'')}" placeholder="70"></label>
+      <label>Возраст, лет<input type="number" inputmode="numeric" min="35" max="90" x-model.number="profile.age" placeholder="52"></label>
+      <label>Рост, см<input type="number" inputmode="decimal" min="120" max="210" x-model.number="profile.height" placeholder="165"></label>
+      <label>Масса тела, кг<input type="number" inputmode="decimal" min="30" max="200" x-model.number="profile.weight" placeholder="70"></label>
       <label>Менструальный статус
-        <select id="meno">
-          <option value="pre"  ${p.meno==='pre'?'selected':''}>Сохранён (регулярный)</option>
-          <option value="peri" ${p.meno==='peri'?'selected':''}>Перименопауза</option>
-          <option value="post" ${p.meno==='post'?'selected':''}>Постменопауза</option>
+        <select x-model="profile.meno">
+          <option value="pre">Сохранён (регулярный)</option>
+          <option value="peri">Перименопауза 🌊</option>
+          <option value="post">Постменопауза 🌸</option>
         </select>
       </label>
     </div>
-    <label>Дата последней менструации (если применимо)
-      <input type="date" id="lmp" value="${esc(p.lmp??'')}">
-    </label>
+    <label>Дата последней менструации<input type="date" x-model="profile.lmp"></label>
     <h3>Анамнез</h3>
-    <label><input type="checkbox" id="fractures" ${p.fractures?'checked':''}> Были низкоэнергетические переломы</label>
-    <label><input type="checkbox" id="densitometry" ${p.densitometry?'checked':''}> Проводилась денситометрия</label>
-    <label>T-score шейки бедра (если известен)
-      <input type="number" step="0.1" id="tscore" value="${esc(p.tscore??'')}" placeholder="-2.5">
-    </label>
-    <div class="actions">
-      <button class="btn" id="next">Далее →</button>
-    </div>
-  </div>`;
-}
+    <label><input type="checkbox" x-model="profile.fractures"> 🦴 Были низкоэнергетические переломы</label>
+    <label><input type="checkbox" x-model="profile.densitometry"> 🩻 Проводилась денситометрия</label>
+    <label>T-score шейки бедра<input type="number" inputmode="decimal" step="0.1" x-model.number="profile.tscore" placeholder="-2.5"></label>
+    <div class="actions"><button class="btn" @click="next1()">Далее →</button></div>
+  </div>
 
-function renderStep2(){
-  const p = state.profile || {};
-  const f = state.frax || {};
-  const yn = (k, label, hint='') => `
-    <div class="item">
-      <div class="item-label">${label}${hint?`<div class="muted">${hint}</div>`:''}</div>
-      <div class="scale">
-        <label><input type="radio" name="${k}" value="1" ${f[k]===1?'checked':''}> Да</label>
-        <label><input type="radio" name="${k}" value="0" ${f[k]!==1?'checked':''}> Нет</label>
+  <!-- ШАГ 2 -->
+  <div x-show="step === 2" x-transition.opacity.duration.250ms class="card step-anim">
+    <h2><span class="step-ico">🦴</span>Шаг 2. Риск переломов</h2>
+    <p class="muted">Возраст, рост и масса из шага 1: <b x-text="profile.age + ' лет · ' + profile.height + ' см · ' + profile.weight + ' кг'"></b></p>
+    <h3>Факторы риска 🔍</h3>
+    <template x-for="f in fraxFields" :key="f.k">
+      <div class="item">
+        <div class="item-label"><span x-text="f.emo + ' ' + f.label"></span><div class="muted" x-show="f.hint" x-text="f.hint"></div></div>
+        <div class="scale">
+          <label><input type="radio" :name="f.k" value="1" x-model="frax[f.k]" :value="true"> Да</label>
+          <label><input type="radio" :name="f.k" value="0" @click="frax[f.k]=false"> Нет</label>
+        </div>
       </div>
-    </div>`;
-  return `
-  <div class="card">
-    ${head(1,'Оценка риска переломов',
-      `Используются возраст, рост и масса из шага 1: <b>${esc(p.age)} лет · ${esc(p.height)} см · ${esc(p.weight)} кг</b>.`)}
-    <h3>Факторы риска</h3>
-    ${yn('prevFracture', 'Предшествующий низкоэнергетический перелом')}
-    ${yn('parentHip', 'Перелом шейки бедра у родителей')}
-    ${yn('smoking', 'Курение в настоящее время')}
-    ${yn('glucocorticoids', 'Приём глюкокортикоидов')}
-    ${yn('rheumatoid', 'Ревматоидный артрит')}
-    ${yn('secondary', 'Причины вторичного остеопороза', 'например, ранняя менопауза, сахарный диабет 1 типа, мальабсорбция')}
-    ${yn('alcohol', 'Алкоголь 3+ единицы в сутки')}
+    </template>
     <div class="actions">
-      <button class="btn ghost" id="back">← Назад</button>
-      <button class="btn" id="calc">Рассчитать риск</button>
+      <button class="btn ghost" @click="step=1">← Назад</button>
+      <button class="btn" @click="calcFrax()">🔥 Рассчитать риск</button>
     </div>
-    <div id="frax-result"></div>
-  </div>`;
-}
+    <div x-show="fraxResult" x-transition.opacity class="result" :class="fraxResult?.cls">
+      <div class="muted">Демонстрационная оценка ✨</div>
+      <div class="big" x-text="fraxResult?.label"></div>
+      <div class="kv"><span>10-летний риск основных переломов</span><b x-text="fmt(fraxResult?.mof) + '%'"></b></div>
+      <div class="kv"><span>10-летний риск перелома бедра</span><b x-text="fmt(fraxResult?.hip) + '%'"></b></div>
+      <div class="muted" style="margin-top:8px">Это не оригинальный FRAX ⚠️</div>
+      <div style="margin-top:12px"><button class="btn" @click="step=3">К шкале Грина →</button></div>
+    </div>
+  </div>
 
-function renderStep3(){
-  const g = state.greene || {};
-  const items = GREENE_ITEMS.map(it => {
-    const val = g[it.id] ?? 0;
-    const btns = [0,1,2,3].map(v =>
-      `<button type="button" data-item="${it.id}" data-val="${v}" class="${val===v?'on':''}">${v}</button>`
-    ).join('');
-    return `<div class="item">
-      <div class="item-label">${it.t}</div>
-      <div class="scale">${btns}</div>
-    </div>`;
-  }).join('');
-  return `
-  <div class="card">
-    ${head(2,'Шкала Грина','Оцените выраженность симптомов: <b>0</b> — нет, <b>1</b> — слабо, <b>2</b> — умеренно, <b>3</b> — сильно.')}
-    ${items}
+  <!-- ШАГ 3 -->
+  <div x-show="step === 3" x-transition.opacity.duration.250ms class="card step-anim">
+    <h2><span class="step-ico">🌡️</span>Шаг 3. Шкала Грина</h2>
+    <p class="muted">Оцените симптомы: <b>0</b> — нет 🙌, <b>1</b> — слабо, <b>2</b> — умеренно, <b>3</b> — сильно 🔥</p>
+    <template x-for="it in greeneItems" :key="it.id">
+      <div class="item">
+        <div class="item-label" x-text="it.t"></div>
+        <div class="scale">
+          <template x-for="v in [0,1,2,3]" :key="v">
+            <button type="button" @click="greene[it.id]=v" :class="{'on': (greene[it.id] ?? 0) === v}" x-text="v"></button>
+          </template>
+        </div>
+      </div>
+    </template>
     <div class="actions">
-      <button class="btn ghost" id="back">← Назад</button>
-      <button class="btn" id="next">Рассчитать домены</button>
+      <button class="btn ghost" @click="step=2">← Назад</button>
+      <button class="btn" @click="calcGreene()">✨ Рассчитать домены</button>
     </div>
-    <div id="greene-result"></div>
-  </div>`;
-}
+    <div x-show="greeneResult" x-transition.opacity class="result">
+      <div class="muted">Домены шкалы Грина 📊</div>
+      <div class="kv"><span>Психологические 💭</span><b x-text="greeneResult?.psychological + ' / 33'"></b></div>
+      <div class="kv"><span>Соматические 🤕</span><b x-text="greeneResult?.somatic + ' / 21'"></b></div>
+      <div class="kv"><span>Вазомоторные 🔥</span><b x-text="greeneResult?.vasomotor + ' / 6'"></b></div>
+      <div class="kv"><span>Сексуальные 💕</span><b x-text="greeneResult?.sexual + ' / 3'"></b></div>
+      <div class="kv"><span><b>Общий балл</b></span><span class="big" x-text="greeneResult?.total + ' / 63'"></span></div>
+      <div style="margin-top:12px"><button class="btn" @click="step=4">К кальцию →</button></div>
+    </div>
+  </div>
 
-function renderStep4(){
-  const c = state.calcium || {};
-  const rows = CALCIUM_FOODS.map(f => {
-    const e = (c.items && c.items[f.id]) || { on:false, qty:1 };
-    return `<div class="item">
-      <label class="item-label" style="display:flex;align-items:center;gap:10px;margin:0">
-        <input type="checkbox" class="food-on" data-food="${f.id}" ${e.on?'checked':''}>
-        <span>${f.name}<div class="muted">${f.unit} ≈ ${f.mg} мг кальция</div></span>
-      </label>
-      <input type="number" min="0" step="0.5" class="food-qty" data-qty="${f.id}" value="${e.qty ?? 1}" style="width:80px;margin:0;text-align:center">
-    </div>`;
-  }).join('');
-  return `
-  <div class="card">
-    ${head(3,'Кальций в рационе','Отметьте продукты и укажите количество порций в сутки.')}
-    ${rows}
+  <!-- ШАГ 4 -->
+  <div x-show="step === 4" x-transition.opacity.duration.250ms class="card step-anim">
+    <h2><span class="step-ico">🥛</span>Шаг 4. Кальций в рационе</h2>
+    <p class="muted">Отметьте продукты и порции 🧀🐟🥬</p>
+    <template x-for="f in calciumFoods" :key="f.id">
+      <div class="item">
+        <label class="item-label" style="display:flex;align-items:center;gap:10px;margin:0">
+          <input type="checkbox" x-model="calciumSel[f.id].on">
+          <span><span x-text="f.emo + ' ' + f.name"></span><div class="muted" x-text="f.unit + ' ≈ ' + f.mg + ' мг кальция'"></div></span>
+        </label>
+        <input type="number" inputmode="decimal" min="0" step="0.5" x-model.number="calciumSel[f.id].qty" style="width:80px;margin:0;text-align:center">
+      </div>
+    </template>
     <div class="actions">
-      <button class="btn ghost" id="back">← Назад</button>
-      <button class="btn" id="calc">Рассчитать поступление</button>
+      <button class="btn ghost" @click="step=3">← Назад</button>
+      <button class="btn" @click="calcCalcium()">🧮 Рассчитать поступление</button>
     </div>
-    <div id="ca-result"></div>
-  </div>`;
-}
+    <div x-show="calciumResult" x-transition.opacity class="result" :class="(calciumResult?.total ?? 999) < 800 ? 'warn' : 'ok'">
+      <div class="muted">Ориентировочное поступление ✨</div>
+      <div class="big" x-text="'~' + calciumResult?.total + ' мг/сут'"></div>
+      <div class="bar-meter"><i :style="'width:' + Math.min(100, Math.round((calciumResult?.total||0)/1100*100)) + '%'"></i></div>
+      <div class="kv" style="margin-top:10px"><span>Цель 🎯</span><b>1000–1200 мг/сут</b></div>
+      <div class="kv"><span x-text="(calciumResult?.deficit||0) > 0 ? 'Возможный дефицит ⚠️' : 'Покрытие ✅'"></span><b x-text="(calciumResult?.deficit||0) > 0 ? '~'+calciumResult.deficit+' мг/сут' : 'полное'"></b></div>
+      <div style="margin-top:12px"><button class="btn" @click="step=5">Далее →</button></div>
+    </div>
+  </div>
 
-function renderStep5(){
-  const ph = state.photo;
-  return `
-  <div class="card">
-    ${head(4,'ИИ-анализ рациона','Загрузите фото приёма пищи. В локальной демо-версии распознавание имитируется.')}
+  <!-- ШАГ 5 -->
+  <div x-show="step === 5" x-transition.opacity.duration.250ms class="card step-anim">
+    <h2><span class="step-ico">📸</span>Шаг 5. ИИ-анализ рациона</h2>
+    <p class="muted">Загрузите фото приёма пищи 🤳 · демо-режим</p>
     <label class="photo-box" for="photo-input">
-      <span class="ico">📷</span>
-      <div>Нажмите, чтобы выбрать фото</div>
+      <span class="ico">📸</span>
+      <div>Нажмите, чтобы выбрать фото ✨</div>
       <div class="muted">JPG или PNG</div>
-      <input type="file" id="photo-input" accept="image/*" hidden>
+      <input type="file" id="photo-input" accept="image/*" hidden @change="onPhoto($event)">
     </label>
-    ${ph && ph.preview ? `<div style="margin-top:14px"><img src="${ph.preview}" alt="" style="max-width:100%;border-radius:12px;display:block"></div>` : ''}
-    <div id="photo-result">
-      ${ph && ph.result ? photoResultHtml(ph.result) : ''}
+    <div x-show="photoPreview" style="margin-top:14px"><img :src="photoPreview" alt="" style="max-width:100%;border-radius:12px;display:block"></div>
+    <div x-show="photoResult" class="result">
+      <div class="muted">Распознано (демо) 🤖</div>
+      <template x-for="i in (photoResult?.items || [])" :key="i.name">
+        <div class="kv"><span x-text="i.name + ' · ' + i.portion"></span><b x-text="i.mg + ' мг'"></b></div>
+      </template>
+      <div class="kv"><span><b>Итого за приём 🔥</b></span><span class="big" x-text="'~' + photoTotal + ' мг'"></span></div>
+      <button class="btn secondary" @click="addPhoto()" style="margin-top:12px">➕ Учесть в дневном итоге</button>
     </div>
     <div class="actions">
-      <button class="btn ghost" id="back">← Назад</button>
-      <button class="btn" id="next">Далее →</button>
+      <button class="btn ghost" @click="step=4">← Назад</button>
+      <button class="btn" @click="step=6">Далее →</button>
     </div>
-  </div>`;
-}
+  </div>
 
-function photoResultHtml(r){
-  const total = r.items.reduce((s,i)=>s+i.mg,0);
-  const rows = r.items.map(i =>
-    `<div class="kv"><span>${i.name} · ${i.portion}</span><b>${i.mg} мг</b></div>`
-  ).join('');
-  return `
-    <div class="result">
-      <div class="muted">Распознано (демо)</div>
-      ${rows}
-      <div class="kv" style="border-top:1px solid rgba(255,255,255,.08);margin-top:6px;padding-top:10px">
-        <span><b>Итого за приём</b></span><span class="big">~${total} мг</span>
-      </div>
-      <div class="muted" style="margin-top:8px">Это ориентировочная ИИ-оценка. Точность зависит от распознавания продукта, рецептуры и размера порции.</div>
-      <button class="btn secondary" id="photo-add" style="margin-top:12px">Учесть в дневном итоге</button>
-    </div>`;
-}
-
-function renderStep6(){
-  const v = state.vitaminD || {};
-  const has = v.has === true;
-  return `
-  <div class="card">
-    ${head(5,'Витамин D','Есть ли у вас результат анализа 25(OH)D?')}
+  <!-- ШАГ 6 -->
+  <div x-show="step === 6" x-transition.opacity.duration.250ms class="card step-anim">
+    <h2><span class="step-ico">☀️</span>Шаг 6. Витамин D</h2>
+    <p class="muted">Есть ли результат 25(OH)D? 🩸</p>
     <div class="scale" style="margin-bottom:14px">
-      <label><input type="radio" name="vd-has" value="1" ${has?'checked':''}> Да</label>
-      <label><input type="radio" name="vd-has" value="0" ${v.has===false?'checked':''}> Нет</label>
+      <label><input type="radio" name="vd" @click="vitaminD.has=true" :checked="vitaminD.has===true"> Да ✅</label>
+      <label><input type="radio" name="vd" @click="vitaminD.has=false" :checked="vitaminD.has===false"> Нет</label>
     </div>
-    <div id="vd-inputs" style="display:${has?'block':'none'}">
+    <div x-show="vitaminD.has === true">
       <div class="row">
-        <label>Значение<input type="number" step="0.1" id="vd-value" value="${esc(v.value??'')}" placeholder="25"></label>
+        <label>Значение<input type="number" inputmode="decimal" step="0.1" x-model.number="vitaminD.value" placeholder="25"></label>
         <label>Единицы
-          <select id="vd-unit">
-            <option value="ng" ${v.unit==='ng'?'selected':''}>нг/мл</option>
-            <option value="nmol" ${v.unit==='nmol'?'selected':''}>нмоль/л</option>
-          </select>
+          <select x-model="vitaminD.unit"><option value="ng">нг/мл</option><option value="nmol">нмоль/л</option></select>
         </label>
       </div>
-      <button class="btn" id="vd-calc">Интерпретировать</button>
+      <button class="btn" @click="calcVD()">🔬 Интерпретировать</button>
     </div>
-    <div id="vd-result"></div>
+    <div x-show="vitaminD.category" class="result" :class="vitaminD.cls">
+      <div class="muted">Интерпретация 25(OH)D ✨</div>
+      <div class="big" x-text="vitaminD.category"></div>
+    </div>
     <div class="actions">
-      <button class="btn ghost" id="back">← Назад</button>
-      <button class="btn" id="next">Далее →</button>
+      <button class="btn ghost" @click="step=5">← Назад</button>
+      <button class="btn" @click="step=7">К итогу 💜</button>
     </div>
-  </div>`;
-}
+  </div>
 
-function renderStep7(){
-  const p = state.profile;
-  const f = state.frax;
-  const g = state.greene;
-  const c = state.calcium;
-  const v = state.vitaminD;
-  const bmi = (p.weight && p.height) ? p.weight / ((p.height/100)**2) : null;
-  const frax = f && f.mof != null ? computeFrax({...p, ...f}) : null;
-  const cat = frax ? fraxCategory(frax.mof, frax.hip) : null;
-
-  return `
-  <div class="card">
-    ${head(6,'Персональный профиль','Итог по всем этапам маршрута.')}
-
-    <h3>Профиль</h3>
+  <!-- ШАГ 7 -->
+  <div x-show="step === 7" x-transition.opacity.duration.250ms class="card step-anim">
+    <h2><span class="step-ico">🎉</span>Шаг 7. Ваш профиль</h2>
+    <p class="muted">Итог маршрута · сохраните или покажите врачу 👩‍⚕️</p>
+    <div class="share"><div class="share-inner">
+      <div class="emo">💜</div>
+      <div><b>Мой маршрут 40+</b><div class="muted">риск · симптомы · кальций · D</div></div>
+      <div style="margin-left:auto"><span class="tag ok">демо</span></div>
+    </div></div>
+    <h3>Профиль 👤</h3>
     <div class="tiles">
-      <div class="tile"><div class="k">Возраст</div><div class="v">${esc(p.age)}</div></div>
-      <div class="tile"><div class="k">ИМТ</div><div class="v">${bmi?fmt(bmi):'—'}</div></div>
-      <div class="tile"><div class="k">Статус</div><div class="v" style="font-size:14px;font-weight:600">${p.meno==='post'?'Постменопауза':p.meno==='peri'?'Перименопауза':'Сохранён'}</div></div>
+      <div class="tile"><div class="k">Возраст</div><div class="v" x-text="profile.age || '—'"></div></div>
+      <div class="tile"><div class="k">ИМТ</div><div class="v" x-text="bmi() || '—'"></div></div>
+      <div class="tile"><div class="k">Статус</div><div class="v" style="font-size:14px" x-text="menoLabel()"></div></div>
     </div>
-
-    <h3>Риск переломов</h3>
-    ${frax ? `
-      <div class="kv"><span>10-летний риск основных переломов</span><b>${fmt(frax.mof)}%</b></div>
-      <div class="kv"><span>10-летний риск перелома бедра</span><b>${fmt(frax.hip)}%</b></div>
-      <div style="margin-top:8px"><span class="tag ${cat.cls}">${cat.label}</span></div>
-      <div class="muted" style="margin-top:6px">Демо-модель. Не является оригинальным калькулятором FRAX.</div>
-    ` : `<div class="muted">Не рассчитано</div>`}
-
-    <h3>Симптомы менопаузы (Грин)</h3>
-    ${g.total != null ? `
-      <div class="kv"><span>Общий балл</span><b>${g.total} / 63</b></div>
-      <div class="kv"><span>Психологические</span><b>${g.psychological}</b></div>
-      <div class="kv"><span>Соматические</span><b>${g.somatic}</b></div>
-      <div class="kv"><span>Вазомоторные</span><b>${g.vasomotor}</b></div>
-      <div class="kv"><span>Сексуальные</span><b>${g.sexual}</b></div>
-    ` : `<div class="muted">Не заполнено</div>`}
-
-    <h3>Кальций</h3>
-    ${c.total != null ? `
-      <div class="kv"><span>Поступление</span><b>~${c.total} мг/сут</b></div>
-      <div class="kv"><span>Цель</span><b>1000–1200 мг/сут</b></div>
-      <div class="kv"><span>Дефицит</span><b>${c.deficit>0?'~'+c.deficit+' мг/сут':'нет'}</b></div>
-    ` : `<div class="muted">Не рассчитано</div>`}
-
-    <h3>Витамин D</h3>
-    ${v.category ? `
-      <div class="kv"><span>25(OH)D</span><b>${v.value} ${v.unit==='ng'?'нг/мл':'нмоль/л'}</b></div>
-      <div class="kv"><span>Категория</span><span class="tag ${v.cls}">${v.category}</span></div>
-    ` : `<div class="muted">${v.has===false?'Анализ не проводился — обсудите с врачом необходимость исследования.':'Не заполнено'}</div>`}
-
-    <h3>Рекомендации</h3>
-    <ul style="padding-left:18px;font-size:14px;margin:8px 0 0">
-      ${cat && cat.key!=='low' ? '<li>Обсудить с врачом необходимость денситометрии и решения о терапии.</li>' : '<li>Профилактические мероприятия достаточны.</li>'}
-      ${c.total!=null && c.deficit>0 ? '<li>Скорректировать рацион (молочные продукты, рыба с костями, зелень); добавки — по согласованию с врачом.</li>' : ''}
-      ${g.total!=null && g.total>=20 ? '<li>Выраженные симптомы менопаузы — обсудить с гинекологом варианты коррекции.</li>' : ''}
-      ${v.has===false ? '<li>Рассмотреть исследование 25(OH)D при факторах риска.</li>' : ''}
-    </ul>
-
+    <h3>Риск переломов 🦴</h3>
+    <template x-if="fraxResult">
+      <div>
+        <div class="kv"><span>Основные переломы</span><b x-text="fmt(fraxResult.mof) + '%'"></b></div>
+        <div class="kv"><span>Перелом бедра</span><b x-text="fmt(fraxResult.hip) + '%'"></b></div>
+        <div style="margin-top:8px"><span class="tag" :class="fraxResult.cls" x-text="fraxResult.label"></span></div>
+      </div>
+    </template>
+    <h3>Кальций 🥛</h3>
+    <div class="kv"><span>Поступление</span><b x-text="calciumResult ? '~'+calciumResult.total+' мг/сут' : '—'"></b></div>
+    <h3>Витамин D ☀️</h3>
+    <div class="kv"><span>Статус</span><b x-text="vitaminD.category || '—'"></b></div>
+    <div class="muted" style="margin-top:8px">Демо-модель ⚠️ Не заменяет консультацию врача.</div>
     <div class="actions">
-      <button class="btn ghost" id="back">← Назад</button>
-      <button class="btn secondary" id="restart">Пройти заново</button>
-      <button class="btn" id="export">Скачать JSON</button>
+      <button class="btn ghost" @click="step=6">← Назад</button>
+      <button class="btn secondary" @click="restart()">🔄 Заново</button>
+      <button class="btn" @click="shareCard()">📤 Поделиться</button>
     </div>
-  </div>`;
-}
+  </div>
 
-/* ============== MOUNT ============== */
-function mountStep1(){
-  on('#next','click', () => {
-    const age = num($('#age').value);
-    const height = num($('#height').value);
-    const weight = num($('#weight').value);
-    if (!age || !height || !weight) { alert('Заполните возраст, рост и вес'); return; }
-    state.profile = {
-      age, height, weight,
-      meno: $('#meno').value,
-      lmp: $('#lmp').value || null,
-      fractures: $('#fractures').checked,
-      densitometry: $('#densitometry').checked,
-      tscore: num($('#tscore').value),
-    };
-    state.step = 2; render();
-  });
-}
+  <div class="foot">Демонстрационная версия 💜 · не заменяет консультацию врача</div>
+</div>
 
-function mountStep2(){
-  on('#back','click', () => { state.step = 1; render(); });
-  on('#calc','click', () => {
-    const f = {};
-    ['prevFracture','parentHip','smoking','glucocorticoids','rheumatoid','secondary','alcohol'].forEach(k => {
-      const el = document.querySelector(`input[name="${k}"]:checked`);
-      f[k] = el ? el.value === '1' : false;
-    });
-    Object.assign(state.profile, f);
-    state.frax = f;
-    const { mof, hip } = computeFrax(state.profile);
-    const cat = fraxCategory(mof, hip);
-    $('#frax-result').innerHTML = `
-      <div class="result ${cat.cls}">
-        <div class="muted">Демонстрационная оценка</div>
-        <div class="big">${cat.label}</div>
-        <div class="kv"><span>10-летний риск основных переломов</span><b>${fmt(mof)}%</b></div>
-        <div class="kv"><span>10-летний риск перелома бедра</span><b>${fmt(hip)}%</b></div>
-        <div class="muted" style="margin-top:8px">Это не оригинальный FRAX. Реальные пороги зависят от клинических рекомендаций.</div>
-        <div style="margin-top:12px"><button class="btn" id="to3">К шкале Грина →</button></div>
-      </div>`;
-    on('#to3','click', () => { state.step = 3; render(); });
-    save();
-  });
-}
-
-function mountStep3(){
-  on('#back','click', () => { state.step = 2; render(); });
-  $$('.scale button').forEach(b => b.addEventListener('click', () => {
-    const id = b.dataset.item, val = +b.dataset.val;
-    state.greene[id] = val;
-    save();
-    $$(`.scale button[data-item="${id}"]`).forEach(x => x.classList.toggle('on', +x.dataset.val === val));
-  }));
-  on('#next','click', () => {
-    const acc = { anxiety:0, depression:0, somatic:0, vasomotor:0, sexual:0 };
-    GREENE_ITEMS.forEach(it => { acc[it.d] += state.greene[it.id] ?? 0; });
-    const psychological = acc.anxiety + acc.depression;
-    const total = psychological + acc.somatic + acc.vasomotor + acc.sexual;
-    state.greene = { ...state.greene, ...acc, psychological, total };
-    save();
-    $('#greene-result').innerHTML = `
-      <div class="result">
-        <div class="muted">Домены шкалы Грина</div>
-        <div class="kv"><span>Психологические (тревога + депрессия)</span><b>${psychological} / 33</b></div>
-        <div class="kv"><span>Соматические</span><b>${acc.somatic} / 21</b></div>
-        <div class="kv"><span>Вазомоторные</span><b>${acc.vasomotor} / 6</b></div>
-        <div class="kv"><span>Сексуальные</span><b>${acc.sexual} / 3</b></div>
-        <div class="kv" style="border-top:1px solid rgba(255,255,255,.08);margin-top:6px;padding-top:8px">
-          <span><b>Общий балл</b></span><span class="big">${total} / 63</span>
-        </div>
-        <div style="margin-top:12px"><button class="btn" id="to4">К кальцию →</button></div>
-      </div>`;
-    on('#to4','click', () => { state.step = 4; render(); });
-  });
-}
-
-function mountStep4(){
-  on('#back','click', () => { state.step = 3; render(); });
-  on('#calc','click', () => {
-    const items = {};
-    let total = 0;
-    CALCIUM_FOODS.forEach(f => {
-      const on_ = $(`.food-on[data-food="${f.id}"]`).checked;
-      const qty = num($(`.food-qty[data-qty="${f.id}"]`).value) || 0;
-      items[f.id] = { on: on_, qty };
-      if (on_) total += Math.round(f.mg * qty);
-    });
-    const target = 1100;
-    const deficit = Math.max(0, target - total);
-    state.calcium = { items, total, target, deficit };
-    save();
-    const pct = Math.min(100, Math.round(total / target * 100));
-    $('#ca-result').innerHTML = `
-      <div class="result ${total<800?'warn':'ok'}">
-        <div class="muted">Ориентировочное поступление</div>
-        <div class="big">~${total} мг/сут</div>
-        <div class="bar-meter"><i style="width:${pct}%"></i></div>
-        <div class="kv" style="margin-top:10px"><span>Целевая потребность</span><b>1000–1200 мг/сут</b></div>
-        <div class="kv"><span>${deficit>0?'Возможный дефицит':'Покрытие'}</span><b>${deficit>0?'~'+deficit+' мг/сут':'полное'}</b></div>
-        <div class="muted" style="margin-top:8px">Бот не назначает препараты кальция. Обсудите добавки с врачом.</div>
-        <div style="margin-top:12px"><button class="btn" id="to5">Далее →</button></div>
-      </div>`;
-    on('#to5','click', () => { state.step = 5; render(); });
-  });
-}
-
-function mountStep5(){
-  on('#back','click', () => { state.step = 4; render(); });
-  on('#photo-input','change', (e) => {
-    const file = e.target.files && e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      const demoResult = {
-        items: [
-          { name:'Творог',  portion:'~150 г', mg:180 },
-          { name:'Йогурт',  portion:'~125 г', mg:150 },
-          { name:'Кофе с молоком', portion:'~200 мл', mg:90 },
-        ],
+<script>
+function osteoApp(){
+  const KEY='osteomenopause_v1';
+  const load=()=>{try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):null}catch(e){return null}};
+  const stored=load()||{};
+  return {
+    step: stored.step||1,
+    saved:false,
+    titles:['Профиль','Риск переломов','Симптомы','Кальций','Фото рациона','Витамин D','Итог'],
+    profile:Object.assign({age:null,height:null,weight:null,meno:'pre',lmp:null,fractures:false,densitometry:false,tscore:null},stored.profile||{}),
+    frax:Object.assign({prevFracture:false,parentHip:false,smoking:false,glucocorticoids:false,rheumatoid:false,secondary:false,alcohol:false},stored.frax||{}),
+    greene:Object.assign({},stored.greene||{}),
+    calciumSel:stored.calciumSel||null,
+    calciumResult:stored.calciumResult||null,
+    greeneResult:stored.greeneResult||null,
+    fraxResult:stored.fraxResult||null,
+    photoPreview:(stored.photo&&stored.photo.preview)||null,
+    photoResult:(stored.photo&&stored.photo.result)||null,
+    vitaminD:Object.assign({has:null,value:null,unit:'ng',category:null,cls:''},stored.vitaminD||{}),
+    fraxFields:[
+      {k:'prevFracture',emo:'🤕',label:'Предшествующий перелом'},
+      {k:'parentHip',emo:'👨‍👩‍👧',label:'Перелом бедра у родителей'},
+      {k:'smoking',emo:'🚬',label:'Курение'},
+      {k:'glucocorticoids',emo:'💊',label:'Глюкокортикоиды'},
+      {k:'rheumatoid',emo:'🖐️',label:'Ревматоидный артрит'},
+      {k:'secondary',emo:'🧬',label:'Вторичный остеопороз',hint:'ранняя менопауза, СД1, мальабсорбция'},
+      {k:'alcohol',emo:'🍷',label:'Алкоголь 3+ в сутки'},
+    ],
+    greeneItems:[
+      {id:'a1',t:'💓 Сердцебиение'},{id:'a2',t:'😰 Внутреннее напряжение'},{id:'a3',t:'😱 Паника'},
+      {id:'a4',t:'🧠 Трудности с концентрацией'},{id:'a5',t:'😟 Беспокойство'},{id:'a6',t:'😤 Раздражительность'},
+      {id:'d1',t:'🔋 Усталость'},{id:'d2',t:'😐 Потеря интереса'},{id:'d3',t:'😞 Подавленность'},
+      {id:'d4',t:'😢 Плаксивость'},{id:'d5',t:'🌧️ Безнадёжность'},
+      {id:'s1',t:'💫 Головокружение'},{id:'s2',t:'🤕 Головные боли'},{id:'s3',t:'✋ Онемение'},
+      {id:'s4',t:'🦵 Боли в мышцах'},{id:'s5',t:'🧤 Потеря чувствительности'},{id:'s6',t:'😮‍💨 Затруднённое дыхание'},
+      {id:'s7',t:'🎈 Вздутие'},{id:'v1',t:'🔥 Приливы жара'},{id:'v2',t:'💦 Ночная потливость'},{id:'x1',t:'💕 Снижение либидо'},
+    ],
+    calciumFoods:[
+      {id:'milk',emo:'🥛',name:'Молоко',unit:'200 мл',mg:240},
+      {id:'yogurt',emo:'🍦',name:'Йогурт',unit:'125 г',mg:150},
+      {id:'curd',emo:'🍚',name:'Творог',unit:'150 г',mg:180},
+      {id:'cheese',emo:'🧀',name:'Твёрдый сыр',unit:'30 г',mg:300},
+      {id:'fish',emo:'🐟',name:'Сардины',unit:'100 г',mg:350},
+      {id:'greens',emo:'🥬',name:'Зелень',unit:'200 г',mg:120},
+      {id:'legumes',emo:'🥜',name:'Бобовые/орехи',unit:'100 г',mg:100},
+      {id:'fortified',emo:'✨',name:'Обогащённые',unit:'200 мл',mg:240},
+    ],
+    init(){
+      if(!this.calciumSel){
+        this.calciumSel={};
+        this.calciumFoods.forEach(f=>{this.calciumSel[f.id]={on:false,qty:1}});
+      }
+      this.$watch('step',()=>{this.persist();window.scrollTo({top:0,behavior:'smooth'})});
+      this.$watch('profile',()=>this.persist(),{deep:true});
+      this.$watch('frax',()=>this.persist(),{deep:true});
+    },
+    persist(){
+      try{
+        localStorage.setItem(KEY,JSON.stringify({
+          step:this.step,profile:this.profile,frax:this.frax,greene:this.greene,
+          calciumSel:this.calciumSel,calciumResult:this.calciumResult,greeneResult:this.greeneResult,
+          fraxResult:this.fraxResult,photo:this.photoPreview?{preview:this.photoPreview,result:this.photoResult}:null,
+          vitaminD:this.vitaminD
+        }));
+        this.saved=true;
+      }catch(e){}
+    },
+    go(i){this.step=Math.min(7,Math.max(1,i))},
+    fmt(n,d=1){if(n==null||!isFinite(n))return '—';return (Math.round(n*10**d)/10**d).toFixed(d)},
+    num(v){const n=parseFloat(String(v).replace(',','.'));return isFinite(n)?n:null},
+    bmi(){const p=this.profile;if(p.weight&&p.height){return this.fmt(p.weight/((p.height/100)**2))}return null},
+    menoLabel(){return this.profile.meno==='post'?'Постменопауза 🌸':this.profile.meno==='peri'?'Пери 🌊':'Сохранён ✅'},
+    next1(){
+      const a=this.num(this.profile.age),h=this.num(this.profile.height),w=this.num(this.profile.weight);
+      if(!a||!h||!w){alert('Заполните возраст, рост и вес 🙏');return}
+      this.profile.age=a;this.profile.height=h;this.profile.weight=w;
+      this.profile.tscore=this.num(this.profile.tscore);
+      this.step=2;this.persist();
+    },
+    computeFrax(p){
+      const age=p.age||0;
+      const bmi=(p.weight&&p.height)?p.weight/((p.height/100)**2):24;
+      let mof=Math.max(0,age-40)*0.35;
+      if(bmi<20)mof*=1.5;else if(bmi<25)mof*=1.15;
+      if(p.prevFracture)mof*=1.8;if(p.parentHip)mof*=1.4;if(p.smoking)mof*=1.3;
+      if(p.glucocorticoids)mof*=1.6;if(p.rheumatoid)mof*=1.4;if(p.secondary)mof*=1.4;if(p.alcohol)mof*=1.3;
+      if(p.tscore!=null&&p.tscore<=-2.5)mof*=1.6;else if(p.tscore!=null&&p.tscore<=-1)mof*=1.2;
+      let hip=mof*0.35;if(age>65)hip*=1.5;
+      return {mof:Math.min(mof,60),hip:Math.min(hip,40)};
+    },
+    cat(mof,hip){
+      if(mof>=20||hip>=3)return{label:'Высокий риск 🔴',cls:'danger'};
+      if(mof>=10)return{label:'Промежуточный риск 🟡',cls:'warn'};
+      return{label:'Низкий риск 🟢',cls:'ok'};
+    },
+    calcFrax(){
+      const r=this.computeFrax(Object.assign({},this.profile,this.frax));
+      this.fraxResult=Object.assign({mof:r.mof,hip:r.hip},this.cat(r.mof,r.hip));
+      this.persist();
+    },
+    calcGreene(){
+      const map={a1:'anxiety',a2:'anxiety',a3:'anxiety',a4:'anxiety',a5:'anxiety',a6:'anxiety',d1:'depression',d2:'depression',d3:'depression',d4:'depression',d5:'depression',s1:'somatic',s2:'somatic',s3:'somatic',s4:'somatic',s5:'somatic',s6:'somatic',s7:'somatic',v1:'vasomotor',v2:'vasomotor',x1:'sexual'};
+      const acc={anxiety:0,depression:0,somatic:0,vasomotor:0,sexual:0};
+      Object.keys(map).forEach(k=>{acc[map[k]]+=(this.greene[k]??0)});
+      const psychological=acc.anxiety+acc.depression;
+      this.greeneResult=Object.assign({},acc,{psychological,total:psychological+acc.somatic+acc.vasomotor+acc.sexual});
+      this.persist();
+    },
+    calcCalcium(){
+      let total=0;
+      this.calciumFoods.forEach(f=>{const e=this.calciumSel[f.id];if(e&&e.on)total+=Math.round(f.mg*(this.num(e.qty)||0))});
+      this.calciumResult={total,target:1100,deficit:Math.max(0,1100-total)};
+      this.persist();
+    },
+    onPhoto(e){
+      const file=e.target.files&&e.target.files[0];if(!file)return;
+      const r=new FileReader();
+      r.onload=()=>{
+        this.photoPreview=r.result;
+        this.photoResult={items:[{name:'Творог',portion:'~150 г',mg:180},{name:'Йогурт',portion:'~125 г',mg:150},{name:'Кофе с молоком',portion:'~200 мл',mg:90}]};
+        this.persist();
       };
-      state.photo = { preview: reader.result, result: demoResult };
-      save();
-      render();
-    };
-    reader.readAsDataURL(file);
-  });
-  on('#photo-add','click', () => {
-    if (!state.photo || !state.photo.result) return;
-    const add = state.photo.result.items.reduce((s,i)=>s+i.mg,0);
-    state.calcium = state.calcium || { items:{}, total:0, target:1100, deficit:0 };
-    state.calcium.photoAdd = add;
-    state.calcium.totalWithPhoto = (state.calcium.total || 0) + add;
-    save();
-    alert('Фото учтено: +' + add + ' мг. Итог с фото: ' + state.calcium.totalWithPhoto + ' мг/сут.');
-  });
-  on('#next','click', () => { state.step = 6; render(); });
+      r.readAsDataURL(file);
+    },
+    get photoTotal(){return (this.photoResult?.items||[]).reduce((s,i)=>s+i.mg,0)},
+    addPhoto(){
+      const add=this.photoTotal;
+      const cur=this.calciumResult||{total:0,target:1100,deficit:1100};
+      cur.total+=add;cur.deficit=Math.max(0,1100-cur.total);
+      this.calciumResult=Object.assign({},cur);this.persist();
+      alert('Фото учтено: +'+add+' мг ✨');
+    },
+    calcVD(){
+      const v=this.num(this.vitaminD.value);if(!v){alert('Введите значение 🙏');return}
+      const ng=this.vitaminD.unit==='ng'?v:v/2.5;
+      let c,cls;
+      if(ng<10){c='Выраженный дефицит 🔴';cls='danger'}else if(ng<20){c='Дефицит 🟠';cls='danger'}
+      else if(ng<30){c='Недостаточность 🟡';cls='warn'}else if(ng<=100){c='Норма ✅';cls='ok'}
+      else{c='Передозировка ⛔';cls='danger'}
+      this.vitaminD.category=c;this.vitaminD.cls=cls;this.persist();
+    },
+    restart(){if(confirm('Начать заново?')){localStorage.removeItem(KEY);location.reload()}},
+    shareCard(){
+      const t=`Мой маршрут 40+: возраст ${this.profile.age||'—'}, ИМТ ${this.bmi()||'—'}, кальций ~${this.calciumResult?.total||0} мг, D: ${this.vitaminD.category||'—'}`;
+      if(navigator.share){navigator.share({title:'ОстеоМенопауза 40+',text:t}).catch(()=>{})}
+      else if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>alert('Скопировано ✨ Покажите врачу 👩‍⚕️'))}
+      else{alert(t)}
+    }
+  }
 }
-
-function mountStep6(){
-  on('#back','click', () => { state.step = 5; render(); });
-  $$('input[name="vd-has"]').forEach(r => r.addEventListener('change', () => {
-    state.vitaminD.has = r.value === '1';
-    save();
-    $('#vd-inputs').style.display = state.vitaminD.has ? 'block' : 'none';
-  }));
-  on('#vd-calc','click', () => {
-    const value = num($('#vd-value').value);
-    const unit = $('#vd-unit').value;
-    if (!value) { alert('Введите значение'); return; }
-    const ng = unit === 'ng' ? value : value / 2.5;
-    let category, cls;
-    if (ng < 10)      { category = 'Выраженный дефицит'; cls='danger'; }
-    else if (ng < 20) { category = 'Дефицит';            cls='danger'; }
-    else if (ng < 30) { category = 'Недостаточность';    cls='warn';   }
-    else if (ng <= 100){ category = 'Норма / оптимум';   cls='ok';     }
-    else              { category = 'Возможная передозировка'; cls='danger'; }
-    state.vitaminD = { has:true, value, unit, category, cls };
-    save();
-    $('#vd-result').innerHTML = `
-      <div class="result ${cls}">
-        <div class="muted">Интерпретация 25(OH)D</div>
-        <div class="big">${category}</div>
-        <div class="kv"><span>${value} ${unit==='ng'?'нг/мл':'нмоль/л'}</span><b>≈ ${fmt(ng)} нг/мл</b></div>
-        <div class="muted" style="margin-top:8px">Решение о дозе принимает врач.</div>
-      </div>`;
-  });
-  on('#next','click', () => { state.step = 7; render(); });
-}
-
-function mountStep7(){
-  on('#back','click', () => { state.step = 6; render(); });
-  on('#restart','click', () => { if (confirm('Начать заново?')) reset(); });
-  on('#export','click', () => {
-    const blob = new Blob([JSON.stringify(state, null, 2)], { type:'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'osteomenopause-profile.json';
-    a.click();
-  });
-}
-
-/* ============== RENDER ============== */
-const RENDERERS = [renderStep1, renderStep2, renderStep3, renderStep4, renderStep5, renderStep6, renderStep7];
-const MOUNTERS  = [mountStep1,  mountStep2,  mountStep3,  mountStep4,  mountStep5,  mountStep6,  mountStep7];
-
-function renderProgress(){
-  const pct = Math.round((state.step / TOTAL_STEPS) * 100);
-  const title = STEP_TITLES[state.step - 1];
-  $('#progress').innerHTML = `
-    <div class="bar"><i style="width:${pct}%"></i></div>
-    <div class="meta">Шаг ${state.step} из ${TOTAL_STEPS} · <b>${title}</b></div>
-  `;
-}
-
-function render(){
-  const idx = Math.min(Math.max(state.step, 1), TOTAL_STEPS) - 1;
-  $('#stage').innerHTML = RENDERERS[idx]();
-  renderProgress();
-  MOUNTERS[idx]();
-  save();
-  window.scrollTo({ top:0, behavior:'smooth' });
-}
-
-render();
-})();
 </script>
 </body>
 </html>
