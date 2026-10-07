@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="pinterest">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -351,6 +351,93 @@
     .tile .v{font-size:20px}
     h2{flex-wrap:wrap}
   }
+  /* ==== ПЕРЕКЛЮЧАЛКА СТИЛЕЙ (только для тестов, в памяти) ==== */
+  .themes{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center}
+  .themes .t-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .themes button{
+    min-height:40px;padding:8px 16px;border-radius:999px;cursor:pointer;
+    border:1px solid var(--line);background:var(--card);color:var(--ink-soft);
+    font-size:13px;font-weight:600;font-family:inherit;transition:all .15s;
+  }
+  .themes button.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+
+  /* ==== ТЕМА: INSTA-DARK ==== */
+  html[data-theme="insta"]{
+    --paper:#0b0d14;--paper-2:#141824;--card:rgba(255,255,255,.05);
+    --ink:#eef1f8;--ink-soft:#c4c9d6;--muted:#8b93a7;
+    --line:rgba(255,255,255,.12);--line-2:rgba(255,255,255,.07);
+    --accent:#e14a8b;--accent-deep:#ff7ab0;--accent-soft:rgba(225,74,139,.16);
+    --sage:#34d399;--sage-soft:rgba(52,211,153,.12);
+    --gold:#fbbf24;
+    --shadow:0 20px 50px -30px rgba(0,0,0,.85);
+    color-scheme:dark;
+  }
+  html[data-theme="insta"] body{
+    font-family:'Inter',-apple-system,'Segoe UI',Roboto,sans-serif;
+    background:
+      radial-gradient(480px 480px at -120px -140px, rgba(150,47,191,.28), transparent 70%),
+      radial-gradient(520px 520px at 110% 110%, rgba(34,193,164,.20), transparent 70%),
+      var(--paper);
+  }
+  html[data-theme="insta"] header h1,
+  html[data-theme="insta"] h2,
+  html[data-theme="insta"] .big,
+  html[data-theme="insta"] .tile .v{font-family:'Inter',sans-serif}
+  html[data-theme="insta"] header h1{
+    font-size:clamp(20px,5vw,24px);font-weight:800;
+    background:linear-gradient(135deg,#fff,#ffd9ec 45%,#c8c4ff 75%,#a4e7ff);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  html[data-theme="insta"] h2{font-size:clamp(18px,4.5vw,20px);font-weight:700}
+  html[data-theme="insta"] .card{
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    background:rgba(255,255,255,.05);
+  }
+  html[data-theme="insta"] .logo{background:linear-gradient(45deg,#fa7e1e,#d62976,#962fbf,#4f5bd5);color:#fff}
+  html[data-theme="insta"] .btn{background:linear-gradient(135deg,#d62976,#962fbf 60%,#4f5bd5);box-shadow:0 10px 24px -10px rgba(214,41,118,.7)}
+  html[data-theme="insta"] .btn:hover{filter:brightness(1.08);background:linear-gradient(135deg,#d62976,#962fbf 60%,#4f5bd5)}
+  html[data-theme="insta"] .stories button{background:rgba(255,255,255,.12)}
+  html[data-theme="insta"] .stories button i{background:linear-gradient(90deg,#fa7e1e,#d62976,#962fbf)}
+  html[data-theme="insta"] .step-ico{background:linear-gradient(135deg,rgba(214,41,118,.35),rgba(79,91,213,.3));border-color:rgba(214,41,118,.4);color:#ffb3d4}
+  html[data-theme="insta"] .bar-meter{background:rgba(255,255,255,.08)}
+  html[data-theme="insta"] .bar-meter > i{background:linear-gradient(90deg,#fa7e1e,#d62976)}
+  html[data-theme="insta"] .item,
+  html[data-theme="insta"] .check,
+  html[data-theme="insta"] .tile,
+  html[data-theme="insta"] input,
+  html[data-theme="insta"] select,
+  html[data-theme="insta"] .scale button,
+  html[data-theme="insta"] .scale label,
+  html[data-theme="insta"] .result,
+  html[data-theme="insta"] .photo-box{background:rgba(255,255,255,.04);color:var(--ink)}
+  html[data-theme="insta"] input::placeholder{color:#5e6577}
+  html[data-theme="insta"] .kv{border-bottom-color:rgba(255,255,255,.08)}
+  html[data-theme="insta"] .pill{background:rgba(255,255,255,.07);border-color:var(--line);color:#c4c9d6}
+  html[data-theme="insta"] .pill.hot{background:rgba(225,74,139,.18);color:#ff9ec4;border-color:rgba(225,74,139,.4)}
+
+  /* ==== ТЕМА: СТРОГАЯ КЛИНИКА ==== */
+  html[data-theme="clinic"]{
+    --paper:#f4f6fa;--paper-2:#e9eef5;--card:#ffffff;
+    --ink:#1e293b;--ink-soft:#475569;--muted:#7b8ba0;
+    --line:#d7dfea;--line-2:#e4eaf2;
+    --accent:#1d4ed8;--accent-deep:#1e40af;--accent-soft:#e4ebfb;
+    --sage:#15803d;--sage-soft:#e4f2e9;
+    --gold:#b45309;
+    --radius:12px;--radius-sm:8px;--shadow:none;
+    color-scheme:light;
+  }
+  html[data-theme="clinic"] body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background-image:none}
+  html[data-theme="clinic"] header h1,
+  html[data-theme="clinic"] h2,
+  html[data-theme="clinic"] .big,
+  html[data-theme="clinic"] .tile .v,
+  html[data-theme="clinic"] .logo{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
+  html[data-theme="clinic"] .btn{border-radius:8px;box-shadow:none}
+  html[data-theme="clinic"] .card{box-shadow:none}
+  html[data-theme="clinic"] .logo{border-radius:10px;font-size:20px;font-weight:700;box-shadow:none}
+  html[data-theme="clinic"] .step-ico{border-radius:10px}
+  html[data-theme="clinic"] .themes button{border-radius:8px}
+
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation:none!important;transition:none!important}
     html{scroll-behavior:auto}
@@ -371,6 +458,12 @@
       <span class="pill hot">Демо-версия</span>
       <span class="pill" x-text="'Шаг ' + step + ' из 7'"></span>
       <span class="pill">Тест-режим: всё открыто</span>
+    </div>
+    <div class="themes" role="group" aria-label="Стиль оформления (тест)">
+      <span class="t-label">Стиль:</span>
+      <button type="button" @click="setTheme('pinterest')" :class="{'on':theme==='pinterest'}">Pinterest</button>
+      <button type="button" @click="setTheme('insta')" :class="{'on':theme==='insta'}">Insta</button>
+      <button type="button" @click="setTheme('clinic')" :class="{'on':theme==='clinic'}">Клиника</button>
     </div>
   </header>
 
@@ -594,6 +687,7 @@ function osteoApp(){
   // 0 хранения: только память вкладки. Нет localStorage, нет отправки, нет выгрузки файлов.
   return {
     step:1,
+    theme:'pinterest',
     titles:['Профиль','Риск переломов','Симптомы','Кальций','Фото рациона','Витамин D','Итог'],
     profile:{age:null,height:null,weight:null,meno:'pre',lmp:null,fractures:false,densitometry:false,tscore:null},
     frax:{prevFracture:false,parentHip:false,smoking:false,glucocorticoids:false,rheumatoid:false,secondary:false,alcohol:false},
@@ -636,8 +730,10 @@ function osteoApp(){
     init(){
       this.calciumSel={};
       this.calciumFoods.forEach(f=>{this.calciumSel[f.id]={on:false,qty:1}});
+      this.setTheme(this.theme);
       this.$watch('step',()=>{window.scrollTo({top:0,behavior:'smooth'})});
     },
+    setTheme(t){this.theme=t;document.documentElement.dataset.theme=t},
     go(i){this.step=Math.min(7,Math.max(1,i));window.scrollTo({top:0,behavior:'smooth'})},
     fmt(n,d=1){if(n==null||!isFinite(n))return '—';return (Math.round(n*10**d)/10**d).toFixed(d)},
     num(v){const n=parseFloat(String(v).replace(',','.'));return isFinite(n)?n:null},
