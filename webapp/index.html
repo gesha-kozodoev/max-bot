@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.14.2/dist/cdn.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.2/dist/cdn.min.js"></script>
 <style>
+  /* Политика приватности: всё считается в памяти устройства, без отправки и без хранения */
   :root{
     --bg-0:#0a0c12;
     --bg-1:#12141c;
@@ -37,6 +37,7 @@
 
   *{box-sizing:border-box}
   [x-cloak]{display:none!important}
+  html{scroll-behavior:smooth}
   html,body{height:100%}
   body{
     margin:0;
@@ -216,11 +217,31 @@
     box-shadow:0 0 0 4px rgba(139,123,255,.15);
   }
   input[type=checkbox],input[type=radio]{
-    width:20px;height:20px;min-height:20px;
-    accent-color:#d62976;
-    transform:translateY(4px);
-    margin-right:8px;
+    appearance:none;-webkit-appearance:none;
+    width:24px;height:24px;min-height:24px;flex-shrink:0;
+    border-radius:8px;margin:0 10px 0 0;transform:none;cursor:pointer;
+    border:1.5px solid rgba(255,255,255,.22);
+    background:rgba(255,255,255,.04);
+    display:inline-grid;place-items:center;
+    transition:all .18s ease;vertical-align:-6px;
   }
+  input[type=radio]{border-radius:50%}
+  input[type=checkbox]:hover,input[type=radio]:hover{border-color:#d62976;transform:scale(1.08)}
+  input[type=checkbox]:checked{
+    background:var(--insta);border-color:transparent;
+    box-shadow:0 4px 14px -4px rgba(214,41,118,.8);
+    animation:tick .25s ease;
+  }
+  input[type=checkbox]:checked::after{
+    content:'✓';color:#fff;font-size:14px;font-weight:800;line-height:1;
+  }
+  input[type=radio]:checked{
+    border-color:#d62976;border-width:2px;
+    background:radial-gradient(circle, #d62976 0 6px, transparent 7px);
+    box-shadow:0 0 0 4px rgba(214,41,118,.18);
+    animation:tick .25s ease;
+  }
+  @keyframes tick{0%{transform:scale(.8)}55%{transform:scale(1.15)}100%{transform:scale(1)}}
   select{
     appearance:none;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%238b93a7' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
@@ -252,7 +273,15 @@
     box-shadow:0 10px 24px -10px rgba(214,41,118,.7);
   }
   .btn:hover{transform:translateY(-1px);filter:brightness(1.07)}
-  .btn:active{transform:translateY(0) scale(.99)}
+  .btn:active{transform:translateY(1px) scale(.98)}
+  .btn::after{
+    content:'';position:absolute;inset:0;border-radius:inherit;
+    background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);
+    transform:translateX(-120%);pointer-events:none;
+  }
+  .btn{position:relative;overflow:hidden}
+  .btn:hover::after{animation:sheen 1.1s ease}
+  @keyframes sheen{to{transform:translateX(120%)}}
   .btn.secondary{
     background:rgba(255,255,255,.06);
     color:var(--fg);
@@ -422,6 +451,24 @@
   }
 
   .foot{margin-top:26px;text-align:center;color:#5e6577;font-size:11.5px;letter-spacing:.02em}
+  .privacy{
+    margin-top:12px;text-align:center;font-size:12px;color:var(--muted);
+    background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.25);
+    border-radius:12px;padding:10px 14px;line-height:1.5;
+  }
+  .privacy b{color:var(--ok)}
+
+  /* Инста-скроллбары */
+  ::-webkit-scrollbar{width:10px;height:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{
+    background:linear-gradient(180deg,#d62976,#962fbf);
+    border-radius:99px;border:2px solid var(--bg-0);
+  }
+  *{scrollbar-width:thin;scrollbar-color:#d62976 transparent}
+  .item{scroll-margin-top:90px}
+  .item:active{transform:scale(.995)}
+  .card{scroll-margin-top:12px}
 
   .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:8px}
   .tile{
@@ -466,7 +513,7 @@
     <div class="pills">
       <span class="pill hot">🔥 демо</span>
       <span class="pill" x-text="'✨ шаг ' + step + ' из 7'"></span>
-      <span class="pill" x-text="'💾 ' + (saved ? 'сохранено' : '…')"></span>
+      <span class="pill">🧪 тест-режим: всё открыто</span>
     </div>
   </header>
 
@@ -678,27 +725,25 @@
   </div>
 
   <div class="foot">Демонстрационная версия 💜 · не заменяет консультацию врача</div>
+  <div class="privacy">🔒 <b>0 хранения · 0 отправки.</b> Все ответы и результаты живут только в памяти вашего телефона, пока открыта страница. Мы ничего не сохраняем, не передаём и не обрабатываем на сервере — действие 152-ФЗ не возникает.</div>
 </div>
 
 <script>
 function osteoApp(){
-  const KEY='osteomenopause_v1';
-  const load=()=>{try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):null}catch(e){return null}};
-  const stored=load()||{};
+  // 0 хранения: только память вкладки. Нет localStorage, нет отправки, нет выгрузки файлов.
   return {
-    step: stored.step||1,
-    saved:false,
+    step:1,
     titles:['Профиль','Риск переломов','Симптомы','Кальций','Фото рациона','Витамин D','Итог'],
-    profile:Object.assign({age:null,height:null,weight:null,meno:'pre',lmp:null,fractures:false,densitometry:false,tscore:null},stored.profile||{}),
-    frax:Object.assign({prevFracture:false,parentHip:false,smoking:false,glucocorticoids:false,rheumatoid:false,secondary:false,alcohol:false},stored.frax||{}),
-    greene:Object.assign({},stored.greene||{}),
-    calciumSel:stored.calciumSel||null,
-    calciumResult:stored.calciumResult||null,
-    greeneResult:stored.greeneResult||null,
-    fraxResult:stored.fraxResult||null,
-    photoPreview:(stored.photo&&stored.photo.preview)||null,
-    photoResult:(stored.photo&&stored.photo.result)||null,
-    vitaminD:Object.assign({has:null,value:null,unit:'ng',category:null,cls:''},stored.vitaminD||{}),
+    profile:{age:null,height:null,weight:null,meno:'pre',lmp:null,fractures:false,densitometry:false,tscore:null},
+    frax:{prevFracture:false,parentHip:false,smoking:false,glucocorticoids:false,rheumatoid:false,secondary:false,alcohol:false},
+    greene:{},
+    calciumSel:null,
+    calciumResult:null,
+    greeneResult:null,
+    fraxResult:null,
+    photoPreview:null,
+    photoResult:null,
+    vitaminD:{has:null,value:null,unit:'ng',category:null,cls:''},
     fraxFields:[
       {k:'prevFracture',emo:'🤕',label:'Предшествующий перелом'},
       {k:'parentHip',emo:'👨‍👩‍👧',label:'Перелом бедра у родителей'},
@@ -728,36 +773,19 @@ function osteoApp(){
       {id:'fortified',emo:'✨',name:'Обогащённые',unit:'200 мл',mg:240},
     ],
     init(){
-      if(!this.calciumSel){
-        this.calciumSel={};
-        this.calciumFoods.forEach(f=>{this.calciumSel[f.id]={on:false,qty:1}});
-      }
-      this.$watch('step',()=>{this.persist();window.scrollTo({top:0,behavior:'smooth'})});
-      this.$watch('profile',()=>this.persist(),{deep:true});
-      this.$watch('frax',()=>this.persist(),{deep:true});
+      this.calciumSel={};
+      this.calciumFoods.forEach(f=>{this.calciumSel[f.id]={on:false,qty:1}});
+      this.$watch('step',()=>{window.scrollTo({top:0,behavior:'smooth'})});
     },
-    persist(){
-      try{
-        localStorage.setItem(KEY,JSON.stringify({
-          step:this.step,profile:this.profile,frax:this.frax,greene:this.greene,
-          calciumSel:this.calciumSel,calciumResult:this.calciumResult,greeneResult:this.greeneResult,
-          fraxResult:this.fraxResult,photo:this.photoPreview?{preview:this.photoPreview,result:this.photoResult}:null,
-          vitaminD:this.vitaminD
-        }));
-        this.saved=true;
-      }catch(e){}
-    },
-    go(i){this.step=Math.min(7,Math.max(1,i))},
+    go(i){this.step=Math.min(7,Math.max(1,i));window.scrollTo({top:0,behavior:'smooth'})},
     fmt(n,d=1){if(n==null||!isFinite(n))return '—';return (Math.round(n*10**d)/10**d).toFixed(d)},
     num(v){const n=parseFloat(String(v).replace(',','.'));return isFinite(n)?n:null},
     bmi(){const p=this.profile;if(p.weight&&p.height){return this.fmt(p.weight/((p.height/100)**2))}return null},
     menoLabel(){return this.profile.meno==='post'?'Постменопауза 🌸':this.profile.meno==='peri'?'Пери 🌊':'Сохранён ✅'},
     next1(){
-      const a=this.num(this.profile.age),h=this.num(this.profile.height),w=this.num(this.profile.weight);
-      if(!a||!h||!w){alert('Заполните возраст, рост и вес 🙏');return}
-      this.profile.age=a;this.profile.height=h;this.profile.weight=w;
+      // Тест-режим: обязательности нет, все шаги открыты через сторис-бар
       this.profile.tscore=this.num(this.profile.tscore);
-      this.step=2;this.persist();
+      this.step=2;
     },
     computeFrax(p){
       const age=p.age||0;
@@ -778,7 +806,6 @@ function osteoApp(){
     calcFrax(){
       const r=this.computeFrax(Object.assign({},this.profile,this.frax));
       this.fraxResult=Object.assign({mof:r.mof,hip:r.hip},this.cat(r.mof,r.hip));
-      this.persist();
     },
     calcGreene(){
       const map={a1:'anxiety',a2:'anxiety',a3:'anxiety',a4:'anxiety',a5:'anxiety',a6:'anxiety',d1:'depression',d2:'depression',d3:'depression',d4:'depression',d5:'depression',s1:'somatic',s2:'somatic',s3:'somatic',s4:'somatic',s5:'somatic',s6:'somatic',s7:'somatic',v1:'vasomotor',v2:'vasomotor',x1:'sexual'};
@@ -786,13 +813,11 @@ function osteoApp(){
       Object.keys(map).forEach(k=>{acc[map[k]]+=(this.greene[k]??0)});
       const psychological=acc.anxiety+acc.depression;
       this.greeneResult=Object.assign({},acc,{psychological,total:psychological+acc.somatic+acc.vasomotor+acc.sexual});
-      this.persist();
     },
     calcCalcium(){
       let total=0;
       this.calciumFoods.forEach(f=>{const e=this.calciumSel[f.id];if(e&&e.on)total+=Math.round(f.mg*(this.num(e.qty)||0))});
       this.calciumResult={total,target:1100,deficit:Math.max(0,1100-total)};
-      this.persist();
     },
     onPhoto(e){
       const file=e.target.files&&e.target.files[0];if(!file)return;
@@ -800,7 +825,6 @@ function osteoApp(){
       r.onload=()=>{
         this.photoPreview=r.result;
         this.photoResult={items:[{name:'Творог',portion:'~150 г',mg:180},{name:'Йогурт',portion:'~125 г',mg:150},{name:'Кофе с молоком',portion:'~200 мл',mg:90}]};
-        this.persist();
       };
       r.readAsDataURL(file);
     },
@@ -809,19 +833,19 @@ function osteoApp(){
       const add=this.photoTotal;
       const cur=this.calciumResult||{total:0,target:1100,deficit:1100};
       cur.total+=add;cur.deficit=Math.max(0,1100-cur.total);
-      this.calciumResult=Object.assign({},cur);this.persist();
+      this.calciumResult=Object.assign({},cur);
       alert('Фото учтено: +'+add+' мг ✨');
     },
     calcVD(){
-      const v=this.num(this.vitaminD.value);if(!v){alert('Введите значение 🙏');return}
+      const v=this.num(this.vitaminD.value);if(!v){this.step=this.step;return}
       const ng=this.vitaminD.unit==='ng'?v:v/2.5;
       let c,cls;
       if(ng<10){c='Выраженный дефицит 🔴';cls='danger'}else if(ng<20){c='Дефицит 🟠';cls='danger'}
       else if(ng<30){c='Недостаточность 🟡';cls='warn'}else if(ng<=100){c='Норма ✅';cls='ok'}
       else{c='Передозировка ⛔';cls='danger'}
-      this.vitaminD.category=c;this.vitaminD.cls=cls;this.persist();
+      this.vitaminD.category=c;this.vitaminD.cls=cls;
     },
-    restart(){if(confirm('Начать заново?')){localStorage.removeItem(KEY);location.reload()}},
+    restart(){if(confirm('Начать заново?')){location.reload()}},
     shareCard(){
       const t=`Мой маршрут 40+: возраст ${this.profile.age||'—'}, ИМТ ${this.bmi()||'—'}, кальций ~${this.calciumResult?.total||0} мг, D: ${this.vitaminD.category||'—'}`;
       if(navigator.share){navigator.share({title:'ОстеоМенопауза 40+',text:t}).catch(()=>{})}
