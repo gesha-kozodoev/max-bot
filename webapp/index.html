@@ -3,34 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0a0c12">
-<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#faf6f0">
+<meta name="color-scheme" content="light">
 <title>ОстеоМенопауза 40+</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.2/dist/cdn.min.js"></script>
 <style>
-  /* Политика приватности: всё считается в памяти устройства, без отправки и без хранения */
+  /* Pinterest-настроение: тёплый крем, serif-заголовки, шалфей и терракота.
+     Приватность: всё считается в памяти устройства, без отправки и без хранения. */
   :root{
-    --bg-0:#0a0c12;
-    --bg-1:#12141c;
-    --card:rgba(255,255,255,.045);
-    --card-2:rgba(255,255,255,.03);
-    --line:rgba(255,255,255,.08);
-    --line-2:rgba(255,255,255,.06);
-    --fg:#eef1f8;
-    --muted:#8b93a7;
-    --accent:#8b7bff;
-    --accent-2:#22d3ee;
-    --accent-3:#22c1a4;
-    --ok:#34d399;
-    --warn:#fbbf24;
-    --danger:#f87171;
-    --insta:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);
-    --radius:18px;
-    --radius-sm:12px;
-    --shadow:0 20px 50px -30px rgba(0,0,0,.8);
+    --paper:#faf6f0;
+    --paper-2:#f4eee3;
+    --card:#ffffff;
+    --ink:#3b342e;
+    --ink-soft:#5c534a;
+    --muted:#8a7d6f;
+    --line:#e8ddcb;
+    --line-2:#f0e7d6;
+    --accent:#b4615c;
+    --accent-deep:#96504b;
+    --accent-soft:#f6e3dc;
+    --sage:#7d8b6f;
+    --sage-soft:#e7ecdf;
+    --gold:#c9a227;
+    --radius:20px;
+    --radius-sm:14px;
+    --shadow:0 18px 45px -28px rgba(90,70,50,.35);
     --sat-t:env(safe-area-inset-top,0px);
     --sat-b:env(safe-area-inset-bottom,0px);
   }
@@ -41,462 +41,305 @@
   html,body{height:100%}
   body{
     margin:0;
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Ubuntu,sans-serif;
-    background:var(--bg-0);
-    color:var(--fg);
-    line-height:1.55;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    background:var(--paper);
+    background-image:radial-gradient(rgba(150,120,90,.06) 1px, transparent 1px);
+    background-size:22px 22px;
+    color:var(--ink);
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
-    position:relative;
     overflow-x:hidden;
   }
 
-  /* Мягкий статичный фон + анимированные блобы только на десктопе */
-  body::before, body::after{
-    content:'';
-    position:fixed;
-    border-radius:50%;
-    filter:blur(90px);
-    opacity:.35;
-    pointer-events:none;
-    z-index:0;
-  }
-  body::before{
-    width:480px;height:480px;
-    background:radial-gradient(circle, #7c5cff 0%, transparent 70%);
-    top:-140px;left:-120px;
-    animation:float1 18s ease-in-out infinite;
-  }
-  body::after{
-    width:520px;height:520px;
-    background:radial-gradient(circle, #22c1a4 0%, transparent 70%);
-    bottom:-200px;right:-160px;
-    animation:float2 22s ease-in-out infinite;
-  }
-  @keyframes float1{50%{transform:translate(60px,40px) scale(1.1)}}
-  @keyframes float2{50%{transform:translate(-50px,-30px) scale(1.15)}}
-
   .app{
-    position:relative;
-    z-index:1;
     max-width:720px;
     margin:0 auto;
-    padding:calc(20px + var(--sat-t)) 20px calc(32px + var(--sat-b));
+    padding:calc(22px + var(--sat-t)) 20px calc(36px + var(--sat-b));
   }
 
-  /* ==== HEADER (insta) ==== */
-  header{margin-bottom:16px}
+  /* ==== HEADER ==== */
+  header{margin-bottom:8px}
   .brand{display:flex;align-items:center;gap:14px}
   .logo{
-    width:48px;height:48px;
-    flex-shrink:0;
-    border-radius:16px;
-    background:var(--insta);
+    width:52px;height:52px;flex-shrink:0;
+    border-radius:17px;
+    background:var(--accent);
+    color:#fdf8f1;
     display:grid;place-items:center;
-    font-size:24px;
-    box-shadow:0 10px 30px -10px rgba(214,41,118,.7);
-    animation:pop 2.4s ease-in-out infinite;
+    font-family:'Cormorant Garamond',serif;
+    font-size:24px;font-weight:700;
+    box-shadow:0 12px 24px -12px rgba(150,80,75,.6);
   }
-  @keyframes pop{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.06) rotate(2deg)}}
   header h1{
-    font-size:clamp(18px,5vw,22px);
-    font-weight:800;
-    margin:0;
-    letter-spacing:-.015em;
-    background:linear-gradient(135deg,#fff,#ffd9ec 40%,#c8c4ff 70%,#a4e7ff);
-    -webkit-background-clip:text;background-clip:text;
-    color:transparent;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(26px,6vw,32px);
+    font-weight:700;
+    margin:0;line-height:1.1;letter-spacing:.002em;
+    color:var(--ink);
   }
-  header p{margin:2px 0 0;color:var(--muted);font-size:13px}
-  .pills{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  header p{margin:4px 0 0;color:var(--muted);font-size:13px}
+  .pills{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
   .pill{
-    font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-    padding:5px 10px;border-radius:999px;
-    background:rgba(255,255,255,.06);border:1px solid var(--line);color:#c4c9d6;
+    font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+    padding:6px 12px;border-radius:999px;
+    background:var(--card);border:1px solid var(--line);color:var(--ink-soft);
   }
-  .pill.hot{background:var(--insta);color:#fff;border-color:transparent}
+  .pill.hot{background:var(--accent-soft);color:var(--accent-deep);border-color:#e5c4bb}
 
-  /* ==== STORIES PROGRESS ==== */
-  .stories{display:flex;gap:6px;margin:14px 0 8px}
+  /* ==== STORIES PROGRESS (сдержанный) ==== */
+  .progress{margin-top:14px}
+  .stories{display:flex;gap:6px;margin:0 0 8px}
   .stories button{
-    flex:1;height:6px;border-radius:999px;border:none;cursor:pointer;padding:0;
-    background:rgba(255,255,255,.1);overflow:hidden;position:relative;min-height:6px;
+    flex:1;height:5px;border-radius:999px;border:none;cursor:pointer;padding:0;
+    background:#e4d8c2;min-height:5px;
   }
-  .stories button i{display:block;height:100%;width:0;border-radius:999px;background:var(--insta);transition:width .4s ease}
+  .stories button i{display:block;height:100%;width:0;border-radius:999px;background:var(--accent);transition:width .35s ease}
   .stories button.done i{width:100%}
-  .stories button.now i{width:55%;animation:shimmer 1.2s ease-in-out infinite alternate}
-  @keyframes shimmer{from{filter:brightness(1)}to{filter:brightness(1.35)}}
+  .stories button.now i{width:55%}
   .progress .meta{
-    margin-top:8px;font-size:12px;color:var(--muted);letter-spacing:.02em;
+    margin-top:8px;font-size:12px;color:var(--muted);letter-spacing:.04em;
     display:flex;gap:6px;align-items:center;flex-wrap:wrap;
   }
-  .progress .meta b{color:var(--fg);font-weight:600}
+  .progress .meta b{color:var(--ink);font-weight:600}
 
   /* ==== CARD ==== */
   .card{
     background:var(--card);
     border:1px solid var(--line);
     border-radius:var(--radius);
-    padding:clamp(18px,4vw,26px) clamp(16px,4vw,24px);
-    backdrop-filter:blur(20px) saturate(160%);
-    -webkit-backdrop-filter:blur(20px) saturate(160%);
+    padding:clamp(20px,4.5vw,30px) clamp(18px,4.5vw,28px);
     box-shadow:var(--shadow);
     margin-top:14px;
   }
-  .step-anim{animation:fadeUp .35s cubic-bezier(.2,.7,.2,1) both}
+  .step-anim{animation:fadeUp .22s ease both}
   @keyframes fadeUp{
-    from{opacity:0;transform:translateY(12px) scale(.995)}
+    from{opacity:0;transform:translateY(8px)}
     to{opacity:1;transform:none}
   }
 
-  h2{
-    margin:0 0 6px;
-    font-size:clamp(17px,4.5vw,19px);
-    font-weight:700;
-    letter-spacing:-.01em;
-    display:flex;
-    align-items:center;
-    gap:10px;
+  .overline{
+    font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:6px;
   }
-  /* Продающий стикер вместо строгой иконки */
+  h2{
+    font-family:'Cormorant Garamond',serif;
+    margin:0 0 6px;
+    font-size:clamp(24px,5.5vw,28px);
+    font-weight:700;line-height:1.15;letter-spacing:.002em;
+    display:flex;align-items:center;gap:12px;
+    color:var(--ink);
+  }
   .step-ico{
-    width:40px;height:40px;
-    flex-shrink:0;
+    width:42px;height:42px;flex-shrink:0;
     border-radius:14px;
     display:grid;place-items:center;
-    font-size:20px;
-    background:var(--insta);
-    box-shadow:0 8px 20px -8px rgba(214,41,118,.8);
-    animation:pop 3s ease-in-out infinite;
+    background:var(--accent-soft);
+    border:1px solid #e5c4bb;
+    color:var(--accent-deep);
   }
+  .step-ico svg{width:22px;height:22px}
   h3{
-    margin:24px 0 10px;
-    font-size:11px;
-    font-weight:700;
-    color:var(--muted);
-    text-transform:uppercase;
-    letter-spacing:.12em;
-    display:flex;
-    align-items:center;
-    gap:8px;
+    margin:26px 0 10px;
+    font-size:11px;font-weight:700;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.14em;
+    display:flex;align-items:center;gap:8px;
   }
-  h3::before{
-    content:'';
-    width:5px;height:5px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#fa7e1e,#d62976);
-    box-shadow:0 0 10px rgba(214,41,118,.8);
-  }
+  h3::before{content:'';width:18px;height:2px;border-radius:2px;background:var(--accent)}
 
   /* ==== FORMS ==== */
-  label{
-    display:block;
-    margin:12px 0;
-    font-size:13px;
-    color:#c4c9d6;
-    font-weight:500;
-  }
+  label{display:block;margin:12px 0;font-size:13.5px;color:var(--ink-soft);font-weight:500}
   input,select{
-    width:100%;
-    min-height:44px;
+    width:100%;min-height:46px;
     padding:11px 14px;
     border-radius:var(--radius-sm);
     border:1px solid var(--line);
-    background:rgba(255,255,255,.03);
-    color:var(--fg);
-    font-size:16px;
-    font-family:inherit;
+    background:#fffdf9;
+    color:var(--ink);
+    font-size:16px;font-family:inherit;
     margin-top:6px;
-    transition:border-color .18s, box-shadow .18s, background .18s;
+    transition:border-color .15s, box-shadow .15s;
   }
-  input::placeholder{color:#5e6577}
-  input:hover,select:hover{border-color:rgba(255,255,255,.14)}
+  input::placeholder{color:#b7a893}
   input:focus,select:focus{
-    outline:none;
-    border-color:var(--accent);
-    background:rgba(139,123,255,.05);
-    box-shadow:0 0 0 4px rgba(139,123,255,.15);
+    outline:none;border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(180,97,92,.14);
   }
+  /* Спокойные кастомные чекбоксы */
   input[type=checkbox],input[type=radio]{
     appearance:none;-webkit-appearance:none;
-    width:24px;height:24px;min-height:24px;flex-shrink:0;
-    border-radius:8px;margin:0 10px 0 0;transform:none;cursor:pointer;
-    border:1.5px solid rgba(255,255,255,.22);
-    background:rgba(255,255,255,.04);
+    width:22px;height:22px;min-height:22px;flex-shrink:0;
+    border-radius:7px;margin:0 10px 0 0;cursor:pointer;
+    border:1.5px solid #d3c4ab;background:#fffdf9;
     display:inline-grid;place-items:center;
-    transition:all .18s ease;vertical-align:-6px;
+    transition:all .15s ease;vertical-align:-5px;
   }
   input[type=radio]{border-radius:50%}
-  input[type=checkbox]:hover,input[type=radio]:hover{border-color:#d62976;transform:scale(1.08)}
   input[type=checkbox]:checked{
-    background:var(--insta);border-color:transparent;
-    box-shadow:0 4px 14px -4px rgba(214,41,118,.8);
-    animation:tick .25s ease;
+    background:var(--sage);border-color:var(--sage);
   }
-  input[type=checkbox]:checked::after{
-    content:'✓';color:#fff;font-size:14px;font-weight:800;line-height:1;
-  }
+  input[type=checkbox]:checked::after{content:'✓';color:#fff;font-size:13px;font-weight:700;line-height:1}
   input[type=radio]:checked{
-    border-color:#d62976;border-width:2px;
-    background:radial-gradient(circle, #d62976 0 6px, transparent 7px);
-    box-shadow:0 0 0 4px rgba(214,41,118,.18);
-    animation:tick .25s ease;
+    border-color:var(--accent);border-width:2px;
+    background:radial-gradient(circle, var(--accent) 0 5px, transparent 6px);
   }
-  @keyframes tick{0%{transform:scale(.8)}55%{transform:scale(1.15)}100%{transform:scale(1)}}
   select{
     appearance:none;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%238b93a7' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
-    background-repeat:no-repeat;
-    background-position:right 14px center;
-    padding-right:36px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%238a7d6f' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;
   }
 
   .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
   /* ==== BUTTONS ==== */
   .btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    min-height:44px;
-    padding:12px 20px;
-    border-radius:var(--radius-sm);
-    border:1px solid transparent;
-    background:linear-gradient(135deg,#d62976,#962fbf 60%,#4f5bd5);
-    color:#fff;
-    font-size:15px;
-    font-weight:700;
-    font-family:inherit;
-    letter-spacing:.01em;
-    cursor:pointer;
-    transition:transform .15s, box-shadow .15s, filter .15s;
-    box-shadow:0 10px 24px -10px rgba(214,41,118,.7);
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    min-height:46px;padding:12px 22px;
+    border-radius:999px;border:1px solid transparent;
+    background:var(--accent);color:#fffdf8;
+    font-size:15px;font-weight:600;font-family:inherit;letter-spacing:.01em;
+    cursor:pointer;transition:transform .15s, background .15s, box-shadow .15s;
+    box-shadow:0 10px 22px -12px rgba(150,80,75,.7);
   }
-  .btn:hover{transform:translateY(-1px);filter:brightness(1.07)}
-  .btn:active{transform:translateY(1px) scale(.98)}
-  .btn::after{
-    content:'';position:absolute;inset:0;border-radius:inherit;
-    background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);
-    transform:translateX(-120%);pointer-events:none;
-  }
-  .btn{position:relative;overflow:hidden}
-  .btn:hover::after{animation:sheen 1.1s ease}
-  @keyframes sheen{to{transform:translateX(120%)}}
-  .btn.secondary{
-    background:rgba(255,255,255,.06);
-    color:var(--fg);
-    border-color:var(--line);
-    box-shadow:none;
-  }
-  .btn.ghost{
-    background:transparent;
-    color:var(--muted);
-    border:1px solid var(--line);
-    box-shadow:none;
-  }
-  .btn.ghost:hover{color:var(--fg);border-color:rgba(255,255,255,.2)}
+  .btn:hover{background:var(--accent-deep);transform:translateY(-1px)}
+  .btn:active{transform:translateY(0)}
+  .btn.secondary{background:#fff;color:var(--ink);border-color:var(--line);box-shadow:none}
+  .btn.secondary:hover{border-color:var(--accent);color:var(--accent-deep)}
+  .btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);box-shadow:none}
+  .btn.ghost:hover{color:var(--ink);border-color:#d3c4ab}
   .btn:disabled{opacity:.5;cursor:not-allowed}
 
   .actions{
-    display:flex;
-    gap:10px;
-    margin-top:24px;
-    flex-wrap:wrap;
-    position:sticky;
-    bottom:calc(10px + var(--sat-b));
-    z-index:2;
+    display:flex;gap:10px;margin-top:26px;flex-wrap:wrap;
+    position:sticky;bottom:calc(10px + var(--sat-b));z-index:2;
   }
   .actions .btn{flex:1}
 
-  /* ==== ITEMS / ROWS ==== */
+  /* ==== ITEMS ==== */
   .item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:14px;
-    padding:12px 14px;
-    border-radius:var(--radius-sm);
-    border:1px solid var(--line-2);
-    background:rgba(255,255,255,.02);
-    margin-bottom:8px;
-    transition:border-color .18s, background .18s, transform .18s;
+    display:flex;justify-content:space-between;align-items:center;gap:14px;
+    padding:13px 15px;border-radius:var(--radius-sm);
+    border:1px solid var(--line-2);background:#fffdf9;
+    margin-bottom:8px;transition:border-color .15s, background .15s;
   }
-  .item:hover{border-color:rgba(214,41,118,.35);background:rgba(214,41,118,.05)}
-  .item-label{font-size:14px;flex:1;line-height:1.4}
+  .item:hover{border-color:#dccdae;background:#fff}
+  .item-label{font-size:14px;flex:1;line-height:1.45;color:var(--ink)}
   .item .muted{font-size:12px;margin-top:2px}
 
-  /* ==== SCALE (Greene) ==== */
   .scale{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap}
   .scale button{
-    min-width:44px;min-height:44px;
-    border-radius:12px;
-    border:1px solid var(--line);
-    background:rgba(255,255,255,.02);
-    color:var(--muted);
-    cursor:pointer;
-    font-size:14px;
-    font-weight:700;
-    font-family:inherit;
+    min-width:44px;min-height:44px;border-radius:12px;
+    border:1px solid var(--line);background:#fff;color:var(--muted);
+    cursor:pointer;font-size:14px;font-weight:600;font-family:inherit;
     transition:all .15s;
   }
-  .scale button:hover{border-color:rgba(214,41,118,.6);color:var(--fg);transform:translateY(-1px)}
-  .scale button.on{
-    background:var(--insta);
-    border-color:transparent;
-    color:#fff;
-    box-shadow:0 6px 18px -6px rgba(214,41,118,.8);
-    transform:translateY(-1px) scale(1.05);
-  }
+  .scale button:hover{border-color:var(--accent);color:var(--accent-deep)}
+  .scale button.on{background:var(--ink);border-color:var(--ink);color:#fdf8f1}
   .scale label{
-    margin:0;
-    min-height:44px;
-    padding:8px 14px;
-    border-radius:12px;
-    border:1px solid var(--line);
-    background:rgba(255,255,255,.02);
-    cursor:pointer;
-    font-size:13px;
-    transition:all .15s;
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
+    margin:0;min-height:44px;padding:8px 14px;border-radius:999px;
+    border:1px solid var(--line);background:#fff;cursor:pointer;font-size:13px;
+    display:inline-flex;align-items:center;gap:6px;
   }
 
-  /* ==== RESULT + share-стикер ==== */
+  /* ==== RESULT ==== */
   .result{
-    background:linear-gradient(135deg,rgba(214,41,118,.12),rgba(79,91,213,.07));
-    border:1px solid rgba(214,41,118,.25);
+    background:#fffdf9;border:1px solid var(--line);
+    border-left:4px solid var(--accent);
     border-radius:var(--radius-sm);
-    padding:16px 18px;
-    margin-top:18px;
-    animation:fadeUp .35s ease both;
+    padding:16px 18px;margin-top:18px;
+    animation:fadeUp .22s ease both;
   }
-  .result.ok{
-    background:linear-gradient(135deg,rgba(52,211,153,.14),rgba(52,211,153,.04));
-    border-color:rgba(52,211,153,.3);
-  }
-  .result.warn{
-    background:linear-gradient(135deg,rgba(251,191,36,.14),rgba(251,191,36,.03));
-    border-color:rgba(251,191,36,.3);
-  }
-  .result.danger{
-    background:linear-gradient(135deg,rgba(248,113,113,.14),rgba(248,113,113,.03));
-    border-color:rgba(248,113,113,.3);
-  }
+  .result.ok{border-left-color:var(--sage);background:var(--sage-soft)}
+  .result.warn{border-left-color:var(--gold);background:#faf3dd}
+  .result.danger{border-left-color:#c0392b;background:#f9e7e4}
   .share{
-    margin-top:16px;
-    border-radius:var(--radius-sm);
-    padding:2px;
-    background:var(--insta);
+    margin-top:16px;border-radius:var(--radius-sm);
+    border:1px solid var(--line);background:var(--paper-2);
+    padding:14px 16px;display:flex;gap:12px;align-items:center;
   }
-  .share-inner{
-    background:#12141c;border-radius:10px;padding:14px 16px;
-    display:flex;gap:12px;align-items:center;
+  .share .emo{
+    width:44px;height:44px;flex-shrink:0;border-radius:14px;
+    background:var(--accent-soft);border:1px solid #e5c4bb;
+    display:grid;place-items:center;color:var(--accent-deep);
   }
-  .share-inner .emo{font-size:28px;animation:pop 2s ease-in-out infinite}
+  .share .emo svg{width:22px;height:22px}
   .big{
-    font-size:clamp(24px,7vw,28px);
-    font-weight:800;
-    letter-spacing:-.02em;
-    margin:4px 0;
-    background:linear-gradient(135deg,#fff,#ffd9ec 50%,#c8c4ff);
-    -webkit-background-clip:text;background-clip:text;
-    color:transparent;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(28px,7vw,32px);font-weight:700;
+    letter-spacing:0;margin:4px 0;color:var(--ink);
   }
   .muted{color:var(--muted);font-size:13px}
   .kv{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:12px;
-    padding:8px 0;
-    font-size:14px;
-    border-bottom:1px dashed rgba(255,255,255,.06);
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+    padding:8px 0;font-size:14px;
+    border-bottom:1px dashed var(--line);
   }
   .kv:last-child{border-bottom:none}
   .kv b{font-weight:600;text-align:right}
 
   .tag{
     display:inline-flex;align-items:center;gap:6px;
-    padding:4px 10px;border-radius:999px;
-    font-size:12px;font-weight:700;
-    background:rgba(255,255,255,.06);color:var(--fg);border:1px solid var(--line);
+    padding:4px 12px;border-radius:999px;
+    font-size:12px;font-weight:600;
+    background:var(--paper-2);color:var(--ink-soft);border:1px solid var(--line);
   }
-  .tag.ok{background:rgba(52,211,153,.12);color:var(--ok);border-color:rgba(52,211,153,.3)}
-  .tag.warn{background:rgba(251,191,36,.12);color:var(--warn);border-color:rgba(251,191,36,.3)}
-  .tag.danger{background:rgba(248,113,113,.12);color:var(--danger);border-color:rgba(248,113,113,.3)}
+  .tag.ok{background:var(--sage-soft);color:#4c5a41;border-color:#c3cdb2}
+  .tag.warn{background:#faf3dd;color:#8a6d1a;border-color:#e6d49a}
+  .tag.danger{background:#f9e7e4;color:#96352a;border-color:#e3b3ac}
 
   .photo-box{
-    display:block;
-    border:2px dashed rgba(214,41,118,.4);
-    border-radius:var(--radius-sm);
-    padding:32px 20px;
-    text-align:center;
-    color:var(--muted);
-    cursor:pointer;
-    transition:all .2s;
-    background:rgba(214,41,118,.05);
+    display:block;border:2px dashed #cfc0a6;border-radius:var(--radius-sm);
+    padding:34px 20px;text-align:center;color:var(--muted);cursor:pointer;
+    transition:all .18s;background:#fffdf9;
   }
-  .photo-box:hover{border-color:#d62976;color:var(--fg)}
-  .photo-box .ico{font-size:36px;display:block;margin-bottom:8px;animation:pop 2.5s ease-in-out infinite}
+  .photo-box:hover{border-color:var(--accent);color:var(--ink)}
+  .photo-box .ico{display:flex;justify-content:center;margin-bottom:8px;color:var(--accent)}
 
   .bar-meter{
-    height:10px;background:rgba(255,255,255,.06);
-    border-radius:999px;overflow:hidden;margin-top:10px;position:relative;
+    height:10px;background:#ece2cf;border-radius:999px;
+    overflow:hidden;margin-top:10px;
   }
   .bar-meter > i{
-    display:block;height:100%;
-    background:var(--insta);
-    border-radius:999px;transition:width .6s cubic-bezier(.4,0,.2,1);
+    display:block;height:100%;background:var(--sage);
+    border-radius:999px;transition:width .5s ease;
   }
 
-  .foot{margin-top:26px;text-align:center;color:#5e6577;font-size:11.5px;letter-spacing:.02em}
+  .foot{margin-top:26px;text-align:center;color:#a2937f;font-size:11.5px;letter-spacing:.02em}
   .privacy{
-    margin-top:12px;text-align:center;font-size:12px;color:var(--muted);
-    background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.25);
-    border-radius:12px;padding:10px 14px;line-height:1.5;
+    margin-top:12px;text-align:center;font-size:12.5px;color:var(--ink-soft);
+    background:var(--sage-soft);border:1px solid #c3cdb2;
+    border-radius:14px;padding:12px 16px;line-height:1.55;
   }
-  .privacy b{color:var(--ok)}
 
-  /* Инста-скроллбары */
   ::-webkit-scrollbar{width:10px;height:8px}
   ::-webkit-scrollbar-track{background:transparent}
-  ::-webkit-scrollbar-thumb{
-    background:linear-gradient(180deg,#d62976,#962fbf);
-    border-radius:99px;border:2px solid var(--bg-0);
-  }
-  *{scrollbar-width:thin;scrollbar-color:#d62976 transparent}
+  ::-webkit-scrollbar-thumb{background:#d3c4ab;border-radius:99px;border:2px solid var(--paper)}
+  *{scrollbar-width:thin;scrollbar-color:#c9b896 transparent}
   .item{scroll-margin-top:90px}
-  .item:active{transform:scale(.995)}
   .card{scroll-margin-top:12px}
 
   .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:8px}
   .tile{
     padding:14px;border-radius:var(--radius-sm);
-    background:rgba(255,255,255,.03);border:1px solid var(--line-2);
+    background:#fffdf9;border:1px solid var(--line-2);
   }
   .tile .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
-  .tile .v{font-size:20px;font-weight:800;margin-top:4px;letter-spacing:-.01em}
+  .tile .v{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;margin-top:2px}
 
-  /* ==== MOBILE ==== */
   @media (max-width:520px){
     .row{grid-template-columns:1fr}
     .actions .btn{flex:1 1 100%}
-    body::before,body::after{animation:none;opacity:.22}
-    .card{backdrop-filter:none;-webkit-backdrop-filter:none}
     .item{flex-direction:column;align-items:stretch}
-    .scale{justify-content:stretch}
     .scale button{flex:1}
   }
   @media (max-width:380px){
     .app{padding-left:14px;padding-right:14px}
     .tiles{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
-    .tile .v{font-size:17px}
-    .btn{font-size:14px}
+    .tile .v{font-size:20px}
     h2{flex-wrap:wrap}
   }
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}
   }
 </style>
 </head>
@@ -504,20 +347,19 @@
 <div class="app" x-data="osteoApp()" x-init="init()" x-cloak>
   <header>
     <div class="brand">
-      <div class="logo">💜</div>
+      <div class="logo">ОМ</div>
       <div>
         <h1>ОстеоМенопауза 40+</h1>
-        <p>Маршрут заботы о костях · 7 сторис-шагов</p>
+        <p>Спокойный маршрут заботы о костях · 7 шагов</p>
       </div>
     </div>
     <div class="pills">
-      <span class="pill hot">🔥 демо</span>
-      <span class="pill" x-text="'✨ шаг ' + step + ' из 7'"></span>
-      <span class="pill">🧪 тест-режим: всё открыто</span>
+      <span class="pill hot">Демо-версия</span>
+      <span class="pill" x-text="'Шаг ' + step + ' из 7'"></span>
+      <span class="pill">Тест-режим: всё открыто</span>
     </div>
   </header>
 
-  <!-- Stories-прогресс -->
   <div class="progress">
     <div class="stories">
       <template x-for="i in 7" :key="i">
@@ -530,9 +372,10 @@
   </div>
 
   <!-- ШАГ 1 -->
-  <div x-show="step === 1" x-transition.opacity.duration.250ms class="card step-anim">
-    <h2><span class="step-ico">👤</span>Шаг 1. Короткий профиль</h2>
-    <p class="muted">Минимальные данные для дальнейших расчётов 💫</p>
+  <div x-show="step === 1" x-transition.opacity.duration.200ms class="card step-anim">
+    <div class="overline">01 · Профиль</div>
+    <h2><span class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6.5 8-6.5s8 2.5 8 6.5"/></svg></span>Короткий профиль</h2>
+    <p class="muted">Минимальные данные для дальнейших расчётов.</p>
     <div class="row">
       <label>Возраст, лет<input type="number" inputmode="numeric" min="35" max="90" x-model.number="profile.age" placeholder="52"></label>
       <label>Рост, см<input type="number" inputmode="decimal" min="120" max="210" x-model.number="profile.height" placeholder="165"></label>
@@ -540,51 +383,53 @@
       <label>Менструальный статус
         <select x-model="profile.meno">
           <option value="pre">Сохранён (регулярный)</option>
-          <option value="peri">Перименопауза 🌊</option>
-          <option value="post">Постменопауза 🌸</option>
+          <option value="peri">Перименопауза</option>
+          <option value="post">Постменопауза</option>
         </select>
       </label>
     </div>
     <label>Дата последней менструации<input type="date" x-model="profile.lmp"></label>
     <h3>Анамнез</h3>
-    <label><input type="checkbox" x-model="profile.fractures"> 🦴 Были низкоэнергетические переломы</label>
-    <label><input type="checkbox" x-model="profile.densitometry"> 🩻 Проводилась денситометрия</label>
+    <label><input type="checkbox" x-model="profile.fractures"> Были низкоэнергетические переломы</label>
+    <label><input type="checkbox" x-model="profile.densitometry"> Проводилась денситометрия</label>
     <label>T-score шейки бедра<input type="number" inputmode="decimal" step="0.1" x-model.number="profile.tscore" placeholder="-2.5"></label>
-    <div class="actions"><button class="btn" @click="next1()">Далее →</button></div>
+    <div class="actions"><button class="btn" @click="next1()">Далее</button></div>
   </div>
 
   <!-- ШАГ 2 -->
-  <div x-show="step === 2" x-transition.opacity.duration.250ms class="card step-anim">
-    <h2><span class="step-ico">🦴</span>Шаг 2. Риск переломов</h2>
+  <div x-show="step === 2" x-transition.opacity.duration.200ms class="card step-anim">
+    <div class="overline">02 · Риски</div>
+    <h2><span class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="4"/></svg></span>Риск переломов</h2>
     <p class="muted">Возраст, рост и масса из шага 1: <b x-text="profile.age + ' лет · ' + profile.height + ' см · ' + profile.weight + ' кг'"></b></p>
-    <h3>Факторы риска 🔍</h3>
+    <h3>Факторы риска</h3>
     <template x-for="f in fraxFields" :key="f.k">
       <div class="item">
-        <div class="item-label"><span x-text="f.emo + ' ' + f.label"></span><div class="muted" x-show="f.hint" x-text="f.hint"></div></div>
+        <div class="item-label"><span x-text="f.label"></span><div class="muted" x-show="f.hint" x-text="f.hint"></div></div>
         <div class="scale">
-          <label><input type="radio" :name="f.k" value="1" x-model="frax[f.k]" :value="true"> Да</label>
-          <label><input type="radio" :name="f.k" value="0" @click="frax[f.k]=false"> Нет</label>
+          <label><input type="radio" :name="f.k" @click="frax[f.k]=true" :checked="frax[f.k]===true"> Да</label>
+          <label><input type="radio" :name="f.k" @click="frax[f.k]=false" :checked="frax[f.k]!==true"> Нет</label>
         </div>
       </div>
     </template>
     <div class="actions">
-      <button class="btn ghost" @click="step=1">← Назад</button>
-      <button class="btn" @click="calcFrax()">🔥 Рассчитать риск</button>
+      <button class="btn ghost" @click="step=1">Назад</button>
+      <button class="btn" @click="calcFrax()">Рассчитать риск</button>
     </div>
     <div x-show="fraxResult" x-transition.opacity class="result" :class="fraxResult?.cls">
-      <div class="muted">Демонстрационная оценка ✨</div>
+      <div class="muted">Демонстрационная оценка</div>
       <div class="big" x-text="fraxResult?.label"></div>
       <div class="kv"><span>10-летний риск основных переломов</span><b x-text="fmt(fraxResult?.mof) + '%'"></b></div>
       <div class="kv"><span>10-летний риск перелома бедра</span><b x-text="fmt(fraxResult?.hip) + '%'"></b></div>
-      <div class="muted" style="margin-top:8px">Это не оригинальный FRAX ⚠️</div>
-      <div style="margin-top:12px"><button class="btn" @click="step=3">К шкале Грина →</button></div>
+      <div class="muted" style="margin-top:8px">Это не оригинальный FRAX.</div>
+      <div style="margin-top:12px"><button class="btn" @click="step=3">К шкале Грина</button></div>
     </div>
   </div>
 
   <!-- ШАГ 3 -->
-  <div x-show="step === 3" x-transition.opacity.duration.250ms class="card step-anim">
-    <h2><span class="step-ico">🌡️</span>Шаг 3. Шкала Грина</h2>
-    <p class="muted">Оцените симптомы: <b>0</b> — нет 🙌, <b>1</b> — слабо, <b>2</b> — умеренно, <b>3</b> — сильно 🔥</p>
+  <div x-show="step === 3" x-transition.opacity.duration.200ms class="card step-anim">
+    <div class="overline">03 · Самочувствие</div>
+    <h2><span class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg></span>Шкала Грина</h2>
+    <p class="muted">Оцените симптомы: <b>0</b> — нет, <b>1</b> — слабо, <b>2</b> — умеренно, <b>3</b> — сильно.</p>
     <template x-for="it in greeneItems" :key="it.id">
       <div class="item">
         <div class="item-label" x-text="it.t"></div>
@@ -596,78 +441,81 @@
       </div>
     </template>
     <div class="actions">
-      <button class="btn ghost" @click="step=2">← Назад</button>
-      <button class="btn" @click="calcGreene()">✨ Рассчитать домены</button>
+      <button class="btn ghost" @click="step=2">Назад</button>
+      <button class="btn" @click="calcGreene()">Рассчитать домены</button>
     </div>
     <div x-show="greeneResult" x-transition.opacity class="result">
-      <div class="muted">Домены шкалы Грина 📊</div>
-      <div class="kv"><span>Психологические 💭</span><b x-text="greeneResult?.psychological + ' / 33'"></b></div>
-      <div class="kv"><span>Соматические 🤕</span><b x-text="greeneResult?.somatic + ' / 21'"></b></div>
-      <div class="kv"><span>Вазомоторные 🔥</span><b x-text="greeneResult?.vasomotor + ' / 6'"></b></div>
-      <div class="kv"><span>Сексуальные 💕</span><b x-text="greeneResult?.sexual + ' / 3'"></b></div>
+      <div class="muted">Домены шкалы Грина</div>
+      <div class="kv"><span>Психологические</span><b x-text="greeneResult?.psychological + ' / 33'"></b></div>
+      <div class="kv"><span>Соматические</span><b x-text="greeneResult?.somatic + ' / 21'"></b></div>
+      <div class="kv"><span>Вазомоторные</span><b x-text="greeneResult?.vasomotor + ' / 6'"></b></div>
+      <div class="kv"><span>Сексуальные</span><b x-text="greeneResult?.sexual + ' / 3'"></b></div>
       <div class="kv"><span><b>Общий балл</b></span><span class="big" x-text="greeneResult?.total + ' / 63'"></span></div>
-      <div style="margin-top:12px"><button class="btn" @click="step=4">К кальцию →</button></div>
+      <div style="margin-top:12px"><button class="btn" @click="step=4">К кальцию</button></div>
     </div>
   </div>
 
   <!-- ШАГ 4 -->
-  <div x-show="step === 4" x-transition.opacity.duration.250ms class="card step-anim">
-    <h2><span class="step-ico">🥛</span>Шаг 4. Кальций в рационе</h2>
-    <p class="muted">Отметьте продукты и порции 🧀🐟🥬</p>
+  <div x-show="step === 4" x-transition.opacity.duration.200ms class="card step-anim">
+    <div class="overline">04 · Питание</div>
+    <h2><span class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-1 8a4 4 0 0 1-8 0L7 3z"/><path d="M12 15v6M8 21h8"/></svg></span>Кальций в рационе</h2>
+    <p class="muted">Отметьте продукты и порции в сутки.</p>
     <template x-for="f in calciumFoods" :key="f.id">
       <div class="item">
         <label class="item-label" style="display:flex;align-items:center;gap:10px;margin:0">
           <input type="checkbox" x-model="calciumSel[f.id].on">
-          <span><span x-text="f.emo + ' ' + f.name"></span><div class="muted" x-text="f.unit + ' ≈ ' + f.mg + ' мг кальция'"></div></span>
+          <span><span x-text="f.name"></span><div class="muted" x-text="f.unit + ' ≈ ' + f.mg + ' мг кальция'"></div></span>
         </label>
         <input type="number" inputmode="decimal" min="0" step="0.5" x-model.number="calciumSel[f.id].qty" style="width:80px;margin:0;text-align:center">
       </div>
     </template>
     <div class="actions">
-      <button class="btn ghost" @click="step=3">← Назад</button>
-      <button class="btn" @click="calcCalcium()">🧮 Рассчитать поступление</button>
+      <button class="btn ghost" @click="step=3">Назад</button>
+      <button class="btn" @click="calcCalcium()">Рассчитать поступление</button>
     </div>
     <div x-show="calciumResult" x-transition.opacity class="result" :class="(calciumResult?.total ?? 999) < 800 ? 'warn' : 'ok'">
-      <div class="muted">Ориентировочное поступление ✨</div>
+      <div class="muted">Ориентировочное поступление</div>
       <div class="big" x-text="'~' + calciumResult?.total + ' мг/сут'"></div>
       <div class="bar-meter"><i :style="'width:' + Math.min(100, Math.round((calciumResult?.total||0)/1100*100)) + '%'"></i></div>
-      <div class="kv" style="margin-top:10px"><span>Цель 🎯</span><b>1000–1200 мг/сут</b></div>
-      <div class="kv"><span x-text="(calciumResult?.deficit||0) > 0 ? 'Возможный дефицит ⚠️' : 'Покрытие ✅'"></span><b x-text="(calciumResult?.deficit||0) > 0 ? '~'+calciumResult.deficit+' мг/сут' : 'полное'"></b></div>
-      <div style="margin-top:12px"><button class="btn" @click="step=5">Далее →</button></div>
+      <div class="kv" style="margin-top:10px"><span>Целевая потребность</span><b>1000–1200 мг/сут</b></div>
+      <div class="kv"><span x-text="(calciumResult?.deficit||0) > 0 ? 'Возможный дефицит' : 'Покрытие'"></span><b x-text="(calciumResult?.deficit||0) > 0 ? '~'+calciumResult.deficit+' мг/сут' : 'полное'"></b></div>
+      <div style="margin-top:12px"><button class="btn" @click="step=5">Далее</button></div>
     </div>
   </div>
 
   <!-- ШАГ 5 -->
-  <div x-show="step === 5" x-transition.opacity.duration.250ms class="card step-anim">
-    <h2><span class="step-ico">📸</span>Шаг 5. ИИ-анализ рациона</h2>
-    <p class="muted">Загрузите фото приёма пищи 🤳 · демо-режим</p>
+  <div x-show="step === 5" x-transition.opacity.duration.200ms class="card step-anim">
+    <div class="overline">05 · Рацион</div>
+    <h2><span class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4V8z"/><circle cx="12" cy="13" r="3.5"/></svg></span>Анализ рациона</h2>
+    <p class="muted">Загрузите фото приёма пищи · демо-режим, фото никуда не отправляется.</p>
     <label class="photo-box" for="photo-input">
-      <span class="ico">📸</span>
-      <div>Нажмите, чтобы выбрать фото ✨</div>
-      <div class="muted">JPG или PNG</div>
+      <span class="ico"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4V8z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+      <div>Нажмите, чтобы выбрать фото</div>
+      <div class="muted">JPG или PNG · остаётся на устройстве</div>
       <input type="file" id="photo-input" accept="image/*" hidden @change="onPhoto($event)">
     </label>
     <div x-show="photoPreview" style="margin-top:14px"><img :src="photoPreview" alt="" style="max-width:100%;border-radius:12px;display:block"></div>
     <div x-show="photoResult" class="result">
-      <div class="muted">Распознано (демо) 🤖</div>
+      <div class="muted">Распознано (демо)</div>
       <template x-for="i in (photoResult?.items || [])" :key="i.name">
         <div class="kv"><span x-text="i.name + ' · ' + i.portion"></span><b x-text="i.mg + ' мг'"></b></div>
       </template>
-      <div class="kv"><span><b>Итого за приём 🔥</b></span><span class="big" x-text="'~' + photoTotal + ' мг'"></span></div>
-      <button class="btn secondary" @click="addPhoto()" style="margin-top:12px">➕ Учесть в дневном итоге</button>
+      <div class="kv"><span><b>Итого за приём</b></span><span class="big" x-text="'~' + photoTotal + ' мг'"></span></div>
+      <button class="btn secondary" @click="addPhoto()" style="margin-top:12px">Учесть в дневном итоге</button>
     </div>
     <div class="actions">
-      <button class="btn ghost" @click="step=4">← Назад</button>
-      <button class="btn" @click="step=6">Далее →</button>
+      <button class="btn ghost" @click="step=4">Назад</button>
+      <button class="btn" @click="step=6">Далее</button>
     </div>
   </div>
 
   <!-- ШАГ 6 -->
-  <div x-show="step === 6" x-transition.opacity.duration.250ms class="card step-anim">
-    <h2><span class="step-ico">☀️</span>Шаг 6. Витамин D</h2>
-    <p class="muted">Есть ли результат 25(OH)D? 🩸</p>
+  <div x-show="step === 6" x-transition.opacity.duration.200ms class="card step-anim">
+    <div class="overline">06 · Анализы</div>
+    <h2><span class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg></span>Витамин D</h2>
+    <p class="muted">Есть ли у вас результат анализа 25(OH)D?</p>
     <div class="scale" style="margin-bottom:14px">
-      <label><input type="radio" name="vd" @click="vitaminD.has=true" :checked="vitaminD.has===true"> Да ✅</label>
+      <label><input type="radio" name="vd" @click="vitaminD.has=true" :checked="vitaminD.has===true"> Да</label>
       <label><input type="radio" name="vd" @click="vitaminD.has=false" :checked="vitaminD.has===false"> Нет</label>
     </div>
     <div x-show="vitaminD.has === true">
@@ -677,34 +525,34 @@
           <select x-model="vitaminD.unit"><option value="ng">нг/мл</option><option value="nmol">нмоль/л</option></select>
         </label>
       </div>
-      <button class="btn" @click="calcVD()">🔬 Интерпретировать</button>
+      <button class="btn" @click="calcVD()">Интерпретировать</button>
     </div>
     <div x-show="vitaminD.category" class="result" :class="vitaminD.cls">
-      <div class="muted">Интерпретация 25(OH)D ✨</div>
+      <div class="muted">Интерпретация 25(OH)D</div>
       <div class="big" x-text="vitaminD.category"></div>
     </div>
     <div class="actions">
-      <button class="btn ghost" @click="step=5">← Назад</button>
-      <button class="btn" @click="step=7">К итогу 💜</button>
+      <button class="btn ghost" @click="step=5">Назад</button>
+      <button class="btn" @click="step=7">К итогу</button>
     </div>
   </div>
 
   <!-- ШАГ 7 -->
-  <div x-show="step === 7" x-transition.opacity.duration.250ms class="card step-anim">
-    <h2><span class="step-ico">🎉</span>Шаг 7. Ваш профиль</h2>
-    <p class="muted">Итог маршрута · сохраните или покажите врачу 👩‍⚕️</p>
-    <div class="share"><div class="share-inner">
-      <div class="emo">💜</div>
-      <div><b>Мой маршрут 40+</b><div class="muted">риск · симптомы · кальций · D</div></div>
+  <div x-show="step === 7" x-transition.opacity.duration.200ms class="card step-anim">
+    <div class="overline">07 · Итог</div>
+    <h2><span class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M8.5 13.5L7 21l5-2.5L17 21l-1.5-7.5"/></svg></span>Ваш профиль</h2>
+    <p class="muted">Итог маршрута · сохраните скриншот или покажите врачу.</p>
+    <div class="share"><div class="emo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C7 16.5 3 13 3 8.8 3 6 5.2 4 7.8 4c1.7 0 3.2.9 4.2 2.3C13 4.9 14.5 4 16.2 4 18.8 4 21 6 21 8.8c0 4.2-4 7.7-9 12.2z"/></svg></div>
+      <div><b>Мой маршрут 40+</b><div class="muted">риск · симптомы · кальций · витамин D</div></div>
       <div style="margin-left:auto"><span class="tag ok">демо</span></div>
-    </div></div>
-    <h3>Профиль 👤</h3>
+    </div>
+    <h3>Профиль</h3>
     <div class="tiles">
       <div class="tile"><div class="k">Возраст</div><div class="v" x-text="profile.age || '—'"></div></div>
       <div class="tile"><div class="k">ИМТ</div><div class="v" x-text="bmi() || '—'"></div></div>
-      <div class="tile"><div class="k">Статус</div><div class="v" style="font-size:14px" x-text="menoLabel()"></div></div>
+      <div class="tile"><div class="k">Статус</div><div class="v" style="font-size:18px" x-text="menoLabel()"></div></div>
     </div>
-    <h3>Риск переломов 🦴</h3>
+    <h3>Риск переломов</h3>
     <template x-if="fraxResult">
       <div>
         <div class="kv"><span>Основные переломы</span><b x-text="fmt(fraxResult.mof) + '%'"></b></div>
@@ -712,20 +560,19 @@
         <div style="margin-top:8px"><span class="tag" :class="fraxResult.cls" x-text="fraxResult.label"></span></div>
       </div>
     </template>
-    <h3>Кальций 🥛</h3>
+    <h3>Кальций</h3>
     <div class="kv"><span>Поступление</span><b x-text="calciumResult ? '~'+calciumResult.total+' мг/сут' : '—'"></b></div>
-    <h3>Витамин D ☀️</h3>
+    <h3>Витамин D</h3>
     <div class="kv"><span>Статус</span><b x-text="vitaminD.category || '—'"></b></div>
-    <div class="muted" style="margin-top:8px">Демо-модель ⚠️ Не заменяет консультацию врача.</div>
+    <div class="muted" style="margin-top:8px">Демо-модель. Не заменяет консультацию врача.</div>
     <div class="actions">
-      <button class="btn ghost" @click="step=6">← Назад</button>
-      <button class="btn secondary" @click="restart()">🔄 Заново</button>
-      <button class="btn" @click="shareCard()">📤 Поделиться</button>
+      <button class="btn ghost" @click="step=6">Назад</button>
+      <button class="btn secondary" @click="restart()">Пройти заново</button>
     </div>
   </div>
 
-  <div class="foot">Демонстрационная версия 💜 · не заменяет консультацию врача</div>
-  <div class="privacy">🔒 <b>0 хранения · 0 отправки.</b> Все ответы и результаты живут только в памяти вашего телефона, пока открыта страница. Мы ничего не сохраняем, не передаём и не обрабатываем на сервере — действие 152-ФЗ не возникает.</div>
+  <div class="foot">Демонстрационная версия · не заменяет консультацию врача</div>
+  <div class="privacy"><b>0 хранения · 0 отправки.</b> Все ответы и результаты живут только в памяти вашего телефона, пока открыта страница. Мы ничего не сохраняем, не передаём и не обрабатываем на сервере — действие 152-ФЗ не возникает.</div>
 </div>
 
 <script>
@@ -745,32 +592,32 @@ function osteoApp(){
     photoResult:null,
     vitaminD:{has:null,value:null,unit:'ng',category:null,cls:''},
     fraxFields:[
-      {k:'prevFracture',emo:'🤕',label:'Предшествующий перелом'},
-      {k:'parentHip',emo:'👨‍👩‍👧',label:'Перелом бедра у родителей'},
-      {k:'smoking',emo:'🚬',label:'Курение'},
-      {k:'glucocorticoids',emo:'💊',label:'Глюкокортикоиды'},
-      {k:'rheumatoid',emo:'🖐️',label:'Ревматоидный артрит'},
-      {k:'secondary',emo:'🧬',label:'Вторичный остеопороз',hint:'ранняя менопауза, СД1, мальабсорбция'},
-      {k:'alcohol',emo:'🍷',label:'Алкоголь 3+ в сутки'},
+      {k:'prevFracture',label:'Предшествующий перелом'},
+      {k:'parentHip',label:'Перелом бедра у родителей'},
+      {k:'smoking',label:'Курение'},
+      {k:'glucocorticoids',label:'Глюкокортикоиды'},
+      {k:'rheumatoid',label:'Ревматоидный артрит'},
+      {k:'secondary',label:'Вторичный остеопороз',hint:'ранняя менопауза, СД1, мальабсорбция'},
+      {k:'alcohol',label:'Алкоголь 3+ в сутки'},
     ],
     greeneItems:[
-      {id:'a1',t:'💓 Сердцебиение'},{id:'a2',t:'😰 Внутреннее напряжение'},{id:'a3',t:'😱 Паника'},
-      {id:'a4',t:'🧠 Трудности с концентрацией'},{id:'a5',t:'😟 Беспокойство'},{id:'a6',t:'😤 Раздражительность'},
-      {id:'d1',t:'🔋 Усталость'},{id:'d2',t:'😐 Потеря интереса'},{id:'d3',t:'😞 Подавленность'},
-      {id:'d4',t:'😢 Плаксивость'},{id:'d5',t:'🌧️ Безнадёжность'},
-      {id:'s1',t:'💫 Головокружение'},{id:'s2',t:'🤕 Головные боли'},{id:'s3',t:'✋ Онемение'},
-      {id:'s4',t:'🦵 Боли в мышцах'},{id:'s5',t:'🧤 Потеря чувствительности'},{id:'s6',t:'😮‍💨 Затруднённое дыхание'},
-      {id:'s7',t:'🎈 Вздутие'},{id:'v1',t:'🔥 Приливы жара'},{id:'v2',t:'💦 Ночная потливость'},{id:'x1',t:'💕 Снижение либидо'},
+      {id:'a1',t:'Сердцебиение'},{id:'a2',t:'Внутреннее напряжение'},{id:'a3',t:'Приступы паники'},
+      {id:'a4',t:'Трудности с концентрацией'},{id:'a5',t:'Беспокойство'},{id:'a6',t:'Раздражительность'},
+      {id:'d1',t:'Усталость'},{id:'d2',t:'Потеря интереса'},{id:'d3',t:'Подавленность'},
+      {id:'d4',t:'Плаксивость'},{id:'d5',t:'Чувство безнадёжности'},
+      {id:'s1',t:'Головокружение'},{id:'s2',t:'Головные боли'},{id:'s3',t:'Онемение или покалывание'},
+      {id:'s4',t:'Боли в мышцах и суставах'},{id:'s5',t:'Потеря чувствительности'},{id:'s6',t:'Затруднённое дыхание'},
+      {id:'s7',t:'Ощущение вздутия'},{id:'v1',t:'Приливы жара'},{id:'v2',t:'Ночная потливость'},{id:'x1',t:'Снижение либидо'},
     ],
     calciumFoods:[
-      {id:'milk',emo:'🥛',name:'Молоко',unit:'200 мл',mg:240},
-      {id:'yogurt',emo:'🍦',name:'Йогурт',unit:'125 г',mg:150},
-      {id:'curd',emo:'🍚',name:'Творог',unit:'150 г',mg:180},
-      {id:'cheese',emo:'🧀',name:'Твёрдый сыр',unit:'30 г',mg:300},
-      {id:'fish',emo:'🐟',name:'Сардины',unit:'100 г',mg:350},
-      {id:'greens',emo:'🥬',name:'Зелень',unit:'200 г',mg:120},
-      {id:'legumes',emo:'🥜',name:'Бобовые/орехи',unit:'100 г',mg:100},
-      {id:'fortified',emo:'✨',name:'Обогащённые',unit:'200 мл',mg:240},
+      {id:'milk',name:'Молоко',unit:'200 мл',mg:240},
+      {id:'yogurt',name:'Йогурт',unit:'125 г',mg:150},
+      {id:'curd',name:'Творог',unit:'150 г',mg:180},
+      {id:'cheese',name:'Твёрдый сыр',unit:'30 г',mg:300},
+      {id:'fish',name:'Сардины',unit:'100 г',mg:350},
+      {id:'greens',name:'Зелень, капуста',unit:'200 г',mg:120},
+      {id:'legumes',name:'Бобовые, орехи',unit:'100 г',mg:100},
+      {id:'fortified',name:'Обогащённые продукты',unit:'200 мл',mg:240},
     ],
     init(){
       this.calciumSel={};
@@ -781,7 +628,7 @@ function osteoApp(){
     fmt(n,d=1){if(n==null||!isFinite(n))return '—';return (Math.round(n*10**d)/10**d).toFixed(d)},
     num(v){const n=parseFloat(String(v).replace(',','.'));return isFinite(n)?n:null},
     bmi(){const p=this.profile;if(p.weight&&p.height){return this.fmt(p.weight/((p.height/100)**2))}return null},
-    menoLabel(){return this.profile.meno==='post'?'Постменопауза 🌸':this.profile.meno==='peri'?'Пери 🌊':'Сохранён ✅'},
+    menoLabel(){return this.profile.meno==='post'?'Постменопауза':this.profile.meno==='peri'?'Перименопауза':'Сохранён'},
     next1(){
       // Тест-режим: обязательности нет, все шаги открыты через сторис-бар
       this.profile.tscore=this.num(this.profile.tscore);
@@ -799,9 +646,9 @@ function osteoApp(){
       return {mof:Math.min(mof,60),hip:Math.min(hip,40)};
     },
     cat(mof,hip){
-      if(mof>=20||hip>=3)return{label:'Высокий риск 🔴',cls:'danger'};
-      if(mof>=10)return{label:'Промежуточный риск 🟡',cls:'warn'};
-      return{label:'Низкий риск 🟢',cls:'ok'};
+      if(mof>=20||hip>=3)return{label:'Высокий риск',cls:'danger'};
+      if(mof>=10)return{label:'Промежуточный риск',cls:'warn'};
+      return{label:'Низкий риск',cls:'ok'};
     },
     calcFrax(){
       const r=this.computeFrax(Object.assign({},this.profile,this.frax));
@@ -834,24 +681,18 @@ function osteoApp(){
       const cur=this.calciumResult||{total:0,target:1100,deficit:1100};
       cur.total+=add;cur.deficit=Math.max(0,1100-cur.total);
       this.calciumResult=Object.assign({},cur);
-      alert('Фото учтено: +'+add+' мг ✨');
+      alert('Фото учтено: +'+add+' мг');
     },
     calcVD(){
-      const v=this.num(this.vitaminD.value);if(!v){this.step=this.step;return}
+      const v=this.num(this.vitaminD.value);if(!v){return}
       const ng=this.vitaminD.unit==='ng'?v:v/2.5;
       let c,cls;
-      if(ng<10){c='Выраженный дефицит 🔴';cls='danger'}else if(ng<20){c='Дефицит 🟠';cls='danger'}
-      else if(ng<30){c='Недостаточность 🟡';cls='warn'}else if(ng<=100){c='Норма ✅';cls='ok'}
-      else{c='Передозировка ⛔';cls='danger'}
+      if(ng<10){c='Выраженный дефицит';cls='danger'}else if(ng<20){c='Дефицит';cls='danger'}
+      else if(ng<30){c='Недостаточность';cls='warn'}else if(ng<=100){c='Норма';cls='ok'}
+      else{c='Возможная передозировка';cls='danger'}
       this.vitaminD.category=c;this.vitaminD.cls=cls;
     },
-    restart(){if(confirm('Начать заново?')){location.reload()}},
-    shareCard(){
-      const t=`Мой маршрут 40+: возраст ${this.profile.age||'—'}, ИМТ ${this.bmi()||'—'}, кальций ~${this.calciumResult?.total||0} мг, D: ${this.vitaminD.category||'—'}`;
-      if(navigator.share){navigator.share({title:'ОстеоМенопауза 40+',text:t}).catch(()=>{})}
-      else if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>alert('Скопировано ✨ Покажите врачу 👩‍⚕️'))}
-      else{alert(t)}
-    }
+    restart(){if(confirm('Начать заново?')){location.reload()}}
   }
 }
 </script>
