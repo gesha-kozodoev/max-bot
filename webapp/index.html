@@ -167,11 +167,11 @@
   /* Спокойные кастомные чекбоксы */
   input[type=checkbox],input[type=radio]{
     appearance:none;-webkit-appearance:none;
-    width:22px;height:22px;min-height:22px;flex-shrink:0;
-    border-radius:7px;margin:0 10px 0 0;cursor:pointer;
+    width:22px;height:22px;min-height:22px;min-width:22px;flex-shrink:0;
+    border-radius:7px;margin:2px 0 0;cursor:pointer;
     border:1.5px solid #d3c4ab;background:#fffdf9;
     display:inline-grid;place-items:center;
-    transition:all .15s ease;vertical-align:-5px;
+    transition:all .15s ease;padding:0;
   }
   input[type=radio]{border-radius:50%}
   input[type=checkbox]:checked{
@@ -210,9 +210,9 @@
 
   .actions{
     display:flex;gap:10px;margin-top:26px;flex-wrap:wrap;
-    position:sticky;bottom:calc(10px + var(--sat-b));z-index:2;
   }
   .actions .btn{flex:1}
+  .actions .btn.ghost{flex:0 1 160px}
 
   /* ==== ITEMS ==== */
   .item{
@@ -234,11 +234,23 @@
   }
   .scale button:hover{border-color:var(--accent);color:var(--accent-deep)}
   .scale button.on{background:var(--ink);border-color:var(--ink);color:#fdf8f1}
-  .scale label{
-    margin:0;min-height:44px;padding:8px 14px;border-radius:999px;
-    border:1px solid var(--line);background:#fff;cursor:pointer;font-size:13px;
-    display:inline-flex;align-items:center;gap:6px;
+  /* Единый вид всех галочек: аккуратная строка с боксом слева */
+  .check{
+    display:flex!important;align-items:flex-start;gap:10px;
+    margin:10px 0;padding:11px 13px;
+    border:1px solid var(--line-2);border-radius:var(--radius-sm);
+    background:#fffdf9;cursor:pointer;
   }
+  .check:hover{border-color:#dccdae}
+  .check span{flex:1;line-height:1.5;padding-top:1px}
+  .check .muted{display:block;font-size:12px;margin-top:2px}
+
+  .scale label{
+    margin:0;min-height:46px;padding:10px 16px;border-radius:12px;
+    border:1px solid var(--line);background:#fff;cursor:pointer;font-size:14px;font-weight:600;
+    display:inline-flex;align-items:center;gap:10px;color:var(--ink);
+  }
+  .scale label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
 
   /* ==== RESULT ==== */
   .result{
@@ -327,7 +339,9 @@
 
   @media (max-width:520px){
     .row{grid-template-columns:1fr}
-    .actions .btn{flex:1 1 100%}
+    .actions{flex-direction:column}
+    .actions .btn{flex:1 1 auto;width:100%}
+    .actions .btn.ghost{order:2;flex:1 1 auto}
     .item{flex-direction:column;align-items:stretch}
     .scale button{flex:1}
   }
@@ -363,7 +377,7 @@
   <div class="progress">
     <div class="stories">
       <template x-for="i in 7" :key="i">
-        <button @click="go(i)" :class="{'done': i < step, 'now': i === step}" :aria-label="'Шаг ' + i">
+        <button type="button" @click="go(i)" :class="{'done': i < step, 'now': i === step}" :aria-label="'Шаг ' + i">
           <i :style="i < step ? 'width:100%' : (i === step ? 'width:55%' : 'width:0')"></i>
         </button>
       </template>
@@ -390,10 +404,10 @@
     </div>
     <label>Дата последней менструации<input type="date" x-model="profile.lmp"></label>
     <h3>Анамнез</h3>
-    <label><input type="checkbox" x-model="profile.fractures"> Были низкоэнергетические переломы</label>
-    <label><input type="checkbox" x-model="profile.densitometry"> Проводилась денситометрия</label>
+    <label class="check"><input type="checkbox" x-model="profile.fractures"><span>Были низкоэнергетические переломы</span></label>
+    <label class="check"><input type="checkbox" x-model="profile.densitometry"><span>Проводилась денситометрия</span></label>
     <label>T-score шейки бедра<input type="number" inputmode="decimal" step="0.1" x-model.number="profile.tscore" placeholder="-2.5"></label>
-    <div class="actions"><button class="btn" @click="next1()">Далее</button></div>
+    <div class="actions"><button type="button" class="btn" @click="next1()">Далее</button></div>
   </div>
 
   <!-- ШАГ 2 -->
@@ -412,8 +426,8 @@
       </div>
     </template>
     <div class="actions">
-      <button class="btn ghost" @click="step=1">Назад</button>
-      <button class="btn" @click="calcFrax()">Рассчитать риск</button>
+      <button type="button" class="btn ghost" @click="step=1">Назад</button>
+      <button type="button" class="btn" @click="calcFrax()">Рассчитать риск</button>
     </div>
     <div x-show="fraxResult" x-transition.opacity class="result" :class="fraxResult?.cls">
       <div class="muted">Демонстрационная оценка</div>
@@ -421,7 +435,7 @@
       <div class="kv"><span>10-летний риск основных переломов</span><b x-text="fmt(fraxResult?.mof) + '%'"></b></div>
       <div class="kv"><span>10-летний риск перелома бедра</span><b x-text="fmt(fraxResult?.hip) + '%'"></b></div>
       <div class="muted" style="margin-top:8px">Это не оригинальный FRAX.</div>
-      <div style="margin-top:12px"><button class="btn" @click="step=3">К шкале Грина</button></div>
+      <div style="margin-top:12px"><button type="button" class="btn" @click="step=3">К шкале Грина</button></div>
     </div>
   </div>
 
@@ -441,8 +455,8 @@
       </div>
     </template>
     <div class="actions">
-      <button class="btn ghost" @click="step=2">Назад</button>
-      <button class="btn" @click="calcGreene()">Рассчитать домены</button>
+      <button type="button" class="btn ghost" @click="step=2">Назад</button>
+      <button type="button" class="btn" @click="calcGreene()">Рассчитать домены</button>
     </div>
     <div x-show="greeneResult" x-transition.opacity class="result">
       <div class="muted">Домены шкалы Грина</div>
@@ -451,7 +465,7 @@
       <div class="kv"><span>Вазомоторные</span><b x-text="greeneResult?.vasomotor + ' / 6'"></b></div>
       <div class="kv"><span>Сексуальные</span><b x-text="greeneResult?.sexual + ' / 3'"></b></div>
       <div class="kv"><span><b>Общий балл</b></span><span class="big" x-text="greeneResult?.total + ' / 63'"></span></div>
-      <div style="margin-top:12px"><button class="btn" @click="step=4">К кальцию</button></div>
+      <div style="margin-top:12px"><button type="button" class="btn" @click="step=4">К кальцию</button></div>
     </div>
   </div>
 
@@ -462,16 +476,16 @@
     <p class="muted">Отметьте продукты и порции в сутки.</p>
     <template x-for="f in calciumFoods" :key="f.id">
       <div class="item">
-        <label class="item-label" style="display:flex;align-items:center;gap:10px;margin:0">
+        <label class="check" style="flex:1;margin:0;border:none;background:transparent;padding:0">
           <input type="checkbox" x-model="calciumSel[f.id].on">
-          <span><span x-text="f.name"></span><div class="muted" x-text="f.unit + ' ≈ ' + f.mg + ' мг кальция'"></div></span>
+          <span><span x-text="f.name"></span><span class="muted" x-text="f.unit + ' ≈ ' + f.mg + ' мг кальция'"></span></span>
         </label>
         <input type="number" inputmode="decimal" min="0" step="0.5" x-model.number="calciumSel[f.id].qty" style="width:80px;margin:0;text-align:center">
       </div>
     </template>
     <div class="actions">
-      <button class="btn ghost" @click="step=3">Назад</button>
-      <button class="btn" @click="calcCalcium()">Рассчитать поступление</button>
+      <button type="button" class="btn ghost" @click="step=3">Назад</button>
+      <button type="button" class="btn" @click="calcCalcium()">Рассчитать поступление</button>
     </div>
     <div x-show="calciumResult" x-transition.opacity class="result" :class="(calciumResult?.total ?? 999) < 800 ? 'warn' : 'ok'">
       <div class="muted">Ориентировочное поступление</div>
@@ -479,7 +493,7 @@
       <div class="bar-meter"><i :style="'width:' + Math.min(100, Math.round((calciumResult?.total||0)/1100*100)) + '%'"></i></div>
       <div class="kv" style="margin-top:10px"><span>Целевая потребность</span><b>1000–1200 мг/сут</b></div>
       <div class="kv"><span x-text="(calciumResult?.deficit||0) > 0 ? 'Возможный дефицит' : 'Покрытие'"></span><b x-text="(calciumResult?.deficit||0) > 0 ? '~'+calciumResult.deficit+' мг/сут' : 'полное'"></b></div>
-      <div style="margin-top:12px"><button class="btn" @click="step=5">Далее</button></div>
+      <div style="margin-top:12px"><button type="button" class="btn" @click="step=5">Далее</button></div>
     </div>
   </div>
 
@@ -501,11 +515,11 @@
         <div class="kv"><span x-text="i.name + ' · ' + i.portion"></span><b x-text="i.mg + ' мг'"></b></div>
       </template>
       <div class="kv"><span><b>Итого за приём</b></span><span class="big" x-text="'~' + photoTotal + ' мг'"></span></div>
-      <button class="btn secondary" @click="addPhoto()" style="margin-top:12px">Учесть в дневном итоге</button>
+      <button type="button" class="btn secondary" @click="addPhoto()" style="margin-top:12px">Учесть в дневном итоге</button>
     </div>
     <div class="actions">
-      <button class="btn ghost" @click="step=4">Назад</button>
-      <button class="btn" @click="step=6">Далее</button>
+      <button type="button" class="btn ghost" @click="step=4">Назад</button>
+      <button type="button" class="btn" @click="step=6">Далее</button>
     </div>
   </div>
 
@@ -525,15 +539,15 @@
           <select x-model="vitaminD.unit"><option value="ng">нг/мл</option><option value="nmol">нмоль/л</option></select>
         </label>
       </div>
-      <button class="btn" @click="calcVD()">Интерпретировать</button>
+      <button type="button" class="btn" @click="calcVD()">Интерпретировать</button>
     </div>
     <div x-show="vitaminD.category" class="result" :class="vitaminD.cls">
       <div class="muted">Интерпретация 25(OH)D</div>
       <div class="big" x-text="vitaminD.category"></div>
     </div>
     <div class="actions">
-      <button class="btn ghost" @click="step=5">Назад</button>
-      <button class="btn" @click="step=7">К итогу</button>
+      <button type="button" class="btn ghost" @click="step=5">Назад</button>
+      <button type="button" class="btn" @click="step=7">К итогу</button>
     </div>
   </div>
 
@@ -566,13 +580,13 @@
     <div class="kv"><span>Статус</span><b x-text="vitaminD.category || '—'"></b></div>
     <div class="muted" style="margin-top:8px">Демо-модель. Не заменяет консультацию врача.</div>
     <div class="actions">
-      <button class="btn ghost" @click="step=6">Назад</button>
-      <button class="btn secondary" @click="restart()">Пройти заново</button>
+      <button type="button" class="btn ghost" @click="step=6">Назад</button>
+      <button type="button" class="btn secondary" @click="restart()">Пройти заново</button>
     </div>
   </div>
 
   <div class="foot">Демонстрационная версия · не заменяет консультацию врача</div>
-  <div class="privacy"><b>0 хранения · 0 отправки.</b> Все ответы и результаты живут только в памяти вашего телефона, пока открыта страница. Мы ничего не сохраняем, не передаём и не обрабатываем на сервере — действие 152-ФЗ не возникает.</div>
+  <div class="privacy"><b>Ваши данные остаются у вас.</b> Все ответы и результаты живут только в памяти вашего телефона, пока открыта страница. Мы ничего не сохраняем и никуда не отправляем.</div>
 </div>
 
 <script>
